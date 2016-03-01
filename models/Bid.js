@@ -12,6 +12,6 @@ var bidSchema = mongoose.Schema({
 });
 
 
-var Bid = mongoose.model('bid', bidSchema);
+var Bid = mongoose.model('Bid', bidSchema);
 
 module.exports = Bid;
