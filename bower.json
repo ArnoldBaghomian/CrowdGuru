@@ -1,0 +1,24 @@
+{
+  "name": "CrowdGuru",
+  "description": "",
+  "main": "gulpfile.js",
+  "authors": [
+    "Zack Winchell <zackwinchell@gmail.com>"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "./public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.0",
+    "angular-ui-router": "^0.2.18",
+    "foundation": "^5.5.3"
+  }
+}
