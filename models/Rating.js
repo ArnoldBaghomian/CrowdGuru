@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose');
 
+//Schema for rating that sends to user rating schema 
 var ratingSchema = mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   Guru: { type: mongoose.Schema.Types.ObjectId, ref: "Guru" },
