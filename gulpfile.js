@@ -12,7 +12,7 @@ const config =  {
     sass: "sass/**/*.scss",
     js: "js/**/*.js",
     html: "partials/**/*.html",
-    bower_components: "./bower_components/*"
+    bower_components: "bower_components/**/*"
   }
 };
 
