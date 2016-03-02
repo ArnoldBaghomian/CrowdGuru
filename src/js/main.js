@@ -13,6 +13,21 @@ app.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: './partials/requestPage.html'
       // controller: 'requestCtrl'
     })
+    .state('bid', {
+      url: '/bid',
+      templateUrl: './partials/bidPage.html'
+      // controller: 'requestCtrl'
+    })
+    .state('gurubid', {
+      url: '/gurubid',
+      templateUrl: './partials/guruBidPage.html'
+      // controller: 'requestCtrl'
+    })
+    .state('profile', {
+      url: '/profile',
+      templateUrl: './partials/profilePage.html'
+      // controller: 'requestCtrl'
+    })
 
   $urlRouterProvider.otherwise('/');
 });
