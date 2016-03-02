@@ -2,10 +2,10 @@
 
 var mongoose = require('mongoose');
 
-//Schema for rating that sends to user rating schema 
+//Schema for rating that sends to user rating schema
 var ratingSchema = mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-  Guru: { type: mongoose.Schema.Types.ObjectId, ref: "Guru" },
+  guru: { type: mongoose.Schema.Types.ObjectId, ref: "Guru" },
   category: {type: String },
   score: { type: Number },
   timeStamp: { type: Date, default: Date.now() }
