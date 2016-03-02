@@ -1,10 +1,12 @@
 "use strict";
 
-const gulp = require("gulp");
-const plumber = require("gulp-plumber");
-const babel = require("gulp-babel");
-const sass = require("gulp-sass");
-const rimraf = require("rimraf");
+const gulp        = require("gulp");
+const babel       = require("gulp-babel");
+const concat      = require("gulp-concat");
+const sass        = require("gulp-sass");
+const sourcemaps  = require("gulp-sourcemaps");
+const uglify      = require("gulp-uglify");
+const rimraf      = require("rimraf");
 
 const config =  {
   paths: {
@@ -40,33 +42,36 @@ gulp.task("clean-bower_components", (cb) => {
 //Copies bower_components into the public directory
 gulp.task("bower_components", ["clean-bower_components"], () => {
   return gulp.src(`${config.paths.src}/${config.paths.bower_components}`)
-    .pipe(plumber())
     .pipe(gulp.dest("public/bower_components"));
 });
 
 //Converts the scss files into css
 gulp.task("sass", ["clean-css"], () => {
   return gulp.src(`${config.paths.src}/${config.paths.sass}`)
-    .pipe(plumber())
     .pipe(sass({errLogToConsole: true}))
+    .pipe(sourcemaps.init())
+      .pipe(uglify())
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest("public/css"));
 });
 
 //Converts js into ES5, will later minify, uglify, & sourcemap
 gulp.task("js", ["clean-js"], () => {
   return gulp.src(`${config.paths.src}/${config.paths.js}`)
-    .pipe(plumber())
-    .pipe(babel())
+    .pipe(sourcemaps.init())
+      .pipe(concat("bundle.js"))
+      .pipe(babel())
+      .pipe(uglify({mangle: false}))
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest("public/js"));
 });
 
 gulp.task("partials", ['clean-partials'], function() {
   return gulp.src(`${config.paths.src}/${config.paths.html}`)
-  .pipe(plumber())
   .pipe(gulp.dest('public/partials'));
 });
 
-gulp.task("build", ["sass", "js", "partials", "bower_components"], () => {});
+gulp.task("build", ["sass", "js", "partials", "bower_components"]);
 
 //Watches all files for changes
 gulp.task("watch", () => {
