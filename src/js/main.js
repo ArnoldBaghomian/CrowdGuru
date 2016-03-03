@@ -27,7 +27,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: '/profile',
       templateUrl: './partials/profilePage.html'
       // controller: 'requestCtrl'
-    })
+    });
 
   $urlRouterProvider.otherwise('/');
 });
