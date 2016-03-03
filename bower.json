@@ -3,6 +3,8 @@
   "description": "",
   "main": "gulpfile.js",
   "authors": [
+    "Arnold Baghomian <abaghomian@gmail.com>",
+    "Richard Maltby <rlmaltby@gmail.com>",
     "Zack Winchell <zackwinchell@gmail.com>"
   ],
   "license": "ISC",

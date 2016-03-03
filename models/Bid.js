@@ -1,5 +1,3 @@
-'use strict';
-
 var mongoose = require('mongoose');
 
 //big schema that sends to bid object in User schema.

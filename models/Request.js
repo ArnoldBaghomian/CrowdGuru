@@ -1,5 +1,3 @@
-'use strict';
-
 var mongoose = require('mongoose');
 
 //Schema goes into the user schema as well as the request object.
