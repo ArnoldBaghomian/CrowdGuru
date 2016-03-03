@@ -1,7 +1,4 @@
-
-// controller that will be called when splash page is loaded
-var app = angular.module('');
-
+// controller that will be called when guru bid page is loaded
 app.controller('guruBidCtrl', function() {
   "use strict";
   console.log("guruBidCtrl");

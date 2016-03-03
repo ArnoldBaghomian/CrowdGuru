@@ -1,7 +1,4 @@
-
-// controller that will be called when splash page is loaded
-var app = angular.module('');
-
+// controller that will be called when profile page is loaded
 app.controller('profileCtrl', function() {
   "use strict";
   console.log("profileCtrl");
