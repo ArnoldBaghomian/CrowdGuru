@@ -1,12 +1,13 @@
 "use strict";
-const gulp        = require("gulp");
-const babel       = require("gulp-babel");
-const concat      = require("gulp-concat");
-const jshint      = require("gulp-jshint");
-const sass        = require("gulp-sass");
-const sourcemaps  = require("gulp-sourcemaps");
-const uglify      = require("gulp-uglify");
-const rimraf      = require("rimraf");
+const gulp          = require("gulp");
+const autoprefixer  = require("gulp-autoprefixer");
+const babel         = require("gulp-babel");
+const concat        = require("gulp-concat");
+const jshint        = require("gulp-jshint");
+const sass          = require("gulp-sass");
+const sourcemaps    = require("gulp-sourcemaps");
+const uglify        = require("gulp-uglify");
+const rimraf        = require("rimraf");
 
 const config =  {
   paths: {
@@ -56,6 +57,7 @@ gulp.task("sass", ["clean-css"], () => {
   return gulp.src(`${config.paths.src}/${config.paths.sass}`)
     .pipe(sourcemaps.init())
       .pipe(sass({errLogToConsole: true}))
+      .pipe(autoprefixer())
       .pipe(concat("style.css"))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest("public/css"));
