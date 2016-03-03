@@ -3,6 +3,7 @@
 const gulp        = require("gulp");
 const babel       = require("gulp-babel");
 const concat      = require("gulp-concat");
+const jshint      = require("gulp-jshint");
 const sass        = require("gulp-sass");
 const sourcemaps  = require("gulp-sourcemaps");
 const uglify      = require("gulp-uglify");
@@ -55,8 +56,15 @@ gulp.task("sass", ["clean-css"], () => {
     .pipe(gulp.dest("public/css"));
 });
 
-//Converts js into ES5, will later minify, uglify, & sourcemap
-gulp.task("js", ["clean-js"], () => {
+//Lints js in the terminal where gulp is run
+gulp.task("jsLint", () => {
+  return gulp.src(`${config.paths.src}/${config.paths.js}`)
+  .pipe(jshint())
+  .pipe(jshint.reporter('default'))
+});
+
+//Converts js into ES5, minifies, uglifies, & sourcemaps code
+gulp.task("js", ["clean-js", "jsLint"], () => {
   return gulp.src(`${config.paths.src}/${config.paths.js}`)
     .pipe(sourcemaps.init())
       .pipe(concat("bundle.js"))
@@ -65,6 +73,7 @@ gulp.task("js", ["clean-js"], () => {
     .pipe(sourcemaps.write())
     .pipe(gulp.dest("public/js"));
 });
+
 
 gulp.task("partials", ['clean-partials'], function() {
   return gulp.src(`${config.paths.src}/${config.paths.html}`)
@@ -79,6 +88,11 @@ gulp.task("watch", () => {
   sassWatch.on("change", (event) => {
     console.log(`File ${event.path} was ${event.type}.`);
   });
+
+  var jsWatch = gulp.watch(config.paths.js, {cwd: config.paths.src}, ["js"]);
+  jsWatch.on("change", (event) => {
+    console.log(`File ${event.path} was ${event.type}.`);
+  })
 });
 
 gulp.task("default", ["build", "watch"]);
