@@ -54,9 +54,9 @@ gulp.task("bower_components", ["clean-bower_components"], () => {
 //Converts the scss files into css
 gulp.task("sass", ["clean-css"], () => {
   return gulp.src(`${config.paths.src}/${config.paths.sass}`)
-    .pipe(sass({errLogToConsole: true}))
     .pipe(sourcemaps.init())
-      .pipe(uglify())
+      .pipe(sass({errLogToConsole: true}))
+      .pipe(concat("style.css"))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest("public/css"));
 });
