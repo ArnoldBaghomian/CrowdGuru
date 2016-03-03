@@ -1,5 +1,3 @@
-'use strict';
-
 var mongoose = require('mongoose');
 
 //Schema for rating that sends to user rating schema

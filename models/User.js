@@ -1,5 +1,3 @@
-'use strict';
-
 var mongoose = require('mongoose');
 
 // user that takes in rating, request, and user schema input.

@@ -1,5 +1,4 @@
 "use strict";
-
 const gulp        = require("gulp");
 const babel       = require("gulp-babel");
 const concat      = require("gulp-concat");
@@ -15,7 +14,13 @@ const config =  {
     sass: "sass/**/*.scss",
     js: "js/**/*.js",
     html: "partials/**/*.html",
-    bower_components: "bower_components/**/*"
+    bower_components: "bower_components/**/*",
+    backendJs:  [
+      "bin/**/*",
+      "models/**/*",
+      "routes/**/*",
+      "app.js"
+    ]
   }
 };
 
@@ -63,6 +68,15 @@ gulp.task("jsLint", () => {
   .pipe(jshint.reporter('default'))
 });
 
+//Lints js in the terminal where gulp is run
+gulp.task("backendLint", () => {
+  config.paths.backendJs.forEach((path) => {
+    gulp.src(path)
+      .pipe(jshint())
+      .pipe(jshint.reporter('default'));
+  })
+});
+
 //Converts js into ES5, minifies, uglifies, & sourcemaps code
 gulp.task("js", ["clean-js", "jsLint"], () => {
   return gulp.src(`${config.paths.src}/${config.paths.js}`)
@@ -74,13 +88,12 @@ gulp.task("js", ["clean-js", "jsLint"], () => {
     .pipe(gulp.dest("public/js"));
 });
 
-
 gulp.task("partials", ['clean-partials'], function() {
   return gulp.src(`${config.paths.src}/${config.paths.html}`)
   .pipe(gulp.dest('public/partials'));
 });
 
-gulp.task("build", ["sass", "js", "partials", "bower_components"]);
+gulp.task("build", ["sass", "js", "partials", "backendLint", "bower_components"]);
 
 //Watches all files for changes
 gulp.task("watch", () => {
@@ -91,6 +104,11 @@ gulp.task("watch", () => {
 
   var jsWatch = gulp.watch(config.paths.js, {cwd: config.paths.src}, ["js"]);
   jsWatch.on("change", (event) => {
+    console.log(`File ${event.path} was ${event.type}.`);
+  });
+
+  var backendJsWatch = gulp.watch(config.paths.backendJs, {cwd: "./"}, ["backendLint"]);
+  backendJsWatch.on("change", (event) => {
     console.log(`File ${event.path} was ${event.type}.`);
   })
 });
