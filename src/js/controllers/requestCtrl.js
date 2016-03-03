@@ -1,5 +1,5 @@
-var app = angular.module("crowdGuru");
-// controller that will be called when splash page is loaded
+// controller that will be called when new request page is loaded
 app.controller('requestCtrl', function() {
+  "use strict";
   console.log("requestCtrl");
 });

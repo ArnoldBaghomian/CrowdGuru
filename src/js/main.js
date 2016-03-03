@@ -1,7 +1,7 @@
 var app = angular.module("crowdGuru", ["ui.router"]);
 console.log('crowdGuru app');
 // used to populate the partials as well as linking them to there controllers
-app.config(function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $stateProvider
     .state('splash', {
       url: '/',
@@ -28,7 +28,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: './partials/profilePage.html'
       // controller: 'requestCtrl'
     });
-
+  $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise('/');
 });
 
