@@ -1,0 +1,16 @@
+
+.header-wrapper {
+	height: 65px;
+	width: 100%;
+	z-index: 15;
+	font-size: 15px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	background: black;
+	position: fixed;
+	background: rgba(26, 26, 26, 0.25);
+	transition:background 0.5s ease;
+	-webkit-transition:background 0.5s ease;
+	top: 0;
+	left: 0;
+}
