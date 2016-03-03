@@ -15,7 +15,7 @@ const config =  {
     js: "js/**/*.js",
     html: "partials/**/*.html",
     bower_components: "bower_components/**/*",
-    backendJs:  [
+    backend:  [
       "bin/**/*",
       "models/**/*",
       "routes/**/*",
@@ -65,16 +65,16 @@ gulp.task("sass", ["clean-css"], () => {
 gulp.task("jsLint", () => {
   return gulp.src(`${config.paths.src}/${config.paths.js}`)
   .pipe(jshint())
-  .pipe(jshint.reporter('default'))
+  .pipe(jshint.reporter('default'));
 });
 
 //Lints js in the terminal where gulp is run
 gulp.task("backendLint", () => {
-  config.paths.backendJs.forEach((path) => {
+  return config.paths.backend.forEach((path) => {
     gulp.src(path)
       .pipe(jshint())
       .pipe(jshint.reporter('default'));
-  })
+  });
 });
 
 //Converts js into ES5, minifies, uglifies, & sourcemaps code
@@ -107,8 +107,8 @@ gulp.task("watch", () => {
     console.log(`File ${event.path} was ${event.type}.`);
   });
 
-  var backendJsWatch = gulp.watch(config.paths.backendJs, {cwd: "./"}, ["backendLint"]);
-  backendJsWatch.on("change", (event) => {
+  var backendWatch = gulp.watch(config.paths.backend, {cwd: "./"}, ["backendLint"]);
+  backendWatch.on("change", (event) => {
     console.log(`File ${event.path} was ${event.type}.`);
   })
 });
