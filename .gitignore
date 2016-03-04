@@ -1,5 +1,5 @@
+.DS_Store
+.env
+bower_components
 node_modules
 public
-.DS_Store
-bower_components
-.env
