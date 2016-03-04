@@ -13,7 +13,7 @@
   const mongoose = require("mongoose");
   const mongoUrl = process.env.MONGOLAB_URI || "mongodb://localhost/CrowdGuru";
   mongoose.connect(mongoUrl, function(err) {
-    console.log(err || `${chalk.yellow("Connected to MongoDB:")} ${chalk.cyan.bold(mongoUrl)}`);
+    console.log(err || `${chalk.blue.bold("Connected to MongoDB:")} ${chalk.cyan.bold(mongoUrl)}`);
   });
 
   // view engine setup
