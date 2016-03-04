@@ -1,57 +1,52 @@
 var app = angular.module("crowdGuru", ["ui.router", "uiRouterStyles"]);
-console.log('crowdGuru app');
+console.log("crowdGuru app");
 // used to populate the partials as well as linking them to there controllers
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $stateProvider
-    .state('splash', {
-      url: '/',
-      templateUrl: './partials/splashPage.html',
+    .state("splash", {
+      url: "/",
+      templateUrl: "./partials/splashPage.html",
       data: {
-        css: ['css/splash.css']
+        css: ["css/splash.css"]
       }
-      // controller: 'splashCtrl'
     })
-    .state('request', {
-      url: '/request',
-      templateUrl: './partials/requestPage.html',
+    .state("request", {
+      url: "/request",
+      templateUrl: "./partials/requestPage.html",
       data:{
-        css: ['css/request.css']
+        css: ["css/request.css"]
       }
-      // controller: 'requestCtrl'
     })
-    .state('bid', {
-      url: '/bid',
-      templateUrl: './partials/bidPage.html',
-      // controller: 'requestCtrl'
+    .state("bid", {
+      url: "/bid",
+      templateUrl: "./partials/bidPage.html"
     })
-    .state('gurubid', {
-      url: '/requestguru',
-      templateUrl: './partials/guruBidPage.html',
-      // controller: 'requestCtrl'
+    .state("gurubid", {
+      url: "/requestguru",
+      templateUrl: "./partials/guruBidPage.html"
     })
-    .state('register', {
+    .state("register", {
       url: "/users/register",
-      templateUrl: './partials/users/register.html',
+      templateUrl: "./partials/users/register.html",
         data:{
-        css: ['css/register.css']
-      }
-      // controller: 'registerCtrl'
+        css: ["css/register.css"]
+      },
+      controller: "registerCtrl"
     })
-    .state('login', {
-      url: '/users/login',
-      templateUrl: './partials/users/login.html',
+    .state("login", {
+      url: "/users/login",
+      templateUrl: "./partials/users/login.html",
        data:{
-        css: ['css/login.css']
-      }
-      // controller: 'loginCtrl'
+        css: ["css/login.css"]
+      },
+      controller: "loginCtrl"
     })
-    .state('profile', {
-      url: '/users/profile',
-      templateUrl: './partials/profilePage.html',
-      // controller: 'requestCtrl'
+    .state("profile", {
+      url: "/users/profile",
+      templateUrl: "./partials/profilePage.html"
     });
   $locationProvider.html5Mode(true);
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise("/");
 });
 
 // app.use("statics or something", "public")

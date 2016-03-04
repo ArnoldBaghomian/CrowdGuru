@@ -4,6 +4,8 @@
   * Module dependencies.
   */
 
+  require("dotenv").config();
+
   const app = require("../app");
   const chalk = require("chalk");
   const debug = require("debug")("CrowdGuru:server");

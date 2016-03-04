@@ -73,7 +73,7 @@ gulp.task("sass", ["clean-css"], () => {
 gulp.task("jsLint", () => {
   return gulp.src(`${config.paths.src}/${config.paths.js}`)
   .pipe(jshint({"esversion": 6}))
-  .pipe(jshint.reporter('default'));
+  .pipe(jshint.reporter("default"));
 });
 
 //Lints js in the terminal where gulp is run
@@ -81,7 +81,7 @@ gulp.task("backendLint", () => {
   return config.paths.backend.forEach((path) => {
     gulp.src(path)
       .pipe(jshint({"esversion": 6}))
-      .pipe(jshint.reporter('default'));
+      .pipe(jshint.reporter("default"));
   });
 });
 
@@ -102,41 +102,34 @@ gulp.task("js", ["clean-js", "jsLint"], () => {
     .pipe(gulp.dest("public/js"));
 });
 
-gulp.task("partials", ['clean-partials'], function() {
+gulp.task("partials", ["clean-partials"], function() {
   return gulp.src(`${config.paths.src}/${config.paths.html}`)
-  .pipe(gulp.dest('public/partials'));
+  .pipe(gulp.dest("public/partials"));
 });
 
-gulp.task("build", ["sass", "js", "partials", "backendLint", "bower_components", "images"]);
+gulp.task("build", ["backendLint", "bower_components", "images", "js", "partials", "sass"]);
 
 //Watches all files for changes
 gulp.task("watch", () => {
   const logChange = (event) => console.log(chalk.white.bgBlack(`File ${chalk.cyan.underline(event.path)} was ${chalk.yellow(event.type)}.`));
 
-  const sassWatch = gulp.watch(config.paths.sass, {cwd: config.paths.src}, ["sass"]);
-  sassWatch.on("change", (event) => {
-    logChange(event);
-  });
+  const backendWatch = gulp.watch(config.paths.backend, {cwd: "./"}, ["backendLint"]);
+  backendWatch.on("change", (event) => logChange(event));
 
-  const jsWatch = gulp.watch(config.paths.js, {cwd: config.paths.src}, ["js"]);
-  jsWatch.on("change", (event) => {
-    logChange(event);
-  });
-
-  const partialsWatch = gulp.watch(config.paths.html, {cwd: config.paths.src}, ["partials"]);
-  partialsWatch.on("change", (event) => {
-    logChange(event);
-  });
+  const bowerWatch = gulp.watch(config.paths.bower_components, {cwd: config.paths.src}, ["bower_components"]);
+  bowerWatch.on("change", (event) => logChange(event));
 
   const imagesWatch = gulp.watch(config.paths.images, {cwd: config.paths.src}, ["images"]);
-  imagesWatch.on("change", (event) => {
-    logChange(event);
-  });
+  imagesWatch.on("change", (event) => logChange(event));
 
-  const backendWatch = gulp.watch(config.paths.backend, {cwd: "./"}, ["backendLint"]);
-  backendWatch.on("change", (event) => {
-    logChange(event);
-  })
+  const jsWatch = gulp.watch(config.paths.js, {cwd: config.paths.src}, ["js"]);
+  jsWatch.on("change", (event) => logChange(event));
+
+  const partialsWatch = gulp.watch(config.paths.html, {cwd: config.paths.src}, ["partials"]);
+  partialsWatch.on("change", (event) => logChange(event));
+
+  const sassWatch = gulp.watch(config.paths.sass, {cwd: config.paths.src}, ["sass"]);
+  sassWatch.on("change", (event) => logChange(event));
 });
 
 gulp.task("default", ["build", "watch"]);
