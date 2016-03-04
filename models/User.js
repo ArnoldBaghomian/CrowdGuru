@@ -16,7 +16,8 @@
 
   userSchema.statics.login = function(req, res, next) {
       User.findOne({ email: req.body.email }, (err, user) => {
-        if(err) return res.status(400).send("No user found with this Username/E-Mail.");
+        if(err || !user) return res.status(400).send("No user found with this Username/E-Mail.");
+        console.log(`Found user: ${user}`);
         bcrypt.compare(req.body.password, user.password, (err, correctPass) => {
           if(err) return res.status(400).send(err);
           if(res) {
