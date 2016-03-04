@@ -1,12 +1,12 @@
 <h1>register</h1>
 <form ng-submit="register()">
   <label>Username:</label>
-  <input type="text" ng-model="username">
+  <input type="text" ng-model="username" required>
   <label>E-Mail:</label>
-  <input type="email" ng-model="email">
+  <input type="email" ng-model="email" required>
   <label>Password:</label>
-  <input type="password" ng-model="pass1">
+  <input type="password" ng-model="pass1" required>
   <label>Verify Password:</label>
-  <input type="password" ng-model="pass2">
+  <input type="password" ng-model="pass2" required>
   <button type="submit">Sign Me Up!</button>
 </form>
