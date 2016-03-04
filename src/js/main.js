@@ -29,15 +29,15 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     .state('register', {
       url: "/users/register",
       templateUrl: './partials/users/register.html',
-      controller: 'registerCtrl'
+      controller: 'users/registerCtrl'
     })
     .state('login', {
       url: '/users/login',
       templateUrl: './partials/users/login.html',
-      controller: 'loginCtrl'
+      controller: 'users/loginCtrl'
     })
     .state('profile', {
-      url: '/profile',
+      url: '/users/profile',
       templateUrl: './partials/profilePage.html'
       // controller: 'requestCtrl'
     });
