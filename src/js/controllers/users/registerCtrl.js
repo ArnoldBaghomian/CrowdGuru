@@ -10,7 +10,7 @@ app.controller("registerCtrl", function($scope, $state) {
       $scope.pass1 = $scope.pass2 = null;
       return;
     }
-    var userData = {};
+    let userData = {};
     userData.username = $scope.user.username;
     userData.email = $scope.user.email;
     userData.password = $scope.user.pass1;

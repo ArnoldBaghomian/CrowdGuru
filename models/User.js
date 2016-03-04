@@ -15,22 +15,25 @@
 
 
   userSchema.statics.login = function(req, res, next) {
-      User.findOne({ email: req.body.email }, (err, user) => {
-        if(err || !user) return res.status(400).send("No user found with this Username/E-Mail.");
-        console.log(`Found user: ${user}`);
-        bcrypt.compare(req.body.password, user.password, (err, correctPass) => {
-          if(err) return res.status(400).send(err);
-          if(res) {
-            //do a jwt-token thing
-            console.log(`${user.username} signed in`);
-            res.cookie("authToken", user.username); // FIXME: This is TOTALLY not the right way to do this, come back and implement jwt-tokens soon.
-            next();
-          }
-          else {
-            return res.status(400).send("Incoorect Password.");
-          }
-        });
+    console.log(req.body);
+    let userLogin = req.body.email ? { email: req.body.email } : { username: req.body.username };
+    let loginType = req.body.email ? "E-Mail" : "Username";
+    User.findOne(userLogin, (err, user) => {
+      if(err || !user)return res.status(400).send(`No user found with this ${loginType}`);
+      console.log(`Found user: ${user}`);
+      bcrypt.compare(req.body.password, user.password, (err, correctPass) => {
+        if(err) return res.status(400).send(err);
+        if(correctPass) {
+          //do a jwt-token thing
+          console.log(`${user.username} signed in`);
+          res.cookie("authToken", user.username); // FIXME: This is TOTALLY not the right way to do this, come back and implement jwt-tokens soon.
+          next();
+        }
+        else {
+          return res.status(400).send("Incorrect Password.");
+        }
       });
+    });
   };
 
   userSchema.statics.register = function(req, res, next) {

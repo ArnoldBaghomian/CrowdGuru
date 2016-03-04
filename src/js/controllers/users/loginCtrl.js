@@ -6,10 +6,22 @@ app.controller("loginCtrl", function($scope, $state) {
   console.log("loginCtrl");
   $scope.login = function() {
     console.log(`$scope.user:`, $scope.user);
-    $.post("/users/login", $scope.user, (res) => {
+    let userData = {};
+    userData.password = $scope.user.password;
+    if($scope.user.login.includes("@")) {
+      userData.email = $scope.user.login;
+    }
+    else {
+      userData.username = $scope.user.login;
+    }
+    $.post("/users/login", userData, (res) => {
       console.log(res);
       $state.go("profile");
-    }).error((err) => console.log(err));
+    }).error((err) => {
+      alert(err.responseText);
+      $("[ng-model='user.password']").val(null);
+      // $scope.user.password = null; FIXME this is not staying properly bound
+    });
     console.log("login()");
     console.log(`E-Mail: ${$scope.user.email}`);
     console.log(`Password: ${$scope.user.password}`);
