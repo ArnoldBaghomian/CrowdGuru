@@ -1,13 +1,9 @@
 // larger screen styles
-
+//HEADER ON TOP CSS//
 @media only screen and (min-width: 40em) {
 
   .top-bar {
     text-align: center;
-  }
-
-  ul.center-buttons {
-    display: inline-block;
   }
 
   .logo {
@@ -15,6 +11,10 @@
     top: -2px;
     position: absolute;
   }
+}
+
+.top-bar-section {
+  display: inline-block;
 }
 
 // some mobile resets
@@ -35,4 +35,118 @@
 
 .logo {
   margin-top: .5rem; // demo only - don't use this
+}
+
+//BODY CSS HOME SPLASH PAGE//
+
+.center-search{
+  text-align: center;
+}
+
+.jumbo{
+    background-image: url(../img/jumbo_bg.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    padding: 175px 0;
+    margin-bottom: 30px;
+}
+
+.jumbo h1{
+    color: #fff;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.contain-to-grid, .top-bar{
+    background: #eaeaea;
+}
+
+.name{
+    background: #5a9aa8;
+    padding: 5px 30px;
+    height: 60px !important;
+}
+
+.top-bar-section ul li, .top-bar-section li:not(.has-form) a:not(.button){
+    background: none;
+
+}
+
+.top-bar-section li:not(.has-form) a:hover:not(.button){
+    background: none;
+    text-decoration: underline;
+    color: #1a1a1a;
+
+}
+
+.top-bar-section ul li > a{
+    color: #1a1a1a;
+}
+
+.active{
+    text-decoration: underline;
+    font-weight: bold !important;
+}
+
+.row:before {
+  display: block;
+  content: " ";
+  margin-top: -90px;
+  height: 90px;
+  visibility: hidden;
+
+}
+
+section{
+    padding-bottom: 150px;
+}
+#contact{
+    background: #fff;
+    padding-bottom: 30px;
+}
+
+#contact li>ul>li{
+    padding: 5px 0;
+}
+
+
+.copy{
+    background: #737373;
+    padding: 10px 0;
+}
+
+.copy p{
+    color: #fff;
+    margin-bottom: 0;
+}
+
+.copy a{
+    color: #fff;
+}
+
+ul, ol, dl {
+    list-style: none;
+}
+
+.th{
+    border: none;
+}
+#portfolio{
+    background-image: url('image/jumbo_bg.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+
+}
+#portfolio h2,h4{
+    color: #fff;
+    text-align: center;
+}
+
+#portfolio h4{
+    margin-bottom: 30px;
+}
+
+#portfolio img, #about img{
+    display: block;
+    margin: 0 auto;
 }
