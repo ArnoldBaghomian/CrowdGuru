@@ -1,0 +1,33 @@
+// larger screen styles
+//HEADER ON TOP CSS//
+@media only screen and (min-width: 40em) {
+  .top-bar {
+    text-align: center;
+  }
+  .logo {
+    left: 5px;
+    top: -2px;
+    position: absolute;
+  }
+}
+.top-bar-section {
+  display: inline-block;
+}
+// some mobile resets
+.logo {
+  max-width: 2rem;
+  margin-top: -3px;
+  margin-left: 5px;
+}
+
+.menu-icon {
+  padding-top: 1.2rem;
+}
+
+.top-bar.expanded {
+  background: #333333;
+}
+
+.logo {
+  margin-top: .5rem; // demo only - don't use this
+}

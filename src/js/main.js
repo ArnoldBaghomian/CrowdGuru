@@ -19,7 +19,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       // controller: 'requestCtrl'
     })
     .state('gurubid', {
-      url: '/gurubid',
+      url: '/requestguru',
       templateUrl: './partials/guruBidPage.html'
       // controller: 'requestCtrl'
     })
