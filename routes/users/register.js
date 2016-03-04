@@ -1,9 +1,11 @@
 var express = require("express");
 var router = express.Router();
 
-router.post("/", function(req, res, next) {
-  console.log("Post to /users/register");
-  res.send("Post request to /users/register.");
+var User = require("../../models/User");
+
+router.post("/", User.register, function(req, res, next) {
+  "use strict";
+  res.send(`Welcome to CrowdGuru, ${req.body.username}!`);
 });
 
 module.exports = router;

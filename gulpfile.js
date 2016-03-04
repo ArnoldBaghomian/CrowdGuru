@@ -7,6 +7,8 @@ const jshint        = require("gulp-jshint");
 const sass          = require("gulp-sass");
 const sourcemaps    = require("gulp-sourcemaps");
 const uglify        = require("gulp-uglify");
+
+const chalk         = require("chalk");
 const rimraf        = require("rimraf");
 
 const config =  {
@@ -78,7 +80,7 @@ gulp.task("jsLint", () => {
 gulp.task("backendLint", () => {
   return config.paths.backend.forEach((path) => {
     gulp.src(path)
-      .pipe(jshint())
+      .pipe(jshint({"esversion": 6}))
       .pipe(jshint.reporter('default'));
   });
 });
@@ -109,29 +111,31 @@ gulp.task("build", ["sass", "js", "partials", "backendLint", "bower_components",
 
 //Watches all files for changes
 gulp.task("watch", () => {
-  var sassWatch = gulp.watch(config.paths.sass, {cwd: config.paths.src}, ["sass"]);
+  const logChange = (event) => console.log(chalk.white.bgBlack(`File ${chalk.cyan.underline(event.path)} was ${chalk.yellow(event.type)}.`));
+
+  const sassWatch = gulp.watch(config.paths.sass, {cwd: config.paths.src}, ["sass"]);
   sassWatch.on("change", (event) => {
-    console.log(`File ${event.path} was ${event.type}.`);
+    logChange(event);
   });
 
-  var jsWatch = gulp.watch(config.paths.js, {cwd: config.paths.src}, ["js"]);
+  const jsWatch = gulp.watch(config.paths.js, {cwd: config.paths.src}, ["js"]);
   jsWatch.on("change", (event) => {
-    console.log(`File ${event.path} was ${event.type}.`);
+    logChange(event);
   });
 
-  var partialsWatch = gulp.watch(config.paths.html, {cwd: config.paths.src}, ["partials"]);
+  const partialsWatch = gulp.watch(config.paths.html, {cwd: config.paths.src}, ["partials"]);
   partialsWatch.on("change", (event) => {
-    console.log(`File ${event.path} was ${event.type}.`);
+    logChange(event);
   });
 
-  var imagesWatch = gulp.watch(config.paths.images, {cwd: config.paths.src}, ["images"]);
+  const imagesWatch = gulp.watch(config.paths.images, {cwd: config.paths.src}, ["images"]);
   imagesWatch.on("change", (event) => {
-    console.log(`File ${event.path} was ${event.type}.`);
+    logChange(event);
   });
 
-  var backendWatch = gulp.watch(config.paths.backend, {cwd: "./"}, ["backendLint"]);
+  const backendWatch = gulp.watch(config.paths.backend, {cwd: "./"}, ["backendLint"]);
   backendWatch.on("change", (event) => {
-    console.log(`File ${event.path} was ${event.type}.`);
+    logChange(event);
   })
 });
 
