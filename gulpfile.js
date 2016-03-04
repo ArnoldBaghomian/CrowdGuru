@@ -63,7 +63,6 @@ gulp.task("sass", ["clean-css"], () => {
     .pipe(sourcemaps.init())
       .pipe(sass({errLogToConsole: true}))
       .pipe(autoprefixer())
-      .pipe(concat("style.css"))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest("public/css"));
 });
