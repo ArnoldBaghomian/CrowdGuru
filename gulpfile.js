@@ -109,6 +109,11 @@ gulp.task("watch", () => {
     console.log(`File ${event.path} was ${event.type}.`);
   });
 
+  var partialsWatch = gulp.watch(config.paths.html, {cwd: config.paths.src}, ["partials"]);
+  partialsWatch.on("change", (event) => {
+    console.log(`File ${event.path} was ${event.type}.`);
+  });
+
   var backendWatch = gulp.watch(config.paths.backend, {cwd: "./"}, ["backendLint"]);
   backendWatch.on("change", (event) => {
     console.log(`File ${event.path} was ${event.type}.`);
