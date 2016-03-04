@@ -1,41 +1,3 @@
-// larger screen styles
-//HEADER ON TOP CSS//
-@media only screen and (min-width: 40em) {
-
-  .top-bar {
-    text-align: center;
-  }
-
-  .logo {
-    left: 5px;
-    top: -2px;
-    position: absolute;
-  }
-}
-
-.top-bar-section {
-  display: inline-block;
-}
-
-// some mobile resets
-
-.logo {
-  max-width: 2rem;
-  margin-top: -3px;
-  margin-left: 5px;
-}
-
-.menu-icon {
-  padding-top: 1.2rem;
-}
-
-.top-bar.expanded {
-  background: #333333;
-}
-
-.logo {
-  margin-top: .5rem; // demo only - don't use this
-}
 
 //BODY CSS HOME SPLASH PAGE//
 
@@ -44,7 +6,7 @@
 }
 
 .jumbo{
-    background-image: url(../img/jumbo_bg.jpg);
+    background-image: url(../image/jumbo_bg.jpg);
     background-size: cover;
     background-attachment: fixed;
     padding: 175px 0;
@@ -98,7 +60,15 @@
 }
 
 section{
-    padding-bottom: 150px;
+  &#about{
+    padding-bottom: 120px;
+  }
+  &#portfolio{
+    padding-bottom: 120px;
+  }
+  &#contact{
+    padding-bottom: 120px;
+  }
 }
 #contact{
     background: #fff;
@@ -132,7 +102,7 @@ ul, ol, dl {
     border: none;
 }
 #portfolio{
-    background-image: url('image/jumbo_bg.jpg');
+    background-image: url(../image/jumbo_bg.jpg);
     background-size: cover;
     background-attachment: fixed;
 
@@ -149,4 +119,9 @@ ul, ol, dl {
 #portfolio img, #about img{
     display: block;
     margin: 0 auto;
+}
+
+footer {
+  max-height: 20vh;
+  overflow: hidden;
 }
