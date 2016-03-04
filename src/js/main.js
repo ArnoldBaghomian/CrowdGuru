@@ -21,27 +21,33 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
     .state('bid', {
       url: '/bid',
-      templateUrl: './partials/bidPage.html'
+      templateUrl: './partials/bidPage.html',
       // controller: 'requestCtrl'
     })
     .state('gurubid', {
       url: '/requestguru',
-      templateUrl: './partials/guruBidPage.html'
+      templateUrl: './partials/guruBidPage.html',
       // controller: 'requestCtrl'
     })
     .state('register', {
       url: "/users/register",
       templateUrl: './partials/users/register.html',
-      controller: 'registerCtrl'
+        data:{
+        css: ['css/register.css']
+      }
+      // controller: 'registerCtrl'
     })
     .state('login', {
       url: '/users/login',
       templateUrl: './partials/users/login.html',
-      controller: 'loginCtrl'
+       data:{
+        css: ['css/login.css']
+      }
+      // controller: 'loginCtrl'
     })
     .state('profile', {
       url: '/users/profile',
-      templateUrl: './partials/profilePage.html'
+      templateUrl: './partials/profilePage.html',
       // controller: 'requestCtrl'
     });
   $locationProvider.html5Mode(true);
