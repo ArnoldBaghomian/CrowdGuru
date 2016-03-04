@@ -4,7 +4,14 @@
     <title><%= title %></title>
     <base href="/">
 
+  <!-- for foundation -->
+    <link rel="stylesheet" href="css/foundation.css" />
+    <link rel="stylesheet" href="css/custom.css" />
+    <link rel="stylesheet" href="foundation-icons/foundation-icons.css" />
+    <script src="js/vendor/modernizr.js"></script>
+
     <link rel='stylesheet' href='css/style.css' />
+
     <link rel='stylesheet' href="bower_components/foundation/css/foundation.min.css" />
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
@@ -15,6 +22,7 @@
 
   </head>
   <body>
+
     <nav class="top-bar" data-topbar>
       <ul class="title-area">
         <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
@@ -27,15 +35,17 @@
         <!-- Right Nav Section -->
         <ul class="center-buttons">
           <li class="divider"></li>
-          <li><a href="#">Centered Button</a></li>
+          <li><a ui-sref="profile">Profile</a></li>
           <li class="divider"></li>
-          <li><a href="#">Centered Button</a></li>
+          <li><a ui-sref="request">Bid Search</a></li>
           <li class="divider"></li>
-          <li><a href="#">Centered Button</a></li>
+          <li><a ui-sref="gurubid">Request Guru</a></li>
           <li class="divider"></li>
         </ul>
       </section>
     </nav>
+
+
     <ui-view></ui-view>
   </body>
 </html>
