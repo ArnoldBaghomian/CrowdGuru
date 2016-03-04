@@ -1,11 +1,14 @@
-var app = angular.module("crowdGuru", ["ui.router"]);
+var app = angular.module("crowdGuru", ["ui.router", "uiRouterStyles"]);
 console.log('crowdGuru app');
 // used to populate the partials as well as linking them to there controllers
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $stateProvider
     .state('splash', {
       url: '/',
-      templateUrl: './partials/splashPage.html'
+      templateUrl: './partials/splashPage.html',
+      data: {
+        css: ['css/splash.css']
+      }
       // controller: 'splashCtrl'
     })
     .state('request', {
