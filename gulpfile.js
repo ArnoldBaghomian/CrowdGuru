@@ -11,17 +11,18 @@ const rimraf        = require("rimraf");
 
 const config =  {
   paths: {
-    src: "src",
-    sass: "sass/**/*.scss",
-    js: "js/**/*.js",
-    html: "partials/**/*.html",
-    bower_components: "bower_components/**/*",
     backend:  [
       "bin/**/*",
       "models/**/*",
       "routes/**/*",
       "app.js"
-    ]
+    ],
+    src: "src",
+    bower_components: "bower_components/**/*",
+    html: "partials/**/*.html",
+    images: "images/**/*",
+    js: "js/**/*.js",
+    sass: "sass/**/*.scss",
   }
 };
 
@@ -35,10 +36,14 @@ gulp.task("clean-js", (cb) => {
   rimraf("public/js", cb);
 });
 
-
 //Empties the public/partials directory
 gulp.task("clean-partials", (cb) => {
   rimraf("public/partials", cb);
+});
+
+//Empties the public/images directory
+gulp.task("clean-images", (cb) => {
+  rimraf("public/images", cb);
 });
 
 //Empites the public/bower_components directory
@@ -79,6 +84,12 @@ gulp.task("backendLint", () => {
   });
 });
 
+//Copies images from src to public
+gulp.task("images", ["clean-images"], () => {
+  return gulp.src(`${config.paths.src}/${config.paths.images}`)
+    .pipe(gulp.dest("public/images"));
+})
+
 //Converts js into ES5, minifies, uglifies, & sourcemaps code
 gulp.task("js", ["clean-js", "jsLint"], () => {
   return gulp.src(`${config.paths.src}/${config.paths.js}`)
@@ -95,7 +106,7 @@ gulp.task("partials", ['clean-partials'], function() {
   .pipe(gulp.dest('public/partials'));
 });
 
-gulp.task("build", ["sass", "js", "partials", "backendLint", "bower_components"]);
+gulp.task("build", ["sass", "js", "partials", "backendLint", "bower_components", "images"]);
 
 //Watches all files for changes
 gulp.task("watch", () => {
@@ -111,6 +122,11 @@ gulp.task("watch", () => {
 
   var partialsWatch = gulp.watch(config.paths.html, {cwd: config.paths.src}, ["partials"]);
   partialsWatch.on("change", (event) => {
+    console.log(`File ${event.path} was ${event.type}.`);
+  });
+
+  var imagesWatch = gulp.watch(config.paths.images, {cwd: config.paths.src}, ["images"]);
+  imagesWatch.on("change", (event) => {
     console.log(`File ${event.path} was ${event.type}.`);
   });
 
