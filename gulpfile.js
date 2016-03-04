@@ -66,7 +66,7 @@ gulp.task("sass", ["clean-css"], () => {
 //Lints js in the terminal where gulp is run
 gulp.task("jsLint", () => {
   return gulp.src(`${config.paths.src}/${config.paths.js}`)
-  .pipe(jshint())
+  .pipe(jshint({"esversion": 6}))
   .pipe(jshint.reporter('default'));
 });
 
