@@ -13,7 +13,10 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
     .state('request', {
       url: '/request',
-      templateUrl: './partials/requestPage.html'
+      templateUrl: './partials/requestPage.html',
+      data:{
+        css: ['css/request.css']
+      }
       // controller: 'requestCtrl'
     })
     .state('bid', {
