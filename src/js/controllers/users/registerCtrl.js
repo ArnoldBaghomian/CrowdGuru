@@ -5,6 +5,7 @@ app.controller("registerCtrl", function($scope, $state) {
   "use strict";
   console.log("registerCtrl");
   $scope.register = function() {
+    console.log("Register!");
     if($scope.pass1 !== $scope.pass2){
       alert("Please enter matching passwords.");
       $scope.pass1 = $scope.pass2 = null;
@@ -23,6 +24,6 @@ app.controller("registerCtrl", function($scope, $state) {
     $.post("/users/register", userData, (res) => {
       console.log(res);
       $state.go("login");
-    }).error((err) => console.error(err));
+    }).error((err) => alert(err.responseText));
   };
 });

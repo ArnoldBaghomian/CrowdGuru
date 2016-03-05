@@ -116,12 +116,11 @@ gulp.task("watch", () => {
   const backendWatch = gulp.watch(config.paths.backend, {cwd: "./"}, ["backendLint"]);
   backendWatch.on("change", (event) => logChange(event));
 
-  const bowerWatch = gulp.watch(config.paths.bower_components, {cwd: confi.paths.src}, ["bower_components"]);
+  const bowerWatch = gulp.watch(config.paths.bower_components, {cwd: config.paths.src}, ["bower_components"]);
   bowerWatch.on("change", (event) => logChange(event));
 
   const imagesWatch = gulp.watch(config.paths.images, {cwd: config.paths.src}, ["images"]);
   imagesWatch.on("change", (event) => logChange(event));
-  });
 
   const jsWatch = gulp.watch(config.paths.js, {cwd: config.paths.src}, ["js"]);
   jsWatch.on("change", (event) => logChange(event));

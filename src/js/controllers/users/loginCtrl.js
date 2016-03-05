@@ -23,7 +23,5 @@ app.controller("loginCtrl", function($scope, $state) {
       // $scope.user.password = null; FIXME this is not staying properly bound
     });
     console.log("login()");
-    console.log(`E-Mail: ${$scope.user.email}`);
-    console.log(`Password: ${$scope.user.password}`);
   };
 });

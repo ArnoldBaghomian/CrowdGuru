@@ -28,16 +28,23 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     .state("register", {
       url: "/users/register",
       templateUrl: "./partials/users/register.html",
+        data:{
+        css: ["css/register.css"]
+      },
       controller: "registerCtrl"
     })
     .state("login", {
       url: "/users/login",
       templateUrl: "./partials/users/login.html",
+       data:{
+        css: ["css/login.css"]
+      },
       controller: "loginCtrl"
     })
     .state("profile", {
       url: "/users/profile",
-      templateUrl: "./partials/profilePage.html"
+      templateUrl: "./partials/profilePage.html",
+      controller: "profileCtrl"
     });
   $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise("/");
