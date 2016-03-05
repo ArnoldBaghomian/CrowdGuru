@@ -13,8 +13,8 @@
 }
 // some mobile resets
 .logo {
-  max-width: 9rem;
-  margin-top: -10px;
+  max-width: 2rem;
+  margin-top: -2px;
   margin-left: 5px;
   &:hover {
     cursor: pointer;
@@ -27,4 +27,8 @@
 
 .top-bar.expanded {
   background: #333333;
+}
+
+.top-bar-section ul li>a {
+  font-size: 17px;
 }

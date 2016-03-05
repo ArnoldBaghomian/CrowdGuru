@@ -39,7 +39,7 @@
 //   margin-top: -90px;
 //   height: 90px;
 //   visibility: hidden;
-//
+
 // }
 
 section{
@@ -91,7 +91,7 @@ ul, ol, dl {
 
 }
 #portfolio h2,h4{
-    color: #fff;
+
     text-align: center;
 }
 
@@ -107,4 +107,12 @@ ul, ol, dl {
 footer {
   max-height: 20vh;
   overflow: hidden;
+}
+
+p {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20px;
+
 }
