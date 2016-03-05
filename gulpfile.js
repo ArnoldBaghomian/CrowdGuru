@@ -5,6 +5,7 @@ const babel         = require("gulp-babel");
 const cleanCSS      = require("gulp-clean-css");
 const concat        = require("gulp-concat");
 const jshint        = require("gulp-jshint");
+const ngAnnotate    = require("gulp-ng-annotate");
 const sass          = require("gulp-sass");
 const sourcemaps    = require("gulp-sourcemaps");
 const uglify        = require("gulp-uglify");
@@ -99,7 +100,8 @@ gulp.task("js", ["clean-js", "jsLint"], () => {
     .pipe(sourcemaps.init())
       .pipe(concat("bundle.js"))
       .pipe(babel())
-      .pipe(uglify({mangle: false}))
+      .pipe(ngAnnotate())
+      .pipe(uglify())
     .pipe(sourcemaps.write("./"))
     .pipe(gulp.dest("public/js"));
 });
