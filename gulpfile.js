@@ -2,6 +2,7 @@
 const gulp          = require("gulp");
 const autoprefixer  = require("gulp-autoprefixer");
 const babel         = require("gulp-babel");
+const cleanCSS      = require("gulp-clean-css");
 const concat        = require("gulp-concat");
 const jshint        = require("gulp-jshint");
 const sass          = require("gulp-sass");
@@ -65,7 +66,8 @@ gulp.task("sass", ["clean-css"], () => {
     .pipe(sourcemaps.init())
       .pipe(sass({errLogToConsole: true}))
       .pipe(autoprefixer())
-    .pipe(sourcemaps.write())
+      .pipe(cleanCSS())
+    .pipe(sourcemaps.write("./"))
     .pipe(gulp.dest("public/css"));
 });
 
@@ -98,7 +100,7 @@ gulp.task("js", ["clean-js", "jsLint"], () => {
       .pipe(concat("bundle.js"))
       .pipe(babel())
       .pipe(uglify({mangle: false}))
-    .pipe(sourcemaps.write())
+    .pipe(sourcemaps.write("./"))
     .pipe(gulp.dest("public/js"));
 });
 
