@@ -7,6 +7,7 @@
   const concat        = require("gulp-concat");
   const jshint        = require("gulp-jshint");
   const ngAnnotate    = require("gulp-ng-annotate");
+  const plumber       = require("gulp-plumber");
   const sass          = require("gulp-sass");
   const sourcemaps    = require("gulp-sourcemaps");
   const uglify        = require("gulp-uglify");
@@ -99,12 +100,14 @@
   //Converts js into ES5, minifies, uglifies, & sourcemaps code
   gulp.task("js", ["clean-js", "jsLint"], () => {
     return gulp.src(`${config.paths.src}/${config.paths.js}`)
-    .pipe(sourcemaps.init())
-    .pipe(concat("bundle.js"))
-    .pipe(babel())
-    .pipe(ngAnnotate())
-    .pipe(uglify())
-    .pipe(sourcemaps.write("./"))
+    .pipe(plumber())
+      .pipe(sourcemaps.init())
+          .pipe(babel())
+          .pipe(ngAnnotate())
+          .pipe(uglify())
+          .pipe(concat("bundle.js"))
+      .pipe(sourcemaps.write("./"))
+    .pipe(plumber.stop())
     .pipe(gulp.dest("public/js"));
   });
 
