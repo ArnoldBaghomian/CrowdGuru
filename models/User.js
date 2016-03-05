@@ -46,14 +46,24 @@
   };
 
   userSchema.statics.register = function(req, res, next) {
-    bcrypt.hash(req.body.password, 14, (err, hash) => {
-      var newUser = new User();
-      newUser.email = req.body.email;
-      newUser.username = req.body.username;
-      newUser.password = hash;
-      newUser.save((err, savedUser) => {
+    User.findOne({ email: req.body.email }, (err, foundUser) => {
+      if(err) return res.status(400).send(err);
+      if(foundUser) return res.status(400).send("E-Mail is already in use.");
+
+      User.findOne({ username: req.body.username }, (err, foundUser) => {
         if(err) return res.status(400).send(err);
-        next();
+        if(foundUser) return res.status(400).send("Username is already in use.");
+
+        bcrypt.hash(req.body.password, 14, (err, hash) => {
+          var newUser = new User();
+          newUser.email = req.body.email;
+          newUser.username = req.body.username;
+          newUser.password = hash;
+          newUser.save((err, savedUser) => {
+            if(err) return res.status(400).send(err);
+            next();
+          });
+        });
       });
     });
   };

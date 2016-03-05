@@ -24,6 +24,6 @@ app.controller("registerCtrl", function($scope, $state) {
     $.post("/users/register", userData, (res) => {
       console.log(res);
       $state.go("login");
-    }).error((err) => console.error(err));
+    }).error((err) => alert(err.responseText));
   };
 });
