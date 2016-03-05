@@ -10,6 +10,7 @@
 }
 .top-bar-section {
   display: inline-block;
+  padding-top:17px;
 }
 // some mobile resets
 .logo {
@@ -30,5 +31,9 @@
 }
 
 .top-bar-section ul li>a {
-  font-size: 17px;
+  font-size: 19px;
+}
+
+.top-bar {
+  height:70px;
 }
