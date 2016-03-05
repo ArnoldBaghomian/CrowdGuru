@@ -70,8 +70,14 @@
 
   userSchema.statics.isLoggedIn = function(req, res, next) {
     console.log(req.cookies.authToken);
-    let decodedToken = jwt.decode(req.cookies.authToken, JWT_SECRET);
-    console.log(decodedToken);
+    try {
+      var decodedToken = jwt.decode(req.cookies.authToken, JWT_SECRET);
+    } catch (err) {
+      res.cookie("originalUrl", req.originalUrl);
+      return res.status(400).redirect("/users/login");
+    }
+    next();
+    // console.log(decodedToken);
   };
 
 

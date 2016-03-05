@@ -29,6 +29,7 @@
   app.use(express.static(path.join(__dirname, "public")));
 
   app.use("/users", require("./routes/users"));
+  app.use("/request", require("./routes/request"));
   app.all("/*", function(req, res, next) {
     res.render("index", { title: "CrowdGuru" });
   });

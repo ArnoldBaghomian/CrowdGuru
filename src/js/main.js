@@ -10,8 +10,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         css: ["css/splash.css"]
       }
     })
-    .state("request", {
-      url: "/request",
+    .state("bidSearch", {
+      url: "/bid/search",
       templateUrl: "./partials/requestPage.html",
       data:{
         css: ["css/request.css"]
@@ -22,7 +22,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       templateUrl: "./partials/bidPage.html"
     })
     .state("gurubid", {
-      url: "/requestguru",
+      url: "/request/new",
       templateUrl: "./partials/guruBidPage.html"
     })
     .state("register", {
