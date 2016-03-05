@@ -2,6 +2,9 @@
   "use strict";
   const mongoose = require("mongoose");
   const bcrypt   = require("bcrypt");
+  const jwt      = require("jwt-simple");
+
+  const JWT_SECRET = process.env.JWT_SECRET;
 
   // user that takes in rating, request, and user schema input.
   let userSchema = mongoose.Schema({
@@ -26,7 +29,13 @@
         if(correctPass) {
           //do a jwt-token thing
           console.log(`${user.username} signed in`);
-          res.cookie("authToken", user.username); // FIXME: This is TOTALLY not the right way to do this, come back and implement jwt-tokens soon.
+
+          let authData = {};
+          authData.timestamp = Date.now();
+          authData.username = user.username;
+          authData.email = user.email;
+          let authToken = jwt.encode(authData, JWT_SECRET);
+          res.cookie("authToken", authToken); // FIXME: This is TOTALLY not the right way to do this, come back and implement jwt-tokens soon.
           next();
         }
         else {
@@ -37,19 +46,22 @@
   };
 
   userSchema.statics.register = function(req, res, next) {
-    console.log("register userData:", req.body);
     bcrypt.hash(req.body.password, 14, (err, hash) => {
-      console.log(`Hashed password ${hash}`);
       var newUser = new User();
       newUser.email = req.body.email;
       newUser.username = req.body.username;
       newUser.password = hash;
       newUser.save((err, savedUser) => {
         if(err) return res.status(400).send(err);
-        console.log(`Saved user:`, savedUser);
         next();
       });
     });
+  };
+
+  userSchema.statics.isLoggedIn = function(req, res, next) {
+    console.log(req.cookies.authToken);
+    let decodedToken = jwt.decode(req.cookies.authToken, JWT_SECRET);
+    console.log(decodedToken);
   };
 
 

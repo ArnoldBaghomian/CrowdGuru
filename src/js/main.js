@@ -43,7 +43,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
     .state("profile", {
       url: "/users/profile",
-      templateUrl: "./partials/profilePage.html"
+      templateUrl: "./partials/profilePage.html",
+      controller: "profileCtrl"
     });
   $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise("/");
