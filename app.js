@@ -12,7 +12,7 @@
 
   const mongoose = require("mongoose");
   const mongoUrl = process.env.MLAB_URI || "mongodb://localhost/CrowdGuru";
-  let mongoConnectMsg = process.env.MLAB_URI ? "." : chalk.green.bold(` ${mongoUrl}`);
+  let mongoConnectMsg = process.env.MLAB_URI ? "." : chalk.cyan(` ${mongoUrl}`);
   mongoose.connect(mongoUrl, function(err) {
     console.log(err ? chalk.red(err) : chalk.blue.bold(`Connected to MongoDB${mongoConnectMsg}`));
   });
