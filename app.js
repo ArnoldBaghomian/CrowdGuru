@@ -11,9 +11,10 @@
   const app = express();
 
   const mongoose = require("mongoose");
-  const mongoUrl = process.env.MONGOLAB_URI || "mongodb://localhost/CrowdGuru";
+  const mongoUrl = process.env.MLAB_URI || "mongodb://localhost/CrowdGuru";
+  let mongoConnectMsg = process.env.MLAB_URI ? "." : chalk.green.bold(` ${mongoUrl}`);
   mongoose.connect(mongoUrl, function(err) {
-    console.log(err || `${chalk.yellow("Connected to MongoDB:")} ${chalk.cyan.bold(mongoUrl)}`);
+    console.log(err ? chalk.red(err) : chalk.blue.bold(`Connected to MongoDB${mongoConnectMsg}`));
   });
 
   // view engine setup
