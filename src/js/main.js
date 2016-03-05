@@ -10,8 +10,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         css: ["css/splash.css"]
       }
     })
-    .state("bidSearch", {
-      url: "/bid/search",
+    .state("requestSearch", {
+      url: "/request/search",
       templateUrl: "./partials/requestPage.html",
       data:{
         css: ["css/request.css"]
