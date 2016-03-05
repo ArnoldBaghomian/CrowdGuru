@@ -15,8 +15,8 @@ app.controller("loginCtrl", function($scope, $state) {
       userData.username = $scope.user.login;
     }
     $.post("/users/login", userData, (res) => {
-      console.log(res);
-      $state.go("profile");
+      location.href = (Cookies("originalUrl") || "/users/profile");
+      Cookies.expire("originalUrl");
     }).error((err) => {
       alert(err.responseText);
       $("[ng-model='user.password']").val(null);

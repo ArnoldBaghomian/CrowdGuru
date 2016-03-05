@@ -11,9 +11,10 @@
   const app = express();
 
   const mongoose = require("mongoose");
-  const mongoUrl = process.env.MONGOLAB_URI || "mongodb://localhost/CrowdGuru";
+  const mongoUrl = process.env.MLAB_URI || "mongodb://localhost/CrowdGuru";
+  let mongoConnectMsg = process.env.MLAB_URI ? "." : chalk.cyan(` ${mongoUrl}`);
   mongoose.connect(mongoUrl, function(err) {
-    console.log(err || `${chalk.yellow("Connected to MongoDB:")} ${chalk.cyan.bold(mongoUrl)}`);
+    console.log(err ? chalk.red(err) : chalk.blue.bold(`Connected to MongoDB${mongoConnectMsg}`));
   });
 
   // view engine setup
@@ -28,6 +29,7 @@
   app.use(express.static(path.join(__dirname, "public")));
 
   app.use("/users", require("./routes/users"));
+  app.use("/request", require("./routes/request"));
   app.all("/*", function(req, res, next) {
     res.render("index", { title: "CrowdGuru" });
   });

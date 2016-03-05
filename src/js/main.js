@@ -10,8 +10,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         css: ["css/splash.css"]
       }
     })
-    .state("request", {
-      url: "/request",
+    .state("requestSearch", {
+      url: "/request/search",
       templateUrl: "./partials/requestPage.html",
       data:{
         css: ["css/request.css"]
@@ -22,7 +22,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       templateUrl: "./partials/bidPage.html"
     })
     .state("gurubid", {
-      url: "/requestguru",
+      url: "/request/new",
       templateUrl: "./partials/guruBidPage.html"
     })
     .state("register", {
@@ -43,7 +43,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
     .state("profile", {
       url: "/users/profile",
-      templateUrl: "./partials/profilePage.html"
+      templateUrl: "./partials/profilePage.html",
+      controller: "profileCtrl"
     });
   $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise("/");
