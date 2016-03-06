@@ -12,18 +12,19 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
     .state("requestSearch", {
       url: "/request/search",
-      templateUrl: "./partials/requestPage.html",
+      templateUrl: "./partials/request/search.html",
       data:{
         css: ["css/request.css"]
       }
     })
     .state("bid", {
-      url: "/bid",
-      templateUrl: "./partials/bidPage.html"
+      url: "/bid/view/:bidId",
+      templateUrl: "./partials/bid/view.html"
     })
-    .state("gurubid", {
+    .state("requestNew", {
       url: "/request/new",
-      templateUrl: "./partials/guruBidPage.html"
+      templateUrl: "./partials/request/new.html",
+      controller: "requestNewCtrl"
     })
     .state("register", {
       url: "/users/register",
@@ -50,4 +51,13 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $urlRouterProvider.otherwise("/");
 });
 
-// app.use("statics or something", "public")
+app.config(function($provide) {
+  $provide.decorator("$exceptionHandler", function($delegate) {
+    return function(exception, cause) {
+      $delegate(exception, cause);
+      setTimeout(function() {
+        throw exception;
+      });
+    };
+  });
+});
