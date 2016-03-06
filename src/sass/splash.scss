@@ -5,11 +5,13 @@
 }
 
 .jumbo{
-    background-image: url(/images/jumbo_bg.jpg);
+    background-image: url(http://financedock.com/wp-content/uploads/2015/02/people-220284.jpg);
     background-size: cover;
     background-attachment: fixed;
     padding: 175px 0;
     margin-bottom: 30px;
+    height:40vw;
+
 }
 
 .jumbo h1{ //currently unused
@@ -39,7 +41,7 @@
 //   margin-top: -90px;
 //   height: 90px;
 //   visibility: hidden;
-//
+
 // }
 
 section{
@@ -85,13 +87,13 @@ ul, ol, dl {
     border: none;
 }
 #portfolio{
-    background-image: url(../image/jumbo_bg.jpg);
+    background-image: url(http://d152j5tfobgaot.cloudfront.net/wp-content/uploads/2015/10/yourstory-Investors-look-before-investing-in-startups.jpg);
     background-size: cover;
     background-attachment: fixed;
 
 }
 #portfolio h2,h4{
-    color: #fff;
+
     text-align: center;
 }
 
@@ -107,4 +109,18 @@ ul, ol, dl {
 footer {
   max-height: 20vh;
   overflow: hidden;
+}
+
+p {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20px;
+
+}
+
+.medium {
+  border-radius:7px;
+  font-size: 20px;
+  margin-top:60px;
 }

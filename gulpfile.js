@@ -101,12 +101,12 @@
   gulp.task("js", ["clean-js", "jsLint"], () => {
     return gulp.src(`${config.paths.src}/${config.paths.js}`)
     .pipe(plumber())
-    .pipe(sourcemaps.init())
-    .pipe(babel())
-    .pipe(concat("bundle.js"))
-    .pipe(ngAnnotate())
-    .pipe(uglify())
-    .pipe(sourcemaps.write("./"))
+      .pipe(sourcemaps.init())
+          .pipe(babel())
+          .pipe(ngAnnotate())
+          .pipe(uglify())
+          .pipe(concat("bundle.js"))
+      .pipe(sourcemaps.write("./"))
     .pipe(plumber.stop())
     .pipe(gulp.dest("public/js"));
   });

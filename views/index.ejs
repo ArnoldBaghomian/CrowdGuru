@@ -7,37 +7,41 @@
     <link rel='stylesheet' href="bower_components/foundation/css/foundation.min.css" />
     <link rel="stylesheet" href="bower_components/foundation-icon-fonts/foundation-icons.css">
     <link rel='stylesheet' href='css/index.css' />
-
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="bower_components/angular-ui-router-styles/ui-router-styles.js"></script>
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/foundation/js/foundation.min.js"></script>
-    <script src="bower_components/cookies-js/dist/cookies.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:500' rel='stylesheet' type='text/css'>
 
     <script src="js/bundle.js"></script>
-
 
   </head>
   <body>
 
-    <nav style="height:70px;" class="top-bar" data-topbar>
+    <nav class="top-bar" data-topbar>
       <ul class="title-area">
         <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
         <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
       </ul>
-      <div style="padding-top:20px;" class="logo">
+      <div  class="logo">
         <img ui-sref="splash" src="images/crowdGuruIcon.png"/>
       </div>
-      <section style="padding-top:20px;" class="top-bar-section">
+      <section class="top-bar-section">
         <!-- Right Nav Section -->
         <ul class="center-buttons">
           <!-- <li class="divider"></li> -->
+<<<<<<< HEAD
           <li><a ui-sref="profile">Profile</a></li>
           <!-- <li class="divider"></li> -->
           <li><a ui-sref="requestSearch">Request Search</a></li>
           <!-- <li class="divider"></li> -->
           <li><a ui-sref="requestNew">Request a Guru</a></li>
+=======
+          <li><a class="profile" ui-sref="profile">Profile</a></li>
+<!--           <li class="divider"></li> -->
+          <li><a ui-sref="requestSearch">Bid Search</a></li>
+         <!--  <li class="divider"></li> -->
+          <li><a ui-sref="gurubid">Request Guru</a></li>
+>>>>>>> master
           <!-- <li class="divider"></li> -->
           <li><a ui-sref="register">Register</a></li>
           <!-- <li class="divider"></li> -->
@@ -47,5 +51,12 @@
 
 
     <ui-view></ui-view>
+     <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/foundation/js/foundation.min.js"></script>
+
+    <script>
+  $(document).foundation();
+</script>
+
   </body>
 </html>
