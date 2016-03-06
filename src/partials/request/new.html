@@ -9,25 +9,25 @@
       <div class="section-container tabs" data-section="" style="margin-top: 5vh;">
         <section class="section">
           <div class="content" data-slug="panel1">
-            <form>
+            <form ng-submit="submitRequest()">
               <div class="row collapse">
                 <div class="large-2 columns">
                   <label class="inline">Title:</label>
                 </div>
                 <div class="large-10 columns">
-                  <input type="text" id="searchTitle" placeholder="Seeking financial advice">
+                  <input type="text" id="searchTitle" placeholder="Seeking financial advice" ng-model="request.title" required>
                 </div>
               </div>
               <div class="row collapse">
                 <div class="large-2 columns">
-                  <label class="inline"> Tags</label>
+                  <label class="inline">Tags:</label>
                 </div>
                 <div class="large-10 columns">
-                  <input type="text" id="guruTags" placeholder="Roth, Mutual funds, CDs">
+                  <input type="text" id="guruTags" placeholder="Roth, Mutual funds, CDs" ng-model="request.tags" required>
                 </div>
               </div>
               <label>Request Details</label>
-              <textarea rows="7"></textarea>
+              <textarea rows="7" ng-model="request.desc" required></textarea>
               <button type="submit" class="radius button">Submit</button>
             </form>
           </div>
