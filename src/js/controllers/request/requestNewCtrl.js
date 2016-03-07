@@ -1,6 +1,10 @@
 // controller that will be called when new request page is loaded
 app.controller('requestNewCtrl', function($scope) {
   "use strict";
+  if (!Cookies('authToken')) {
+    Cookies("originalUrl", "requestNew");
+    $state.go("login");
+  };
   $scope.submitRequest = () => {
     let newRequest = {};
     newRequest.title = $scope.request.title.trim().replace(/ {2,}/, " ");
@@ -8,7 +12,7 @@ app.controller('requestNewCtrl', function($scope) {
     newRequest.tags = newRequest.tags.map((tag) => tag.trim().toLowerCase().replace(/ {2,}/, " "));
     newRequest.tags.forEach((tag, index) => {
       let dupeIndex = newRequest.tags.indexOf(tag, index + 1);
-      while(dupeIndex !== -1) {
+      while (dupeIndex !== -1) {
         newRequest.tags.splice(dupeIndex, 1);
         dupeIndex = newRequest.tags.indexOf(tag, index + 1);
       }
@@ -16,10 +20,10 @@ app.controller('requestNewCtrl', function($scope) {
     newRequest.desc = $scope.request.desc;
     console.log(newRequest);
     $.post("/request/new", newRequest, (res) => {
-      console.log("res", res);
-      location.href = `/request/view/${res.id}`;
-    })
-    .fail((err) => console.log(err));
+        console.log("res", res);
+        location.href = `/request/view/${res.id}`;
+      })
+      .fail((err) => console.log(err));
   };
   console.log("requestNewCtrl");
 });
