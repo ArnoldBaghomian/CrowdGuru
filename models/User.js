@@ -29,11 +29,13 @@
         if(correctPass) {
           //do a jwt-token thing
           console.log(`${user.username} signed in`);
+          console.log("user:", user);
 
           let authData = {};
           authData.timestamp = Date.now();
           authData.username = user.username;
           authData.email = user.email;
+          authData._id = user._id;
           let authToken = jwt.encode(authData, JWT_SECRET);
           res.cookie("authToken", authToken); // FIXME: This is TOTALLY not the right way to do this, come back and implement jwt-tokens soon.
           next();
@@ -69,14 +71,21 @@
   };
 
   userSchema.statics.isLoggedIn = function(req, res, next) {
+    let decodedToken;
     console.log(req.cookies.authToken);
     try {
-      var decodedToken = jwt.decode(req.cookies.authToken, JWT_SECRET);
+      decodedToken = jwt.decode(req.cookies.authToken, JWT_SECRET);
     } catch (err) {
       res.cookie("originalUrl", req.originalUrl);
       return res.status(400).redirect("/users/login");
     }
-    next();
+    console.log("Decoded Token:");
+    console.log(decodedToken);
+    User.findById(decodedToken._id, (err, foundUser) => {
+      if(err) return res.status(400).send(err);
+      req.user = decodedToken;
+      next();
+    });
     // console.log(decodedToken);
   };
 
