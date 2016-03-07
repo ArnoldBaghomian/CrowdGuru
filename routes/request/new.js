@@ -6,11 +6,23 @@ const Request = require("../../models/Request");
 
 router.post("/", User.isLoggedIn, function(req, res, next) {
   "use strict";
-  let resObj = {
-    id: Math.floor(Math.random() * 1000000000000).toString(16),
-    text: "Post to /request/new"
-  };
-  res.send(resObj);
+  console.log("req.body:", req.body);
+  User.findById(req.user._id, (err, foundUser) => {
+    let newRequest = new Request();
+    newRequest.user = foundUser._id;
+    newRequest.title = req.body.title;
+    newRequest.tags = req.body["tags[]"];
+    newRequest.description = req.body.desc;
+    foundUser.requests.push(newRequest._id);
+
+    newRequest.save((err, savedRequest) => {
+      if(err) return res.status(400).send(err);
+      foundUser.save((err, savedUser) => {
+        if(err) return res.status(400).send(err);
+        res.send(savedRequest);
+      });
+    });
+  });
 });
 
 module.exports = router;
