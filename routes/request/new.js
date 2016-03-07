@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 
 const User = require("../../models/User");
+const Request = require("../../models/Request");
 
 router.post("/", User.isLoggedIn, function(req, res, next) {
   "use strict";
