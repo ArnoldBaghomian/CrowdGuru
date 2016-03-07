@@ -3,13 +3,13 @@ var router = express.Router();
 
 const User = require("../../models/User");
 
-// router.get("/", User.isLoggedIn, function(req, res, next) {
-//   res.send("/request/new is working");
-// });
-
 router.post("/", User.isLoggedIn, function(req, res, next) {
   "use strict";
-  res.send("Post to /request/new");
+  let resObj = {
+    id: Math.floor(Math.random() * 1000000000000).toString(16),
+    text: "Post to /request/new"
+  };
+  res.send(resObj);
 });
 
 module.exports = router;

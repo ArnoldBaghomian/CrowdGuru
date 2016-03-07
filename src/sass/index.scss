@@ -10,10 +10,11 @@
 }
 .top-bar-section {
   display: inline-block;
+  padding-top:17px;
 }
 // some mobile resets
 .logo {
-  max-width: 2rem;
+  max-width: 12rem;
   margin-top: -2px;
   margin-left: 5px;
   &:hover {
@@ -30,5 +31,9 @@
 }
 
 .top-bar-section ul li>a {
-  font-size: 17px;
+  font-size: 19px;
+}
+
+.top-bar {
+  height:70px;
 }

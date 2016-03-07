@@ -10,28 +10,9 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         css: ["css/splash.css"]
       }
     })
-    .state("requestSearch", {
-      url: "/request/search",
-      templateUrl: "./partials/requestPage.html",
-      data:{
-        css: ["css/request.css"]
-      }
-    })
-    .state("bid", {
-      url: "/bid",
-      templateUrl: "./partials/bidPage.html"
-    })
-    .state("gurubid", {
-      url: "/request/new",
-      templateUrl: "./partials/guruBidPage.html"
-    })
-    .state("register", {
-      url: "/users/register",
-      templateUrl: "./partials/users/register.html",
-        data:{
-        css: ["css/register.css"]
-      },
-      controller: "registerCtrl"
+    .state("bidView", {
+      url: "/bid/view/{bidId}",
+      templateUrl: "./partials/bid/view.html"
     })
     .state("login", {
       url: "/users/login",
@@ -45,9 +26,43 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       url: "/users/profile",
       templateUrl: "./partials/profilePage.html",
       controller: "profileCtrl"
+    })
+    .state("register", {
+      url: "/users/register",
+      templateUrl: "./partials/users/register.html",
+        data:{
+        css: ["css/register.css"]
+      },
+      controller: "registerCtrl"
+    })
+    .state("requestNew", {
+      url: "/request/new",
+      templateUrl: "./partials/request/new.html",
+      controller: "requestNewCtrl"
+    })
+    .state("requestSearch", {
+      url: "/request/search",
+      templateUrl: "./partials/request/search.html",
+      data:{
+        css: ["css/request.css"]
+      }
+    })
+    .state("requestView", {
+      url: "/request/view/{requestId}",
+      templateUrl: "./partials/request/view.html",
+      controller: "requestViewCtrl"
     });
   $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise("/");
 });
 
-// app.use("statics or something", "public")
+app.config(function($provide) {
+  $provide.decorator("$exceptionHandler", function($delegate) {
+    return function(exception, cause) {
+      $delegate(exception, cause);
+      setTimeout(function() {
+        throw exception;
+      });
+    };
+  });
+});
