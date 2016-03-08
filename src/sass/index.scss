@@ -32,7 +32,9 @@
 .top-bar {
   height: 70px;
 }
+.top-bar-section li:not(.has-form) a:not(.button){
+  padding-top: 10px;
+}
 .full-buttons {
   height: 70px;
-  padding-top: 10px;
 }
