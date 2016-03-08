@@ -20,17 +20,10 @@ app.controller("requestNewCtrl", function($scope, $state) {
     newRequest.desc = $scope.request.desc;
     console.log(newRequest);
     $.post("/request/new", newRequest, (res) => {
-<<<<<<< HEAD
-        console.log("res", res);
-        location.href = `/request/view/${res.id}`;
-      })
-      .fail((err) => console.log(err));
-=======
       console.log("res", res);
       location.href = `/request/view/${res._id}`;
     })
     .fail((err) => console.log(err));
->>>>>>> master
   };
   console.log("requestNewCtrl");
 });
