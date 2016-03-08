@@ -21,7 +21,7 @@ app.controller("registerCtrl", function($scope, $state) {
       alert("Something broke!");
     }
 
-    $.post("/users/register", userData, (res) => {
+    $.post("/api/users/register", userData, (res) => {
       console.log(res);
       $state.go("login");
     }).error((err) => alert(err.responseText));
