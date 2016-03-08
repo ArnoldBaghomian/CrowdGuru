@@ -21,7 +21,7 @@ app.controller("requestNewCtrl", function($scope, $state) {
     });
     newRequest.desc = $scope.request.desc;
     console.log(newRequest);
-    $.post("/request/new", newRequest, (res) => {
+    $.post("/api/request/new", newRequest, (res) => {
       console.log("res", res);
       location.href = `/request/view/${res._id}`;
     })

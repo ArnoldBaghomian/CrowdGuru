@@ -14,7 +14,7 @@ app.controller("loginCtrl", function($scope, $state) {
     else {
       userData.username = $scope.user.login;
     }
-    $.post("/users/login", userData, (res) => {
+    $.post("/api/users/login", userData, (res) => {
       location.href = (Cookies("originalUrl") || "/users/profile");
       Cookies.expire("originalUrl");
     }).error((err) => {
