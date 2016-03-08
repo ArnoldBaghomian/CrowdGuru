@@ -12,7 +12,7 @@ app.controller("requestNewCtrl", function($scope, $state) {
     newRequest.tags = newRequest.tags.map((tag) => tag.trim().toLowerCase().replace(/ {2,}/, " "));
     newRequest.tags.forEach((tag, index) => {
       let dupeIndex = newRequest.tags.indexOf(tag, index + 1);
-      while(dupeIndex !== -1) {
+      while (dupeIndex !== -1) {
         newRequest.tags.splice(dupeIndex, 1);
         dupeIndex = newRequest.tags.indexOf(tag, index + 1);
       }
@@ -20,10 +20,17 @@ app.controller("requestNewCtrl", function($scope, $state) {
     newRequest.desc = $scope.request.desc;
     console.log(newRequest);
     $.post("/request/new", newRequest, (res) => {
+<<<<<<< HEAD
+        console.log("res", res);
+        location.href = `/request/view/${res.id}`;
+      })
+      .fail((err) => console.log(err));
+=======
       console.log("res", res);
       location.href = `/request/view/${res._id}`;
     })
     .fail((err) => console.log(err));
+>>>>>>> master
   };
   console.log("requestNewCtrl");
 });
