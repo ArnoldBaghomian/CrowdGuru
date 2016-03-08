@@ -25,6 +25,9 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     .state("profile", {
       url: "/users/profile",
       templateUrl: "./partials/profilePage.html",
+       data:{
+       css: ["css/profile.css"]
+      },
       controller: "profileCtrl"
     })
     .state("register", {

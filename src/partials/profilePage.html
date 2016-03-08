@@ -9,17 +9,13 @@
     <h3>My Awesome Profile</h3>
     <p class="aboutMe">I Make mony for you </p>
 
-    <div class="small secondary expanded button-group">
-      <a class="button">Facebook</a>
-      <a class="button">Twitter</a>
-      <a class="button">Linked In</a>
-    </div>
+    
   </div>
   <hr>
 </div>
 <div class="row">
-  <div class="medium-6 column"><a ng-click="showGuru()">View Guru Stats</a></div>
-  <div class="medium-6 column"><a ng-click="showReq()">View Req Stats</a></div>
+<a class="button" ng-disabled="guruToggle" ng-click="showGuru()">Toggle Guru Stats</a>
+<a class="button" ng-disabled="reqToggle" ng-click="showReq()">Toggle Req Stats</a>
 </div>
 
 
