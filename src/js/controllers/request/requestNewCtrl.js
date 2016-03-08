@@ -1,10 +1,12 @@
 // controller that will be called when new request page is loaded
-app.controller('requestNewCtrl', function($scope) {
+app.controller("requestNewCtrl", function($scope, $state) {
   "use strict";
-  if (!Cookies('authToken')) {
-    Cookies("originalUrl", "requestNew");
+
+  if(!Cookies("authToken")) {
+    Cookies("originalUrl", location.pathname);
     $state.go("login");
-  };
+  }
+
   $scope.submitRequest = () => {
     let newRequest = {};
     newRequest.title = $scope.request.title.trim().replace(/ {2,}/, " ");
@@ -20,10 +22,10 @@ app.controller('requestNewCtrl', function($scope) {
     newRequest.desc = $scope.request.desc;
     console.log(newRequest);
     $.post("/request/new", newRequest, (res) => {
-        console.log("res", res);
-        location.href = `/request/view/${res.id}`;
-      })
-      .fail((err) => console.log(err));
+      console.log("res", res);
+      location.href = `/request/view/${res._id}`;
+    })
+    .fail((err) => console.log(err));
   };
   console.log("requestNewCtrl");
 });
