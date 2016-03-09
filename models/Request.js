@@ -9,7 +9,7 @@
     description: { type: String, required: true },
     tags: { type: Array, required: true },
     timestamp: { type: Date, default: Date.now() }
-  });
+});
 
 
   const Request = mongoose.model("Request", requestSchema);

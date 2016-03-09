@@ -48,7 +48,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       templateUrl: "./partials/request/search.html",
       data:{
         css: ["css/request.css"]
-      }
+      },
+      controller: "requestSearchCtrl"
     })
     .state("requestView", {
       url: "/request/view/{requestId}",
