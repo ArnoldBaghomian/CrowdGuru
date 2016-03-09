@@ -1,8 +1,8 @@
 var express = require("express");
 var router = express.Router();
 
-const User = require("../../../models/User");
-const Request = require("../../../models/Request");
+const User = require(global.models + "/User");
+const Request = require(global.models + "/Request");
 
 
 router.get("/", User.isLoggedIn, function(req, res, next) {
