@@ -113,7 +113,7 @@
         return cb("Incorrect Password");
       }
     });
-  }
+  };
 
   var User = mongoose.model("User", userSchema);
 
