@@ -3,6 +3,7 @@
   const mongoose = require("mongoose");
   const bcrypt   = require("bcrypt");
   const jwt      = require("jwt-simple");
+  const mailgun  = require("mailgun-js")({apiKey:process.env.MAILGUN_KEY, domain: process.env.MAILGUN_DOMAIN});
 
   const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -27,17 +28,14 @@
       bcrypt.compare(req.body.password, user.password, (err, correctPass) => {
         if(err) return res.status(400).send(err);
         if(correctPass) {
-          //do a jwt-token thing
           console.log(`${user.username} signed in`);
-          console.log("user:", user);
-
           let authData = {};
           authData.timestamp = Date.now();
           authData.username = user.username;
           authData.email = user.email;
           authData._id = user._id;
           let authToken = jwt.encode(authData, JWT_SECRET);
-          res.cookie("authToken", authToken); // FIXME: This is TOTALLY not the right way to do this, come back and implement jwt-tokens soon.
+          res.cookie("authToken", authToken);
           next();
         }
         else {
@@ -86,9 +84,74 @@
       req.user = decodedToken;
       next();
     });
-    // console.log(decodedToken);
   };
 
+  userSchema.methods.changePassword = function(passwords, cb) {
+    console.log("this:", this);
+    if(!passwords.newPassword) {
+      return cb("Must set new password");
+    }
+    if(passwords.newPassword != passwords.verifyNewPassword) {
+      return cb("Passwords must match");
+    }
+    bcrypt.compare(passwords.oldPassword, this.password, (err, correctPass) => {
+      if(err) return cb(err);
+      if(correctPass) {
+        bcrypt.hash(passwords.newPassword, 14, (err, hash) => {
+          if(err) return cb(err);
+          this.password = hash;
+          this.save((err, savedThis) => {
+            if(err) return cb(err);
+            cb(null, "Successfully changed password!");
+          });
+        });
+      }
+      else {
+        return cb("Incorrect Password");
+      }
+    });
+  };
+
+  userSchema.statics.forgotPassword = function(userInfo, cb) {
+    let email;
+    console.log(userInfo);
+    if(userInfo.email) {
+      email = userInfo.email;
+      sendMessage();
+    }
+    else {
+      console.log(`Finding ${userInfo.username}...`);
+      User.findOne({"username": userInfo.username}, (err, foundUser) => {
+        if(err) return cb(err);
+        console.log(foundUser.email);
+        email = foundUser.email;
+        sendMessage();
+      });
+    }
+
+    function sendMessage() {
+      let tempPass = (Math.random() * 10000000000000000).toString(16).toUpperCase();
+      bcrypt.hash(tempPass, 14, (err, hash) => {
+        if(err) return cb(err);
+        User.findOne({email: email}, (err, foundUser) => {
+          if(err) return cb(err);
+          foundUser.password = hash;
+          foundUser.save((err, savedUser) => {
+            mailgun.messages().send({
+              from: "CrowdGuru <crowdguru_support@www.mailgun.org>",
+              to: email,
+              subject: "Forgotten Password",
+              text: `Your password has been reset to ${tempPass}`
+            },
+            function(err, body){
+              if(err) return cb(err);
+              cb(null, body);
+            });
+          });
+        });
+      });
+    }
+  };
 
   var User = mongoose.model("User", userSchema);
 
