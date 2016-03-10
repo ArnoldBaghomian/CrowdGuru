@@ -9,24 +9,26 @@ router.get("/", User.isLoggedIn, function(req, res, next) {
   "use strict";
   let searchObj = {};
   let filter = req.query.filter;
-  let page = Math.floor(req.query.page);
-  let filteredRequests = Request.find({
-    $text: {
-      $search: filter
-    }
-  })
-  .sort({timestamp: -1});
+  let pages;
 
-  if(Number.isInteger(page) && page > 1){
-    filteredRequests.skip(20*(page-1));
-  }
+  let matchCount = Request.count({ $text: {$search: filter} }, (err, count) => {
+    if(err) return res.status(400).send(err);
+    pages = Math.ceil(count/20);
+  });
 
-  filteredRequests.limit(20)
+  let filteredRequests = Request.find({ $text: {$search: filter} })
   .populate("bid")
   .populate("user", "username ratings")
+  .sort({timestamp: -1})
+  .skip(20*(req.query.page-1))
+  .limit(20)
   .exec((err, data) => {
     if(err) return res.status(400).send(err);
-    res.send(data);
+    let resObj = {
+      data,
+      pages
+    };
+    res.send(resObj);
   });
 });
 
