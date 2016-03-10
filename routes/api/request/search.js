@@ -17,7 +17,7 @@ router.get("/", User.isLoggedIn, function(req, res, next) {
   });
 
   let filteredRequests = Request.find({ $text: {$search: filter} })
-  .sort({timestamp: -1})
+  .sort({timestamp: 1})
   .skip(req.query.page ? 20*(req.query.page-1) : 0)
   .limit(20)
   .populate("bid")
