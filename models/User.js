@@ -86,9 +86,34 @@
       req.user = decodedToken;
       next();
     });
-    // console.log(decodedToken);
   };
 
+  userSchema.methods.changePassword = function(passwords, cb) {
+    //this is the user
+    console.log("this:", this);
+    if(!passwords.newPassword) {
+      return cb("Must set new password");
+    }
+    if(passwords.newPassword != passwords.verifyNewPassword) {
+      return cb("Passwords must match");
+    }
+    bcrypt.compare(passwords.oldPassword, this.password, (err, correctPass) => {
+      if(err) return cb(err);
+      if(correctPass) {
+        bcrypt.hash(passwords.newPassword, 14, (err, hash) => {
+          if(err) return cb(err);
+          this.password = hash;
+          this.save((err, savedThis) => {
+            if(err) return cb(err);
+            cb(null, "Successfully changed password!");
+          });
+        });
+      }
+      else {
+        return cb("Incorrect Password");
+      }
+    });
+  }
 
   var User = mongoose.model("User", userSchema);
 
