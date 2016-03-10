@@ -9,16 +9,25 @@ router.get("/", User.isLoggedIn, function(req, res, next) {
   "use strict";
   let searchObj = {};
   let filter = req.query.filter;
-  Request.find({
-    $text: {
-      $search: filter
-    }
-  })
+  let pages;
+
+  let matchCount = Request.count({ $text: {$search: filter} }, (err, count) => {
+    if(err) return res.status(400).send(err);
+    pages = Math.ceil(count/20);
+  });
+
+  let filteredRequests = Request.find({ $text: {$search: filter} })
   .populate("bid")
   .populate("user", "username ratings")
+  .skip(20*(req.query.page-1))
+  .limit(20)
   .exec((err, data) => {
     if(err) return res.status(400).send(err);
-    res.send(data);
+    let resObj = {
+      data,
+      pages
+    };
+    res.send(resObj);
   });
 });
 

@@ -6,13 +6,14 @@
 
 
  <h2 id="searchHeader">Purpose Your Next Request!</h2>
- <form class="form-group" ng-submit="searchRequests()">
+ <form class="form-group" ng-submit="searchRequests(1)">
        <label for="filter">Search:</label>
        <input id="searchinput"  ng-model="filterText" class="form-control", type="text", id="filter">
        <button>Search</button>
   </form>
 <div class="aboveHeader" class="row" id="content">
   <div class="small-10 small-offset-1 columns">
+    <button ng-if="pages.length > 1" ng-repeat="page in pages track by $index" ng-click="searchRequests($index+1)">{{$index+1}}</button>
     <table class="tablesize">
       <thead>
         <tr>
@@ -31,5 +32,6 @@
         </tr>
       </tbody>
     </table>
+    <button ng-if="pages.length > 1" ng-repeat="page in pages track by $index" ng-click="searchRequests($index+1)">{{$index+1}}</button>
   </div>
 </div>

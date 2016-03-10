@@ -2,11 +2,14 @@
 app.controller('requestSearchCtrl', function($scope) {
   "use strict";
   console.log("requestSearchCtrl");
-  console.log($scope.requests);
-  // $scope.requests = "test";
-  $scope.searchRequests = () => {
-    $.get(`/api/request/search?filter=${$scope.filterText}`, (data) => {
-      $scope.requests = data;
+  $scope.searchRequests = (page) => {
+    console.log(page);
+    $scope.currentFilter = $scope.filterText;
+    $.get(`/api/request/search?filter=${$scope.currentFilter}&page=${page}`, (res) => {
+      console.log(res);
+      $scope.requests = res.data;
+      $scope.pages = new Array(+res.pages);
+
       $scope.$apply();
     })
     .fail((err) => console.log(err));
