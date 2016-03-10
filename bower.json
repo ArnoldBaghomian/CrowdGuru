@@ -24,6 +24,7 @@
     "foundation": "^5.5.3",
     "angular-ui-router-styles": "^1.1.0",
     "foundation-icon-fonts": "*",
-    "cookies-js": "^1.2.2"
+    "cookies-js": "^1.2.2",
+    "moment": "^2.12.0"
   }
 }

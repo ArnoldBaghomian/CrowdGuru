@@ -17,10 +17,11 @@
     <table class="tablesize">
       <thead>
         <tr>
-          <th width="200">Title</th>
-          <th width="200">Tags</th>
-          <th width="200">Description</th>
-          <th width="200">Details</th>
+          <th width="160">Title</th>
+          <th width="160">Tags</th>
+          <th width="160">Description</th>
+          <th width="160">Time Remaining</th>
+          <th width="160">Details</th>
         </tr>
       </thead>
       <tbody>
@@ -28,7 +29,8 @@
           <td>{{request.title}}</td>
           <td>{{request.tags}}</td>
           <td>{{request.description}}</td>
-          <td><button>View Details</button></td>
+          <td>{{getExpiration(request.timestamp)}}</td>
+          <td><a href="/request/view/{{request._id}}" target="_blank"><button>View Details</button></a></td>
         </tr>
       </tbody>
     </table>

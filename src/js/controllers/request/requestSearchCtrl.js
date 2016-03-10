@@ -18,4 +18,35 @@ app.controller('requestSearchCtrl', function($scope) {
     })
     .fail((err) => console.log(err));
   };
+
+  $scope.getExpiration = (timestamp) => {
+    let expiration = moment(timestamp).add(3, "d");
+    let now = moment();
+    let daysRemaining = expiration.diff(now, "day");
+    let hoursRemaining = expiration.diff(now, "hour") % 24;
+    let minutesRemaining = expiration.diff(now, "minute") % 60;
+    let timeRemaining = "";
+    let timeSet = false;
+    if(daysRemaining) {
+      timeRemaining += `${daysRemaining} day`;
+      if(daysRemaining > 1) {
+        timeRemaining += "s";
+      }
+      timeSet = true;
+    }
+    if(hoursRemaining && !timeSet) {
+      timeRemaining += `${hoursRemaining} hour`;
+      if(hoursRemaining > 1) {
+        timeRemaining += "s";
+      }
+      timeSet = true;
+    }
+    if(minutesRemaining && !timeSet) {
+      timeRemaining += `${minutesRemaining} minute`;
+      if(minutesRemaining > 1) {
+        timeRemaining += "s";
+      }
+    }
+    return timeRemaining;
+  };
 });
