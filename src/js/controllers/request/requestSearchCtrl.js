@@ -6,9 +6,33 @@ app.controller('requestSearchCtrl', function($scope) {
   // $scope.requests = "test";
   $scope.searchRequests = () => {
     $.get(`/api/request/search?filter=${$scope.filterText}`, (data) => {
-      $scope.requests = data;
-      $scope.$apply();
-    })
-    .fail((err) => console.log(err));
+        $scope.requests = data;
+        $scope.$apply();
+      })
+      .fail((err) => console.log(err));
   };
+
+  $scope.showDescription = function(event) {
+    console.log("this:", this);
+    console.log("$scope: ", $scope.requests);
+    this.addClassggit a
+    this.trDescription = true;
+
+
+
+
+    if (event) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
+  };
+
+
+
+
+
+
+
+
+
 });
