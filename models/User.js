@@ -28,17 +28,14 @@
       bcrypt.compare(req.body.password, user.password, (err, correctPass) => {
         if(err) return res.status(400).send(err);
         if(correctPass) {
-          //do a jwt-token thing
           console.log(`${user.username} signed in`);
-          console.log("user:", user);
-
           let authData = {};
           authData.timestamp = Date.now();
           authData.username = user.username;
           authData.email = user.email;
           authData._id = user._id;
           let authToken = jwt.encode(authData, JWT_SECRET);
-          res.cookie("authToken", authToken); // FIXME: This is TOTALLY not the right way to do this, come back and implement jwt-tokens soon.
+          res.cookie("authToken", authToken);
           next();
         }
         else {
@@ -90,7 +87,6 @@
   };
 
   userSchema.methods.changePassword = function(passwords, cb) {
-    //this is the user
     console.log("this:", this);
     if(!passwords.newPassword) {
       return cb("Must set new password");
@@ -151,12 +147,10 @@
               if(err) return cb(err);
               cb(null, body);
             });
-          })
+          });
         });
       });
     }
-
-    // cb(null, "Check your e-mail for further instructions.");
   };
 
   var User = mongoose.model("User", userSchema);
