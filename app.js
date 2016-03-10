@@ -8,6 +8,8 @@
   const path          = require("path");
   // const favicon = require("serve-favicon");
 
+  global.models = path.resolve(__dirname + "/models");
+
   const app = express();
 
   const mongoose = require("mongoose");
