@@ -9,11 +9,19 @@ router.get("/", User.isLoggedIn, function(req, res, next) {
   "use strict";
   let searchObj = {};
   let filter = req.query.filter;
-  Request.find({
+  let page = Math.floor(req.query.page);
+  let filteredRequests = Request.find({
     $text: {
       $search: filter
     }
   })
+  .sort({timestamp: -1});
+
+  if(Number.isInteger(page) && page > 1){
+    filteredRequests.skip(20*(page-1));
+  }
+
+  filteredRequests.limit(20)
   .populate("bid")
   .populate("user", "username ratings")
   .exec((err, data) => {
