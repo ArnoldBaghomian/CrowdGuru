@@ -17,11 +17,11 @@ router.get("/", User.isLoggedIn, function(req, res, next) {
   });
 
   let filteredRequests = Request.find({ $text: {$search: filter} })
+  .sort({timestamp: -1})
+  .skip(req.query.page ? 20*(req.query.page-1) : 0)
+  .limit(20)
   .populate("bid")
   .populate("user", "username ratings")
-  .sort({timestamp: -1})
-  .skip(20*(req.query.page-1))
-  .limit(20)
   .exec((err, data) => {
     if(err) return res.status(400).send(err);
     let resObj = {
