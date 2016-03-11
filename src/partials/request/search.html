@@ -1,3 +1,4 @@
+
 <!-- <h1>Request Page</h1>
 <h3><a ui-sref="bid">To Bid page</a></li> </h3>
 <br>
@@ -25,12 +26,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="request in requests track by request._id" ng-click="showIFrame()">
+        <tr ng-repeat="request in requests track by request._id" >
           <td>{{request.title}}</td>
           <td>{{request.tags}}</td>
           <td>{{request.description}}</td>
           <td>{{getExpiration(request.timestamp)}}</td>
-          <td><iframe ng-show="iFrame === 'true'" href="{{request._id}}"></iframe></td>
+          <td><iframe ng-show="frame" src="/request/view/56e12274553e2c065e237fb6"></iframe><a ng-click="frame = !frame"><button>Details</button></a></td>
         </tr>
       </tbody>
     </table>

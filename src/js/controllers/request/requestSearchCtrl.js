@@ -62,13 +62,5 @@ app.controller('requestSearchCtrl', function($scope) {
     return timeRemaining;
   };
 
-$scope.showIFrame = function() {
-  console.log("this", this.request);
-  let urlBody = "/request/view/" + this.request._id
-  console.log(urlBody)
-  this.request.iFrame = true;
-
-}
-
 init();
 });

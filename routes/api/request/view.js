@@ -6,7 +6,8 @@ const Request = require(global.models  + "/Request");
 
 router.get("/:id", User.isLoggedIn, function(req, res, next) {
   Request.findById(req.params.id)
-  .populate("bid user")
+  .populate("bid")
+  .populate("user", "username ratings")
   .exec((err, data) => {
     if(err) return res.status(400).send(err);
     res.send(data);
