@@ -1,5 +1,6 @@
 (function(){
   "use strict";
+  const colors        = require("ansi-256-colors");
   const bodyParser    = require("body-parser");
   const chalk         = require("chalk");
   const cookieParser  = require("cookie-parser");
