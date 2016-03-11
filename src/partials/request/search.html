@@ -31,10 +31,18 @@
           <td>{{request.tags}}</td>
           <td>{{request.description}}</td>
           <td>{{getExpiration(request.timestamp)}}</td>
-          <td><iframe ng-show="frame" src="/request/view/56e12274553e2c065e237fb6"></iframe><a ng-click="frame = !frame"><button>Details</button></a></td>
+          <td>
+            <button ng-click="showRequestDetails(request._id)" >Details</button>
+          </td>
         </tr>
       </tbody>
     </table>
     <button ng-if="pages.length > 1" ng-repeat="page in pages track by $index" ng-click="searchRequests($index+1)">{{$index+1}}</button>
   </div>
+</div>
+<div id="requestDetailsModal" class="reveal-modal" data-reveal>
+  <h2>{{request.title}}</h2>
+  <p><span ng-repeat="tag in request.tags track by $index">{{tag}} </span></p>
+  <p>{{request.description}}</p>
+  <a class="close-reveal-modal">&#215;</a>
 </div>

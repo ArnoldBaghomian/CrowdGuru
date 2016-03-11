@@ -2,11 +2,6 @@
 app.controller('requestSearchCtrl', function($scope) {
   "use strict";
   console.log("requestSearchCtrl");
-  let init = function() {
-    $scope.currentFilter = "asdf";
-    $scope.searchRequests(/\w+/);
-  };
-
 
   $scope.searchRequests = (page) => {
 
@@ -62,5 +57,15 @@ app.controller('requestSearchCtrl', function($scope) {
     return timeRemaining;
   };
 
-init();
+  $scope.showRequestDetails = (id) => {
+    $.get(`/api/request/view/${id}`, (data) => {
+      $scope.request = data;
+      $scope.$apply();
+      console.log($scope.request);
+      $("#requestDetailsModal").foundation("reveal", "open");
+      //modal.show();
+    })
+    .fail((err) => console.error(err));
+  };
+
 });
