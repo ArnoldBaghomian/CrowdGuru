@@ -5,7 +5,7 @@ const User = require(global.models + "/User");
 const Request = require(global.models + "/Request");
 
 
-router.get("/", User.isLoggedIn, function(req, res, next) {
+router.get("/", function(req, res, next) {
   "use strict";
   let searchObj = {};
   let filter = req.query.filter;

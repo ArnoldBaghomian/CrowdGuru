@@ -1,5 +1,5 @@
 // controller that will be called when new request page is loaded
-app.controller('requestSearchCtrl', function($scope) {
+app.controller('requestSearchCtrl', function($scope, $http) {
   "use strict";
   console.log("requestSearchCtrl");
 
@@ -16,14 +16,12 @@ app.controller('requestSearchCtrl', function($scope) {
       requestUrl += `&page=${page}`;
     }
 
-    $.get(requestUrl, (res) => {
-      $scope.requests = res.data;
-      console.log(res.data);
-      $scope.pages = new Array(+res.pages);
-
-      $scope.$apply();
-    })
-    .fail((err) => console.log(err));
+    $http.get(requestUrl).then((res) => {
+      $scope.requests = res.data.data;
+      $scope.pages = new Array(+res.data.pages);
+    }, (err) => {
+      return alert(err.data);
+    });
   };
 
   $scope.getExpiration = (timestamp) => {
@@ -58,14 +56,14 @@ app.controller('requestSearchCtrl', function($scope) {
   };
 
   $scope.showRequestDetails = (id) => {
-    $.get(`/api/request/view/${id}`, (data) => {
-      $scope.request = data;
-      $scope.$apply();
+    $http.get(`/api/request/view/${id}`).then((res) => {
+      $scope.request = res.data;
       console.log($scope.request);
       $("#requestDetailsModal").foundation("reveal", "open");
       //modal.show();
-    })
-    .fail((err) => console.error(err));
+    }, (err) => {
+    return alert(err.data);
+    });
   };
 
 });

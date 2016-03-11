@@ -1,7 +1,7 @@
 // controller that will be called when bid page is loaded
 // var app = angular.module("crowdGuru");
 
-app.controller("loginCtrl", function($scope, $state) {
+app.controller("loginCtrl", function($scope, $state, $http) {
   "use strict";
   console.log("loginCtrl");
 
@@ -15,14 +15,12 @@ app.controller("loginCtrl", function($scope, $state) {
     else {
       userData.username = $scope.user.login;
     }
-    $.post("/api/users/login", userData, (res) => {
+    $http.post("/api/users/login", userData).then((res) => {
       location.href = (Cookies("originalUrl") || "/users/profile");
       Cookies.expire("originalUrl");
-    }).error((err) => {
-      alert(err.responseText);
-      $("[ng-model='user.password']").val(null);
-      $scope.user.password = null;  //FIXME: this is not staying properly bound
-      $scope.$apply();
+    }, (err) => {
+      alert(err.data);
+      $scope.user.password = null;
     });
     console.log("login()");
   };

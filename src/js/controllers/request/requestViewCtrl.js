@@ -1,14 +1,20 @@
 // controller that will be called when new request page is loaded
-app.controller('requestViewCtrl', function($scope, $stateParams) {
+app.controller('requestViewCtrl', function($scope, $stateParams, $http) {
   "use strict";
   console.log("requestViewCtrl");
+
+  if(!Cookies("authToken")) {
+    Cookies("originalUrl", location.pathname);
+    $state.go("login");
+  }
+
   $scope.id = $stateParams.requestId;
-  $.get(`/api/request/view/${$stateParams.requestId}`, (data) => {
-    console.log("data:", data);
-    $scope.request = data;
-    $scope.$apply();
-  })
-  .fail((err) => console.error(err));
+  $http.get(`/api/request/view/${$stateParams.requestId}`).then((res) => {
+    console.log("res.data:", res.data);
+    $scope.request = res.data;
+  }, (err) => {
+    return alert(err.data);
+  });
 
   $scope.formatTimestamp = (timestamp) => {
     return moment(timestamp).format("hh:MM a ll");

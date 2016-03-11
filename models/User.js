@@ -69,13 +69,16 @@
   };
 
   userSchema.statics.isLoggedIn = function(req, res, next) {
-    let decodedToken;
+    let decodedToken, method = req.method;
+    if(method === "POST"){
+      console.log("POOOOOOOOOOOOOOOOOOOOOOOOOST");
+    }
     console.log(req.cookies.authToken);
     try {
       decodedToken = jwt.decode(req.cookies.authToken, JWT_SECRET);
     } catch (err) {
       res.cookie("originalUrl", req.originalUrl);
-      return res.status(400).redirect("/users/login");
+      return method === "POST" ? res.status(400).send("Please sign in to continue.") : res.status(400).redirect("/users/login");
     }
     console.log("Decoded Token:");
     console.log(decodedToken);

@@ -1,6 +1,11 @@
 app.controller("changePasswordCtrl", function($scope, $http, $state) {
   "use strict";
 
+  if(!Cookies("authToken")) {
+    Cookies("originalUrl", location.pathname);
+    $state.go("login");
+  }
+
   $scope.sendChangeRequest = () => {
     let passwords = $scope.passwords;
     if(!passwords.new || passwords.new != passwords.verify) {

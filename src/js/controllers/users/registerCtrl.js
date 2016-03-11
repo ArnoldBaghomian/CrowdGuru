@@ -1,7 +1,4 @@
-// controller that will be called when bid page is loaded
-// var app = angular.module("crowdGuru");
-
-app.controller("registerCtrl", function($scope, $state) {
+app.controller("registerCtrl", function($scope, $state, $http) {
   "use strict";
   console.log("registerCtrl");
   $scope.register = function() {
@@ -21,9 +18,11 @@ app.controller("registerCtrl", function($scope, $state) {
       alert("Something broke!");
     }
 
-    $.post("/api/users/register", userData, (res) => {
+    $http.post("/api/users/register", userData).then((res) => {
       console.log(res);
       $state.go("login");
-    }).error((err) => alert(err.responseText));
+    },(err) => {
+      alert(err.data);
+    });
   };
 });
