@@ -87,17 +87,17 @@
   };
 
   userSchema.methods.changePassword = function(passwords, cb) {
-    console.log("this:", this);
-    if(!passwords.newPassword) {
+    console.log("passwords:", passwords);
+    if(!passwords.new) {
       return cb("Must set new password");
     }
-    if(passwords.newPassword != passwords.verifyNewPassword) {
+    if(passwords.new != passwords.verify) {
       return cb("Passwords must match");
     }
-    bcrypt.compare(passwords.oldPassword, this.password, (err, correctPass) => {
+    bcrypt.compare(passwords.old, this.password, (err, correctPass) => {
       if(err) return cb(err);
       if(correctPass) {
-        bcrypt.hash(passwords.newPassword, 14, (err, hash) => {
+        bcrypt.hash(passwords.new, 14, (err, hash) => {
           if(err) return cb(err);
           this.password = hash;
           this.save((err, savedThis) => {
@@ -107,14 +107,13 @@
         });
       }
       else {
-        return cb("Incorrect Password");
+        return cb("Current password incorrect");
       }
     });
   };
 
   userSchema.statics.forgotPassword = function(userInfo, cb) {
-    let login = userInfo.login
-    let email;
+    let email, login = userInfo.login;
     console.log(userInfo.login);
     console.log(typeof userInfo.login);
     if(userInfo.login.includes("@")) {
@@ -125,7 +124,7 @@
       console.log(`Finding ${userInfo.login}...`);
       User.findOne({"username": userInfo.login}, (err, foundUser) => {
         if(err) return cb(err);
-        console.log(foundUser.email);
+        if(!foundUser) return cb("Account not found.");
         email = foundUser.email;
         sendMessage();
       });

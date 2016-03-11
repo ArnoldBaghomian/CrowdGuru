@@ -7,7 +7,7 @@
   </div>
   <div class="medium-6 large-5 columns">
     <h3>User Profile</h3>
-      
+
   </div>
   <hr>
 </div>
@@ -16,19 +16,19 @@
 <div class="row">
   <div class="small-10 pull-left small-1 small-left columns">
 
-    <form ng-submit="">
+    <form ng-submit="sendChangeRequest()">
       <div class="row column log-in-form">
         <h4 class="text-center">Change Password</h4>
-        <label>Existing Password
-          <input type="password" placeholder="*****" ng-model="user.password" required>
+        <label>Current Password
+          <input type="password" placeholder="*****" ng-model="passwords.old" required>
         </label>
          <label>New Password
-         <input type="password" placeholder="*****" ng-model="user.password" required>
+         <input type="password" placeholder="*****" ng-model="passwords.new" required>
         </label>
-         <label>Confirm Password
-         <input type="password" placeholder="*****" ng-model="user.password" required>
+         <label>Verify New Password
+         <input type="password" placeholder="*****" ng-model="passwords.verify" required>
         </label>
-    
+
         <button type="submit" class="button expanded">Submit New Password</button>
       </div>
     </form>

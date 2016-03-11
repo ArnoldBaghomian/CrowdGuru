@@ -33,6 +33,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     .state("changePassword", {
       url: "/users/password/change",
       templateUrl: "./partials/users/password/change.html",
+      controller: "changePasswordCtrl",
       data:{
         css: ["css/users/password/change.css"]
       }
