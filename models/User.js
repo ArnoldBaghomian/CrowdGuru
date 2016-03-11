@@ -137,6 +137,7 @@
         bcrypt.hash(passwords.new, 14, (err, hash) => {
           if(err) return cb(err);
           this.password = hash;
+          this.tempPassword = null;
           this.save((err, savedThis) => {
             if(err) return cb(err);
             cb(null, "Successfully changed password!");
