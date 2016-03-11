@@ -1,1 +1,6 @@
-<h1>Viewing request <span>{{id}}</span></h1>
+<!-- <h1>Viewing request <span>{{id}}</span></h1> -->
+<h1>{{request.title}}</h1>
+<h4>Requested by {{request.user.username}} at {{formatTimestamp(request.timestamp)}}</h4>
+<h4 ng-repeat="tag in request.tags track by $index">{{tag}}</h4>
+
+<h3>{{request.description}}</h3>
