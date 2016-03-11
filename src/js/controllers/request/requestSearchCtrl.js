@@ -2,7 +2,7 @@
 app.controller('requestSearchCtrl', function($scope) {
   "use strict";
   console.log("requestSearchCtrl");
-
+  var timeLeft;
   $scope.searchRequests = (page) => {
 
     if(!page){
@@ -38,6 +38,7 @@ app.controller('requestSearchCtrl', function($scope) {
       timeRemaining += `${daysRemaining} day`;
       if(daysRemaining > 1) {
         timeRemaining += "s";
+        timeLeft = timeRemaining;
       }
       timeSet = true;
     }
@@ -60,8 +61,9 @@ app.controller('requestSearchCtrl', function($scope) {
   $scope.showRequestDetails = (id) => {
     $.get(`/api/request/view/${id}`, (data) => {
       $scope.request = data;
+      $scope.request.timeLeft = timeLeft;
       $scope.$apply();
-      console.log($scope.request);
+      console.log("modal req: ",$scope.request);
       $("#requestDetailsModal").foundation("reveal", "open");
       //modal.show();
     })

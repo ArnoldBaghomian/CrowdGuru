@@ -42,7 +42,9 @@
 </div>
 <div id="requestDetailsModal" class="reveal-modal" data-reveal>
   <h2>{{request.title}}</h2>
-  <p><span ng-repeat="tag in request.tags track by $index">{{tag}} </span></p>
+  <h5 class="timeOut">{{request.timeLeft}} Left</h5>
   <p>{{request.description}}</p>
+  <p><h5>Tags:</h5><span ng-repeat="tag in request.tags track by $index">{{ " " + tag + " " }}</span></p>
   <a class="close-reveal-modal">&#215;</a>
+  <a ui-sref="profile"><button>Bid</button></a>
 </div>

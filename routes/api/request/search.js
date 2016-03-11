@@ -30,6 +30,11 @@ router.get("/", User.isLoggedIn, function(req, res, next) {
     };
     res.send(resObj);
   });
+
+
+
+
+
 });
 
 module.exports = router;
