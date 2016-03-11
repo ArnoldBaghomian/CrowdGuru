@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html ng-app='crowdGuru' ui-router-styles>
+<html ng-app="crowdGuru" ui-router-styles>
   <head>
     <title><%= title %></title>
     <base href="/">
 
-    <link rel='stylesheet' href="bower_components/foundation/css/foundation.min.css" />
+    <link rel="stylesheet" href="bower_components/foundation/css/foundation.min.css" />
     <link rel="stylesheet" href="bower_components/foundation-icon-fonts/foundation-icons.css">
-    <link rel='stylesheet' href='css/index.css' />
+    <link rel="stylesheet" href="css/index.css" />
 
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
@@ -14,9 +14,8 @@
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/foundation/js/foundation.min.js"></script>
     <script src="bower_components/cookies-js/dist/cookies.min.js"></script>
-
+    <script src="bower_components/moment/min/moment.min.js"></script>
     <script src="js/bundle.js"></script>
-
 
   </head>
   <body>
@@ -26,24 +25,33 @@
         <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
         <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
       </ul>
-      <div class="logo">
-        <img ui-sref="splash" src="http://zurb.com/stickers/images/intro-foundation.png"/>
+
+      <div  class="logo">
+        <img ui-sref="splash" src="images/crowdGuruIcon.png"/>
       </div>
       <section class="top-bar-section">
         <!-- Right Nav Section -->
         <ul class="center-buttons">
-          <li class="divider"></li>
-          <li><a ui-sref="profile">Profile</a></li>
-          <li class="divider"></li>
-          <li><a ui-sref="request">Bid Search</a></li>
-          <li class="divider"></li>
-          <li><a ui-sref="gurubid">Request Guru</a></li>
-          <li class="divider"></li>
+          <!-- <li class="divider"></li> -->
+          <li><a class="full-buttons" ui-sref="profile">Profile</a></li>
+          <!-- <li class="divider"></li> -->
+          <li><a class="full-buttons" ui-sref="requestSearch">Request Search</a></li>
+          <!-- <li class="divider"></li> -->
+          <li><a class="full-buttons" ui-sref="requestNew">Request a Guru</a></li>
+          <!-- <li class="divider"></li> -->
+          <li><a class="full-buttons" ui-sref="register">Register</a></li>
+          <!-- <li class="divider"></li> -->
         </ul>
       </section>
     </nav>
 
 
     <ui-view></ui-view>
+
+    <script>
+  $(document).foundation();
+</script>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:500">
   </body>
 </html>

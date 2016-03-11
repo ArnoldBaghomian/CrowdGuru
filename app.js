@@ -1,5 +1,6 @@
 (function(){
   "use strict";
+  const colors        = require("ansi-256-colors");
   const bodyParser    = require("body-parser");
   const chalk         = require("chalk");
   const cookieParser  = require("cookie-parser");
@@ -8,12 +9,17 @@
   const path          = require("path");
   // const favicon = require("serve-favicon");
 
+  global.models = path.resolve(__dirname + "/models");
+
   const app = express();
 
   const mongoose = require("mongoose");
   const mongoUrl = process.env.MLAB_URI || "mongodb://localhost/CrowdGuru";
+
+  let mongoConnectMsg = process.env.MLAB_URI ? "." : chalk.cyan(` ${mongoUrl}`);
+  
   mongoose.connect(mongoUrl, function(err) {
-    console.log(err || `${chalk.blue.bold("Connected to MongoDB:")} ${chalk.cyan.bold(mongoUrl)}`);
+    console.log(err ? chalk.red(err) : chalk.blue.bold(`Connected to MongoDB${mongoConnectMsg}`));
   });
 
   // view engine setup
@@ -27,7 +33,7 @@
   app.use(cookieParser());
   app.use(express.static(path.join(__dirname, "public")));
 
-  app.use("/users", require("./routes/users"));
+  app.use("/api", require("./routes/api"));
   app.all("/*", function(req, res, next) {
     res.render("index", { title: "CrowdGuru" });
   });

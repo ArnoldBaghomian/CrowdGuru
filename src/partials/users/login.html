@@ -3,16 +3,17 @@
 
     <form ng-submit="login()">
       <div class="row column log-in-form">
-        <h4 class="text-center">Login with you email account</h4>
+        <h4 class="text-center">Login</h4>
         <label>Email or Username
-          <input type="text" placeholder="CrowdGuru@cg.com" ng-model="user.login" required>
+          <input type="text" ng-model="user.login" required>
         </label>
          <label>Password
-         <input type="password" placeholder="*****" ng-model="user.password" required>
+         <input type="{{showPassword ? 'text' : 'password'}}" ng-model="user.password" required>
         </label>
-        <input id="show-password" type="checkbox"><label for="show-password">Show password</label>
+        <input type="checkbox" ng-model="showPassword"><label for="show-password">Show password</label>
         <button type="submit" class="button expanded">Log In</button>
-        <p class="text-center"><a href="#">Forgot your password?</a></p>
+        <p class="text-center"><a ui-sref="forgotPassword">Forgot your password?</a></p>
+        <p class="text-center"><a ui-sref="register">New to CrowdGuru?</a></p>
       </div>
     </form>
 

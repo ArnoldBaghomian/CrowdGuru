@@ -10,44 +10,76 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         css: ["css/splash.css"]
       }
     })
-    .state("request", {
-      url: "/request",
-      templateUrl: "./partials/requestPage.html",
-      data:{
-        css: ["css/request.css"]
-      }
-    })
-    .state("bid", {
-      url: "/bid",
-      templateUrl: "./partials/bidPage.html"
-    })
-    .state("gurubid", {
-      url: "/requestguru",
-      templateUrl: "./partials/guruBidPage.html"
-    })
-    .state("register", {
-      url: "/users/register",
-      templateUrl: "./partials/users/register.html",
-        data:{
-        css: ["css/register.css"]
-      },
-      controller: "registerCtrl"
+    .state("bidView", {
+      url: "/bid/view/{bidId}",
+      templateUrl: "./partials/bid/view.html"
     })
     .state("login", {
       url: "/users/login",
       templateUrl: "./partials/users/login.html",
-       data:{
-        css: ["css/login.css"]
+      data:{
+        css: ["css/users/login.css"]
       },
       controller: "loginCtrl"
     })
     .state("profile", {
       url: "/users/profile",
       templateUrl: "./partials/profilePage.html",
+      data:{
+        css: ["css/users/profile.css"]
+      },
       controller: "profileCtrl"
+    })
+    .state("changePassword", {
+      url: "/users/password/change",
+      templateUrl: "./partials/users/password/change.html",
+      controller: "changePasswordCtrl",
+      data:{
+        css: ["css/users/password/change.css"]
+      }
+    })
+    .state("forgotPassword", {
+      url: "/users/password/forgot",
+      templateUrl: "./partials/users/password/forgot.html",
+      controller: "forgotPasswordCtrl"
+    })
+    .state("register", {
+      url: "/users/register",
+      templateUrl: "./partials/users/register.html",
+      data:{
+        css: ["css/users/register.css"]
+      },
+      controller: "registerCtrl"
+    })
+    .state("requestNew", {
+      url: "/request/new",
+      templateUrl: "./partials/request/new.html",
+      controller: "requestNewCtrl"
+    })
+    .state("requestSearch", {
+      url: "/request/search",
+      templateUrl: "./partials/request/search.html",
+      data:{
+        css: ["css/request.css"]
+      },
+      controller: "requestSearchCtrl"
+    })
+    .state("requestView", {
+      url: "/request/view/{requestId}",
+      templateUrl: "./partials/request/view.html",
+      controller: "requestViewCtrl"
     });
   $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise("/");
 });
 
-// app.use("statics or something", "public")
+app.config(function($provide) {
+  $provide.decorator("$exceptionHandler", function($delegate) {
+    return function(exception, cause) {
+      $delegate(exception, cause);
+      setTimeout(function() {
+        throw exception;
+      });
+    };
+  });
+});

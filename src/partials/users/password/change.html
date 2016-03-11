@@ -1,0 +1,37 @@
+<h1 class="small-9 pull-left small-2 small-centered columns">Change Password</h1>
+
+<div class="row">
+  <div class="medium-6 columns">
+    <img class="thumbnail" src="images/gammasquadsquirtlechomp.jpg">
+
+  </div>
+  <div class="medium-6 large-5 columns">
+    <h3>User Profile</h3>
+
+  </div>
+  <hr>
+</div>
+
+
+<div class="row">
+  <div class="small-10 pull-left small-1 small-left columns">
+
+    <form ng-submit="sendChangeRequest()">
+      <div class="row column log-in-form">
+        <h4 class="text-center">Change Password</h4>
+        <label>Current Password
+          <input type="password" placeholder="*****" ng-model="passwords.old" required>
+        </label>
+         <label>New Password
+         <input type="password" placeholder="*****" ng-model="passwords.new" required>
+        </label>
+         <label>Verify New Password
+         <input type="password" placeholder="*****" ng-model="passwords.verify" required>
+        </label>
+
+        <button type="submit" class="button expanded">Submit New Password</button>
+      </div>
+    </form>
+
+  </div>
+</div>

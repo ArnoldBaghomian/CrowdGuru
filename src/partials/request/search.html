@@ -1,0 +1,48 @@
+
+<!-- <h1>Request Page</h1>
+<h3><a ui-sref="bid">To Bid page</a></li> </h3>
+<br>
+<h3><a ui-sref="splash">Back to Splash</a></h3>
+ -->
+
+
+ <h2 id="searchHeader">Prupose Your Next Request!</h2>
+ <form class="form-group" ng-submit="searchRequests()">
+       <label for="filter">Search:</label>
+       <input id="searchinput"  ng-model="filterText" class="form-control", type="text", id="filter">
+       <button>Search</button>
+  </form>
+<div class="aboveHeader" class="row" id="content">
+  <div class="small-10 small-offset-1 columns">
+    <button ng-if="pages.length > 1" ng-repeat="page in pages track by $index" ng-click="searchRequests($index+1)">{{$index+1}}</button>
+    <table class="tablesize">
+      <thead>
+        <tr>
+          <th width="160">Title</th>
+          <th width="160">Tags</th>
+          <th width="160">Description</th>
+          <th width="160">Time Remaining</th>
+          <th width="160">Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="request in requests track by request._id" >
+          <td>{{request.title}}</td>
+          <td>{{request.tags}}</td>
+          <td>{{request.description}}</td>
+          <td>{{getExpiration(request.timestamp)}}</td>
+          <td>
+            <button ng-click="showRequestDetails(request._id)" >Details</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button ng-if="pages.length > 1" ng-repeat="page in pages track by $index" ng-click="searchRequests($index+1)">{{$index+1}}</button>
+  </div>
+</div>
+<div id="requestDetailsModal" class="reveal-modal" data-reveal>
+  <h2>{{request.title}}</h2>
+  <p><span ng-repeat="tag in request.tags track by $index">{{tag}} </span></p>
+  <p>{{request.description}}</p>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
