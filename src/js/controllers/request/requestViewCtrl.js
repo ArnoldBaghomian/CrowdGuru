@@ -11,6 +11,6 @@ app.controller('requestViewCtrl', function($scope, $stateParams) {
   .fail((err) => console.error(err));
 
   $scope.formatTimestamp = (timestamp) => {
-    return moment(timestamp).format("hh:MM a ll")
-  }
+    return moment(timestamp).format("hh:MM a ll");
+  };
 });
