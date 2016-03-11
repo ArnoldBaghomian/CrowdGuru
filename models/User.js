@@ -113,15 +113,17 @@
   };
 
   userSchema.statics.forgotPassword = function(userInfo, cb) {
+    let login = userInfo.login
     let email;
-    console.log(userInfo);
-    if(userInfo.email) {
-      email = userInfo.email;
+    console.log(userInfo.login);
+    console.log(typeof userInfo.login);
+    if(userInfo.login.includes("@")) {
+      email = userInfo.login;
       sendMessage();
     }
     else {
-      console.log(`Finding ${userInfo.username}...`);
-      User.findOne({"username": userInfo.username}, (err, foundUser) => {
+      console.log(`Finding ${userInfo.login}...`);
+      User.findOne({"username": userInfo.login}, (err, foundUser) => {
         if(err) return cb(err);
         console.log(foundUser.email);
         email = foundUser.email;
