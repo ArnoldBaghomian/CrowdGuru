@@ -11,19 +11,19 @@ app.controller('requestSearchCtrl', function($scope) {
   $scope.searchRequests = (page) => {
 
     if(!page){
-      console.log('hit !page')
+      console.log('hit !page');
       $scope.currentFilter = $scope.filterText;
-      console.log($scope.currentFilter)
+      console.log($scope.currentFilter);
     }
     let requestUrl = `/api/request/search?filter=${$scope.currentFilter}`;
     if(page) {
-      console.log('hit page')
+      console.log('hit page');
       requestUrl += `&page=${page}`;
     }
 
     $.get(requestUrl, (res) => {
       $scope.requests = res.data;
-      console.log(res.data)
+      console.log(res.data);
       $scope.pages = new Array(+res.pages);
 
       $scope.$apply();
