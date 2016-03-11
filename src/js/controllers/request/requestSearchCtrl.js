@@ -2,16 +2,28 @@
 app.controller('requestSearchCtrl', function($scope) {
   "use strict";
   console.log("requestSearchCtrl");
+  let init = function() {
+    $scope.currentFilter = "asdf";
+    $scope.searchRequests(/\w+/);
+  };
+
+
   $scope.searchRequests = (page) => {
+
     if(!page){
+      console.log('hit !page')
       $scope.currentFilter = $scope.filterText;
+      console.log($scope.currentFilter)
     }
     let requestUrl = `/api/request/search?filter=${$scope.currentFilter}`;
     if(page) {
+      console.log('hit page')
       requestUrl += `&page=${page}`;
     }
+
     $.get(requestUrl, (res) => {
       $scope.requests = res.data;
+      console.log(res.data)
       $scope.pages = new Array(+res.pages);
 
       $scope.$apply();
@@ -49,4 +61,14 @@ app.controller('requestSearchCtrl', function($scope) {
     }
     return timeRemaining;
   };
+
+$scope.showIFrame = function() {
+  console.log("this", this.request);
+  let urlBody = "/request/view/" + this.request._id
+  console.log(urlBody)
+  this.request.iFrame = true;
+
+}
+
+init();
 });
