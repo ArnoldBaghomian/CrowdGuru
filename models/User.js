@@ -82,17 +82,17 @@
   };
 
   userSchema.statics.register = function(req, res, next) {
-    User.findOne({ email: req.body.email }, (err, foundUser) => {
+    User.findOne({ email: req.body.email.toLowerCase() }, (err, foundUser) => {
       if(err) return res.status(400).send(err);
       if(foundUser) return res.status(400).send("E-Mail is already in use.");
 
-      User.findOne({ username: req.body.username }, (err, foundUser) => {
+      User.findOne({ username: req.body.username.toLowerCase() }, (err, foundUser) => {
         if(err) return res.status(400).send(err);
         if(foundUser) return res.status(400).send("Username is already in use.");
 
         bcrypt.hash(req.body.password, 14, (err, hash) => {
           var newUser = new User();
-          newUser.email = req.body.email;
+          newUser.email = req.body.email.toLowerCase();
           newUser.username = req.body.username.toLowerCase();
           newUser.styledUsername = req.body.username;
           newUser.password = hash;
