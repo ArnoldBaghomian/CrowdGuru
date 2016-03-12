@@ -16,8 +16,8 @@ app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams,
       $scope.requests = res.data.requests;
       $scope.bids = res.data.bids;
       $scope.ratings = res.data.ratings;
-      $scope.gravitarURL = "http://www.gravatar.com/avatar/" + md5.createHash(res.data.email || "")
-      console.log("gravURL", $scope.gravitarURL )
+      $scope.gravitarURL = "http://www.gravatar.com/avatar/" + md5.createHash(res.data.email || "");
+      console.log("gravURL", $scope.gravitarURL );
       console.log("RES: ", $scope);
     }, (err) => {
       return console.log(err);
