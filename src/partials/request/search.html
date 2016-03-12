@@ -46,5 +46,5 @@
   <p>{{request.description}}</p>
   <p><h5>Tags:</h5><span ng-repeat="tag in request.tags track by $index">{{ " " + tag + " " }}</span></p>
   <a class="close-reveal-modal">&#215;</a>
-  <a ui-sref="profile"><button>Bid</button></a>
+  <a ng-click="newBid(request._id)" class="close-reveal-modal"><button>Bid</button></a>
 </div>

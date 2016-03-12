@@ -1,5 +1,5 @@
 // controller that will be called when splash page is loaded
-app.controller('navCtrl', function($scope, $state, jwtHelper) {
+app.controller("navCtrl", function($scope, $state, jwtHelper) {
   "use strict";
   let authTokenPresent = true;
   if(!Cookies.get("authToken")) {

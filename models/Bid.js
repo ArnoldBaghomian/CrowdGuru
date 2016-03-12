@@ -4,12 +4,11 @@
 
   //big schema that sends to bid object in User schema.
   let bidSchema = mongoose.Schema({
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    request: { type: mongoose.Schema.Types.ObjectId, ref: "Request" },
-    description: {type: String },
-    price: { type: Number },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    request: { type: mongoose.Schema.Types.ObjectId, ref: "Request", required: true },
+    description: {type: String, required: true },
+    title: { type: String, required: true },
     timeStamp: { type: Date, default: Date.now() }
-
   });
 
 
