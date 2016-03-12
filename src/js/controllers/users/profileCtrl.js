@@ -15,18 +15,20 @@ app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams,
     $scope.requests = res.data.requests;
     $scope.bids = res.data.bids;
     $scope.ratings = res.data.ratings;
+    $scope.email = res.data.email;
 
     console.log("RES: ", res);
+
   }, (err) => {
     return console.log(err);
   });
 
-    $http.get().then((res) => {
+  /*  $http.get().then((res) => {
 
       console.log("RES: ", $scope);
     }, (err) => {
       return console.log(err);
-    });
+    });*/
 
 
   $scope.showReq = function() {
