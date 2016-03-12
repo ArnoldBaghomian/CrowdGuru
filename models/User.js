@@ -24,7 +24,7 @@
 
   userSchema.statics.login = function(req, res, next) {
     console.log(req.body);
-    let userLogin = req.body.email ? { email: req.body.email } : { username: req.body.username };
+    let userLogin = req.body.email ? { email: req.body.email } : { username: req.body.username.toLowerCase() };
     let loginType = req.body.email ? "E-Mail" : "Username";
     User.findOne(userLogin, (err, user) => {
       if(err || !user)return res.status(400).send(`No user found with this ${loginType}`);
