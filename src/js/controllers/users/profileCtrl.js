@@ -14,7 +14,7 @@ app.controller("profileCtrl", function($state, $scope, $rootScope) {
     $scope.guruToggle = false;
     $scope.reqToggle = true;
     $scope.showSuccessAlert = true;
-    $scope.alertMessage = "ALERT you clicked requests!!"
+    $scope.alertMessage = "ALERT you clicked requests!!";
   };
 
   $scope.showGuru = function() {
@@ -23,7 +23,7 @@ app.controller("profileCtrl", function($state, $scope, $rootScope) {
     $scope.guruToggle = true;
     $scope.reqToggle = false;
     $scope.showSuccessAlert = true;
-    $scope.alertMessage = "ALERT you clicked gurus!!"
+    $scope.alertMessage = "ALERT you clicked gurus!!";
   };
 
   console.log("profileCtrl");
