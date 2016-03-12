@@ -10,7 +10,7 @@
   router.get("/:userId", (req, res, next) => {
     console.log(`Looking for user: ${req.params.userId}`);
     User.findById(req.params.userId)
-    .select("-password -email -__v")
+    .select("-password -__v")
     .populate("ratings bids requests")
     .exec((err, data) => {
       if(err) return res.status(400).send(err);
