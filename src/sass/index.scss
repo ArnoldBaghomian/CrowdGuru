@@ -38,3 +38,23 @@
 .full-buttons {
   height: 70px;
 }
+
+// body {
+//   min-height: 100vh;
+// }
+
+#contact{
+    background: #fff;
+    padding-bottom: 30px;
+    border-top: 1px solid black;
+    bottom: 0px;
+    position: fixed;
+    width: 100vw;
+    li {
+      display: inline-block;
+    }
+}
+
+#contact li>ul>li{
+    padding: 5px 0;
+}

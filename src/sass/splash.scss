@@ -20,48 +20,22 @@
     margin-bottom: 15px;
 }
 
-// .contain-to-grid {
-//     background: #eaeaea;
-// }
 
-// .name{
-//     background: #5a9aa8;
-//     padding: 5px 30px;
-//     height: 60px;
-// }
-
-// .active{
-//     text-decoration: underline;
-//     font-weight: bold;
-// }
-
-// .row:before {
-//   display: block;
-//   content: " ";
-//   margin-top: -90px;
-//   height: 90px;
-//   visibility: hidden;
-
-// }
 
 section{
   &#about{
-    padding-bottom: 120px;
+    padding-bottom: 100px;
+    border: 1px solid black;
+    background: #E8E8E8;
+  }
+  &#aboutOne{
+    padding-bottom: 100px;
+    border: 1px solid black;
+    
   }
   &#portfolio{
-    padding-bottom: 120px;
+    padding-bottom: 100px;
   }
-  &#contact{
-    padding-bottom: 120px;
-  }
-}
-#contact{
-    background: #fff;
-    padding-bottom: 30px;
-}
-
-#contact li>ul>li{
-    padding: 5px 0;
 }
 
 
@@ -107,11 +81,6 @@ ul, ol, dl {
     margin: 0 auto;
 }
 
-footer {
-  max-height: 20vh;
-  overflow: hidden;
-}
-
 p {
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
@@ -122,6 +91,38 @@ p {
 
 .medium {
   border-radius:7px;
-  font-size: 20px;
-  margin-top:60px;
+  font-size: 16px;
+  margin-top:120px;
+}
+
+.whatWeDo{
+  padding-top:15px;
+
+}
+
+.whatWeDoText{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 17px;
+  line-height: 20px;
+}
+
+.whatWeDoHeader{
+  color: #008CBA
+}
+
+.img-circle {
+    border-radius: 50%; 
+}
+
+#imageOne{
+  padding-top: 100px;
+}
+
+.imageOneLineSpacing{
+  line-height: 40px;
+}
+
+.circles{
+  padding-top: 30px;
 }
