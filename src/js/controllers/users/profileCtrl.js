@@ -7,15 +7,15 @@ app.controller("profileCtrl", function($state, $scope, $rootScope) {
     $state.go("login");
   }
   $rootScope.Req = true;
-
-    $scope.showReq = function() {
+  console.log("Scope: ", $scope)
+/*    $scope.showReq = function() {
     $scope.Guru = false;
     $scope.Req = true;
     $scope.guruToggle = false;
     $scope.reqToggle = true;
     $scope.showSuccessAlert = true;
     $scope.alertMessage = "ALERT you clicked requests!!";
-  };
+  };  */
 
   $scope.showGuru = function() {
     $scope.Guru = true;
@@ -28,19 +28,17 @@ app.controller("profileCtrl", function($state, $scope, $rootScope) {
 
   console.log("profileCtrl");
 
-/*
-  $scope.showReq = (page) => {
-    console.log("scope: ", $scope);
-    let requestUrl = `/api/request/search?filter=${$scope.currentFilter}`;
 
-    $.get(requestUrl, (res) => {   If this were changed to $http.get, we would not need $scope.$apply()
-        $scope.requests = res.data;
-        console.log(res.data);
 
-        $scope.$apply();
+let requestUrl = `/api/request/search?filter=${}`;
+    $.get(requestUrl, (res) => {
+      $scope.requests = res.data;
+        console.log("RES: ",res.data);
+
+
         console.log("get: ", res.data);
       })
       .fail((err) => console.log(err));
-  }; */
+
 
 });
