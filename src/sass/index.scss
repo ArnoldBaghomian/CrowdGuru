@@ -48,6 +48,21 @@
   height: 70px;
 }
 
+#contact{
+    background: #fff;
+    border-top: 1px solid black;
+    bottom: 0px;
+    position: fixed;
+    width: 100vw;
+    li {
+      display: inline-block;
+    }
+}
+
+#contact li>ul>li{
+    padding: 5px 0;
+}
+
 .alert-box {
   width: 50vw;
   height: 16vh;

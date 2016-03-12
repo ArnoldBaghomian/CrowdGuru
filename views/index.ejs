@@ -22,12 +22,14 @@
   <script src="bower_components/foundation/js/foundation.min.js"></script>
   <script src="bower_components/cookies-js/dist/cookies.min.js"></script>
   <script src="bower_components/moment/min/moment.min.js"></script>
+  <script src="bower_components/angular-md5/angular-md5.js"></script>
   <script src="js/bundle.js"></script>
 
 </head>
+
 <body ng-controller="appCtrl">
 
-  <nav class="top-bar" data-topbar ng-controller="navCtrl">
+   <nav class="top-bar" data-topbar ng-controller="navCtrl">
     <ul class="title-area">
       <li>
         <div class="logo">
@@ -49,9 +51,6 @@
       </ul>
     </section>
   </nav>
-
-
-
 
   <ui-view></ui-view>
 
@@ -83,6 +82,29 @@
     </div>
 
   </div>
+
+  <footer id="contact">
+      <ul class="row">
+        <li class="small-3 columns">
+          <h3>ZRA</h3>
+          <p>Founders of CrowdGuru</p>
+        </li>
+        <li class="small-3 columns">
+          <h3>Become a Guru</h3>
+         <a ui-sref="register">Register Now</a>
+        </li>
+        <li class="small-3 columns">
+          <h3>Contact Us</h3>
+          <p>crowdguru@cg.com</p>
+        </li>
+        <li class="small-3 columns">
+          <h3>Social Media</h3>
+       <i class="fi-social-facebook"></i>
+       <i class="fi-social-linkedin"></i>
+       <i class="fi-social-twitter"></i>
+        </li>
+      </ul>
+  </footer>
 
   <script>
     $(document).foundation();

@@ -36,7 +36,7 @@
           let authData = {};
           authData.timestamp = Date.now();
           authData.username = user.username;
-          authData.email = user.email;
+          authData.email = user.email.toLowerCase();
           authData._id = user._id;
           let authToken = jwt.encode(authData, JWT_SECRET);
           if(user.tempPassword){
@@ -92,7 +92,7 @@
 
         bcrypt.hash(req.body.password, 14, (err, hash) => {
           var newUser = new User();
-          newUser.email = req.body.email;
+          newUser.email = req.body.email.toLowerCase();
           newUser.username = req.body.username.toLowerCase();
           newUser.styledUsername = req.body.username;
           newUser.password = hash;
