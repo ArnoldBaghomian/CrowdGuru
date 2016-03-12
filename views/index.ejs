@@ -11,6 +11,7 @@
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="bower_components/angular-ui-router-styles/ui-router-styles.js"></script>
+    <script src="bower_components/angular-jwt/dist/angular-jwt.min.js"></script>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/foundation/js/foundation.min.js"></script>
     <script src="bower_components/cookies-js/dist/cookies.min.js"></script>
@@ -18,9 +19,9 @@
     <script src="js/bundle.js"></script>
 
   </head>
-  <body>
+  <body ng-controller="appCtrl">
 
-    <nav class="top-bar" data-topbar>
+    <nav class="top-bar" data-topbar ng-controller="navCtrl">
       <ul class="title-area">
         <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
         <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
@@ -32,15 +33,12 @@
       <section class="top-bar-section">
         <!-- Right Nav Section -->
         <ul class="center-buttons">
-          <!-- <li class="divider"></li> -->
           <li><a class="full-buttons" ui-sref="profile">Profile</a></li>
-          <!-- <li class="divider"></li> -->
           <li><a class="full-buttons" ui-sref="requestSearch">Request Search</a></li>
-          <!-- <li class="divider"></li> -->
           <li><a class="full-buttons" ui-sref="requestNew">Request a Guru</a></li>
-          <!-- <li class="divider"></li> -->
-          <li><a class="full-buttons" ui-sref="register">Register</a></li>
-          <!-- <li class="divider"></li> -->
+          <li><a class="full-buttons" ng-if="!loggedIn" ui-sref="register">Register</a></li>
+          <li><a class="full-buttons" ng-if="!loggedIn" ui-sref="login">Login</a></li>
+          <li><a class="full-buttons" ng-if="loggedIn" ng-click="logout()">Logout</a></li>
         </ul>
       </section>
     </nav>
