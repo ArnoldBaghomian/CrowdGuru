@@ -7,7 +7,7 @@
   const express       = require("express");
   const logger        = require("morgan");
   const path          = require("path");
-  // const favicon = require("serve-favicon");
+  const favicon       = require("serve-favicon");
 
   global.models = path.resolve(__dirname + "/models");
 
@@ -17,7 +17,7 @@
   const mongoUrl = process.env.MLAB_URI || "mongodb://localhost/CrowdGuru";
 
   let mongoConnectMsg = process.env.MLAB_URI ? "." : chalk.cyan(` ${mongoUrl}`);
-  
+
   mongoose.connect(mongoUrl, function(err) {
     console.log(err ? chalk.red(err) : chalk.blue.bold(`Connected to MongoDB${mongoConnectMsg}`));
   });
@@ -26,7 +26,7 @@
   app.set("views", path.join(__dirname, "views"));
   app.set("view engine", "ejs");
 
-  //app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
+  app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
   app.use(logger("dev"));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));

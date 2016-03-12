@@ -1,21 +1,24 @@
-// larger screen styles
-//HEADER ON TOP CSS//
-@media only screen and (min-width: 40em) {
-  .top-bar {
-    text-align: center;
-  }
-  .logo {
-    position: absolute;
+.title-area {
+  .menu-icon {
+    //This keeps the menu button on top of the dropdown options
+    z-index: 1000;
   }
 }
+
 .top-bar-section {
   display: inline-block;
+  height: 100%;
 }
 // some mobile resets
 .logo {
-  max-width: 12rem;
-  margin-top: -2px;
-  margin-left: 5px;
+  width: 60px;
+  height: 60px;
+  margin: 5px 5px 5px 5px;
+  //This keeps the logo above the backgound of the profile entry of the navbar
+  z-index: 1000;
+  position: absolute;
+  left: 0px;
+  top: 0px;
   &:hover {
     cursor: pointer;
   }
@@ -26,11 +29,17 @@
 .top-bar.expanded {
   background: #333333;
 }
-.top-bar-section ul li>a {
-  font-size: 19px;
+
+#navbar_items ul li {
+  height: 100%;
+  a {
+    font-size: 19px;
+    padding-bottom: 15px;
+  }
 }
 .top-bar {
   height: 70px;
+  text-align: center;
 }
 .top-bar-section li:not(.has-form) a:not(.button){
   padding-top: 10px;
@@ -49,4 +58,31 @@
   position: fixed;
   font-size: 3vh;
 
+}
+
+@media (max-width:725px) {
+  .logo {
+    display: none;
+  }
+}
+
+@media (max-width:640px) {
+  .logo {
+    display: inline-block;
+    width: 42px;
+    height: 42px;
+  }
+  .top-bar-section {
+    ul {
+      li {
+        width: 100vw;
+        &:first-of-type {
+          margin-top: 52px;
+        }
+      }
+    }
+  }
+  .top-bar {
+    height: 52px;
+  }
 }
