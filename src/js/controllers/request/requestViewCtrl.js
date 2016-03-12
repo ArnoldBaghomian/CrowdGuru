@@ -1,5 +1,5 @@
 // controller that will be called when new request page is loaded
-app.controller('requestViewCtrl', function($scope, $stateParams, $http) {
+app.controller("requestViewCtrl", function($scope, $stateParams, $http) {
   "use strict";
   console.log("requestViewCtrl");
 

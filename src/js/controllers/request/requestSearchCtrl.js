@@ -1,19 +1,19 @@
 // controller that will be called when new request page is loaded
-app.controller('requestSearchCtrl', function($scope, $http, jwtHelper) {
+app.controller("requestSearchCtrl", function($scope, $state, $http, jwtHelper) {
   "use strict";
   console.log("requestSearchCtrl");
   let timeLeft;
   $scope.searchRequests = (page) => {
 
     if(!page){
-      console.log('hit !page');
+      console.log("hit !page");
       $scope.currentFilter = $scope.filterText;
       console.log($scope.currentFilter);
     }
     let currentUser = jwtHelper.decodeToken(Cookies.get("authToken"))._id;
     let requestUrl = `/api/request/search?filter=${$scope.currentFilter}&user=${currentUser}`;
     if(page) {
-      console.log('hit page');
+      console.log("hit page");
       requestUrl += `&page=${page}`;
     }
 
@@ -72,5 +72,10 @@ app.controller('requestSearchCtrl', function($scope, $http, jwtHelper) {
     return alert(err.data);
     });
   };
-  console.log('Scope: ', $scope);
+
+  $scope.newBid = (requestId) => {
+    $state.go("bidNew", {requestId: requestId});
+  };
+  
+  console.log("Scope: ", $scope);
 });
