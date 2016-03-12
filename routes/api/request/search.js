@@ -11,12 +11,17 @@ router.get("/", function(req, res, next) {
   let filter = req.query.filter;
   let pages;
 
-  let matchCount = Request.count({ $text: {$search: filter} }, (err, count) => {
+  let query = {
+      $text: { $search: filter },
+      userId: { $ne: req.query.user }
+  };
+
+  let matchCount = Request.count(query, (err, count) => {
     if(err) return res.status(400).send(err);
     pages = Math.ceil(count/20);
   });
 
-  let filteredRequests = Request.find({ $text: {$search: filter} })
+  let filteredRequests = Request.find(query)
   .sort({timestamp: 1})
   .skip(req.query.page ? 20*(req.query.page-1) : 0)
   .limit(20)
@@ -28,13 +33,8 @@ router.get("/", function(req, res, next) {
       data,
       pages
     };
-    res.send(resObj);
+    return res.send(resObj);
   });
-
-
-
-
-
 });
 
 module.exports = router;
