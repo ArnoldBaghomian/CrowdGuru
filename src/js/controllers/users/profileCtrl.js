@@ -16,10 +16,17 @@ app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams,
     $scope.bids = res.data.bids;
     $scope.ratings = res.data.ratings;
 
-    console.log("RES: ", $scope);
+    console.log("RES: ", res);
   }, (err) => {
     return console.log(err);
   });
+
+    $http.get().then((res) => {
+
+      console.log("RES: ", $scope);
+    }, (err) => {
+      return console.log(err);
+    });
 
 
   $scope.showReq = function() {
