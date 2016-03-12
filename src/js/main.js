@@ -23,7 +23,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       controller: "loginCtrl"
     })
     .state("profile", {
-      url: "/users/profile",
+      url: "/users/profile?userId",
       templateUrl: "./partials/profilePage.html",
       data:{
         css: ["css/users/profile.css"]

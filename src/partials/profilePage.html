@@ -6,7 +6,7 @@
 
   </div>
   <div class="medium-6 large-5 columns">
-    <h3>User Profile</h3>
+    <h3>{{userProfile.styledUsername}}</h3>
     <p class="aboutMe">I Make money for you </p>
 
 
@@ -86,10 +86,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>today</td>
-          <td>My Bids</td>
-          <td>Open</td>
+        <tr ng-repeat = "request in requests track by $index">
+          <td>{{request.timestamp}}</td>
+          <td>{{request.title}}</td>
+          <td>{{request.description}}</td>
         </tr>
 
       </tbody>
