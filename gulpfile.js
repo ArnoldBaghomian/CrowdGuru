@@ -30,6 +30,7 @@
       images: "images/**/*",
       js: "js/**/*.js",
       sass: "sass/**/*.scss",
+      favicon: "favicon.ico"
     }
   };
 
@@ -56,6 +57,15 @@
   //Empites the public/bower_components directory
   gulp.task("clean-bower_components", (cb) => {
     rimraf("public/bower_components", cb);
+  });
+
+  gulp.task("clean-favicon", (cb) => {
+    rimraf("public/favicon.ico", cb);
+  });
+
+  gulp.task("favicon", ["clean-favicon"], () => {
+    return gulp.src(`${config.paths.src}/${config.paths.favicon}`)
+    .pipe(gulp.dest("public"));
   });
 
   //Copies bower_components into the public directory
@@ -116,7 +126,7 @@
     .pipe(gulp.dest("public/partials"));
   });
 
-  gulp.task("build", ["backendLint", "bower_components", "images", "js", "partials", "sass"]);
+  gulp.task("build", ["backendLint", "bower_components", "favicon", "images", "js", "partials", "sass"]);
 
   //Watches all files for changes
   gulp.task("watch", () => {
@@ -139,6 +149,9 @@
 
     const sassWatch = gulp.watch(config.paths.sass, {cwd: config.paths.src}, ["sass"]);
     sassWatch.on("change", (event) => logChange(event));
+
+    const faviconWatch = gulp.watch(config.paths.favicon, {cwd: config.paths.favicon}, ["favicon"]);
+    faviconWatch.on("change", (event) => logChange(event));
   });
 
   gulp.task("default", ["build", "watch"]);
