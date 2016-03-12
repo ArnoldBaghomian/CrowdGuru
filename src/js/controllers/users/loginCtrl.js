@@ -5,6 +5,10 @@ app.controller("loginCtrl", function($scope, $state, $http) {
   "use strict";
   console.log("loginCtrl");
 
+  if(Cookies.get("authToken")) {
+    $state.go("profile");
+  }
+
   $scope.login = function() {
     console.log(`$scope.user:`, $scope.user);
     let userData = {};
