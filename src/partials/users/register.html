@@ -1,14 +1,14 @@
  <div class="row">
   <div class="large-6 large-centered columns">
     <div class="signup-panel">
-      <p class="welcome"> Welcome to this awesome app!</p>
+      <p class="welcome">Register for CrowdGuru!</p>
       <form ng-submit="register()">
         <div class="row collapse">
           <div class="small-2  columns">
             <span class="prefix"><i class="fi-torso-female"></i></span>
           </div>
           <div class="small-10  columns">
-            <input type="text" ng-model="user.username" required>
+            <input type="text" ng-model="user.username" placeholder="Username" required>
           </div>
         </div>
         <div class="row collapse">
@@ -16,7 +16,7 @@
             <span class="prefix"><i class="fi-mail"></i></span>
           </div>
           <div class="small-10  columns">
-           <input type="email" ng-model="user.email" required>
+           <input type="email" ng-model="user.email" placeholder="E-Mail" required>
           </div>
         </div>
         <div class="row collapse">
@@ -24,7 +24,7 @@
             <span class="prefix"><i class="fi-lock"></i></span>
           </div>
           <div class="small-10 columns ">
-            <input type="password" ng-model="user.pass1" required>
+            <input type="password" ng-model="user.pass1" placeholder="Password" required>
           </div>
         </div>
         <div class="row collapse">
@@ -32,7 +32,7 @@
             <span class="prefix"><i class="fi-lock"></i></span>
           </div>
           <div class="small-10 columns ">
-            <input type="password" ng-model="user.pass2" required>
+            <input type="password" ng-model="user.pass2" placeholder="Verify Password" required>
           </div>
         </div>
         <button type="submit">Sign Me Up!</button>
