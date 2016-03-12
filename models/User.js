@@ -5,6 +5,7 @@
   const chalk    = require("chalk");
   const jwt      = require("jwt-simple");
   const mailgun  = require("mailgun-js")({apiKey:process.env.MAILGUN_KEY, domain: process.env.MAILGUN_DOMAIN});
+  const moment   = require("moment");
 
   const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -140,7 +141,16 @@
           this.tempPassword = null;
           this.save((err, savedThis) => {
             if(err) return cb(err);
-            cb(null, "Successfully changed password!");
+            mailgun.messages().send({
+              from: "CrowdGuru <crowdguru_support@www.mailgun.org>",
+              to: this.email,
+              subject: "Updated Password",
+              text: `Your CrowdGuru password was updated at ${moment().format("h:mm A on ll")}.`
+            },
+            function(err, body){
+              if(err) return cb(err);
+              cb(null, "Successfully changed password!");
+            });
           });
         });
       }
