@@ -14,6 +14,11 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       url: "/bid/view/{bidId}",
       templateUrl: "./partials/bid/view.html"
     })
+    .state("bidNew", {
+      url: "/bid/new/{requestId}",
+      templateUrl: "./partials/bid/new.html",
+      controller: "bidNewCtrl"
+    })
     .state("login", {
       url: "/users/login",
       templateUrl: "./partials/users/login.html",
