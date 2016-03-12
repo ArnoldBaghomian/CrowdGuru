@@ -25,6 +25,7 @@
     "angular-ui-router-styles": "^1.1.0",
     "foundation-icon-fonts": "*",
     "cookies-js": "^1.2.2",
-    "moment": "^2.12.0"
+    "moment": "^2.12.0",
+    "angular-jwt": "^0.0.9"
   }
 }

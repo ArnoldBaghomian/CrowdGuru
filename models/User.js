@@ -2,8 +2,10 @@
   "use strict";
   const mongoose = require("mongoose");
   const bcrypt   = require("bcrypt");
+  const chalk    = require("chalk");
   const jwt      = require("jwt-simple");
   const mailgun  = require("mailgun-js")({apiKey:process.env.MAILGUN_KEY, domain: process.env.MAILGUN_DOMAIN});
+  const moment   = require("moment");
 
   const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -12,15 +14,17 @@
     requests: [{ type: mongoose.Schema.Types.ObjectId, ref: "Request" }],
     bids: [{ type: mongoose.Schema.Types.ObjectId, ref: "Bid" }],
     ratings: [{ type: mongoose.Schema.Types.ObjectId, ref: "Rating" }],
-    username: { type: String, required: true},
+    username: { type: String, required: true },
+    styledUsername: { type: String, required: true },
     password: { type: String, required: true },
-    email: { type: String, required: true }
+    email: { type: String, required: true },
+    tempPassword: { type: String }
   });
 
 
   userSchema.statics.login = function(req, res, next) {
     console.log(req.body);
-    let userLogin = req.body.email ? { email: req.body.email } : { username: req.body.username };
+    let userLogin = req.body.email ? { email: req.body.email } : { username: req.body.username.toLowerCase() };
     let loginType = req.body.email ? "E-Mail" : "Username";
     User.findOne(userLogin, (err, user) => {
       if(err || !user)return res.status(400).send(`No user found with this ${loginType}`);
@@ -35,10 +39,42 @@
           authData.email = user.email;
           authData._id = user._id;
           let authToken = jwt.encode(authData, JWT_SECRET);
+          if(user.tempPassword){
+            user.tempPassword = null;
+            user.save((err, savedUser) => {
+              if(err) return res.status(400).send();
+              mailgun.messages().send({
+                from: "CrowdGuru <crowdguru_support@www.mailgun.org>",
+                to: user.email,
+                subject: "Temporary Password Removed",
+                text: `Your account was just signed into using your non-temporary password.\n\nYour temporary password has been removed.`
+              },
+              function(err, body){
+                if(err) return res.status(400).send();
+              });
+            });
+          }
           res.cookie("authToken", authToken);
           next();
-        }
-        else {
+        } else if(user.tempPassword) {
+          res.cookie("originalUrl", "/users/password/change");
+          bcrypt.compare(req.body.password, user.tempPassword, (err, correctPass) => {
+            if(err) return res.status(400).send(err);
+            if(correctPass) {
+              console.log(chalk.red(`${user.username} signed in with a temporary password.`));
+              let authData = {};
+              authData.timestamp = Date.now();
+              authData.username = user.username;
+              authData.email = user.email;
+              authData._id = user._id;
+              let authToken = jwt.encode(authData, JWT_SECRET);
+              res.cookie("authToken", authToken);
+              next();
+            } else {
+              return res.status(400).send("Incorrect Password.");
+            }
+          });
+        } else {
           return res.status(400).send("Incorrect Password.");
         }
       });
@@ -57,7 +93,8 @@
         bcrypt.hash(req.body.password, 14, (err, hash) => {
           var newUser = new User();
           newUser.email = req.body.email;
-          newUser.username = req.body.username;
+          newUser.username = req.body.username.toLowerCase();
+          newUser.styledUsername = req.body.username;
           newUser.password = hash;
           newUser.save((err, savedUser) => {
             if(err) return res.status(400).send(err);
@@ -69,13 +106,16 @@
   };
 
   userSchema.statics.isLoggedIn = function(req, res, next) {
-    let decodedToken;
+    let decodedToken, method = req.method;
+    if(method === "POST"){
+      console.log("POOOOOOOOOOOOOOOOOOOOOOOOOST");
+    }
     console.log(req.cookies.authToken);
     try {
       decodedToken = jwt.decode(req.cookies.authToken, JWT_SECRET);
     } catch (err) {
       res.cookie("originalUrl", req.originalUrl);
-      return res.status(400).redirect("/users/login");
+      return method === "POST" ? res.status(400).send("Please sign in to continue.") : res.status(400).redirect("/users/login");
     }
     console.log("Decoded Token:");
     console.log(decodedToken);
@@ -87,61 +127,92 @@
   };
 
   userSchema.methods.changePassword = function(passwords, cb) {
-    console.log("this:", this);
-    if(!passwords.newPassword) {
+    console.log("passwords:", passwords);
+    if(!passwords.new) {
       return cb("Must set new password");
     }
-    if(passwords.newPassword != passwords.verifyNewPassword) {
+    if(passwords.new != passwords.verify) {
       return cb("Passwords must match");
     }
-    bcrypt.compare(passwords.oldPassword, this.password, (err, correctPass) => {
+    bcrypt.compare(passwords.old, this.password, (err, correctPass) => {
       if(err) return cb(err);
       if(correctPass) {
-        bcrypt.hash(passwords.newPassword, 14, (err, hash) => {
+        bcrypt.hash(passwords.new, 14, (err, hash) => {
           if(err) return cb(err);
           this.password = hash;
+          this.tempPassword = null;
           this.save((err, savedThis) => {
             if(err) return cb(err);
-            cb(null, "Successfully changed password!");
+            mailgun.messages().send({
+              from: "CrowdGuru <crowdguru_support@www.mailgun.org>",
+              to: this.email,
+              subject: "Updated Password",
+              text: `Your CrowdGuru password was updated at ${moment().format("h:mm A on ll")}.`
+            },
+            function(err, body){
+              if(err) return cb(err);
+              cb(null, "Successfully changed password!");
+            });
           });
         });
       }
-      else {
-        return cb("Incorrect Password");
+      else if (this.tempPassword){
+        bcrypt.compare(passwords.old, this.tempPassword, (err, correctPass) => {
+          if(err) return cb(err);
+          if(correctPass) {
+            bcrypt.hash(passwords.new, 14, (err, hash) => {
+              if(err) return cb(err);
+              this.tempPassword = null;
+              this.password = hash;
+              this.save((err, savedThis) => {
+                if(err) return cb(err);
+                cb(null, "Successfully changed password!\n\nThe temporary password has been removed.");
+              });
+            });
+          } else {
+            return cb("Current password incorrect");
+          }
+        });
+      } else {
+        return cb("Current password incorrect");
       }
     });
   };
 
   userSchema.statics.forgotPassword = function(userInfo, cb) {
-    let email;
-    console.log(userInfo);
-    if(userInfo.email) {
-      email = userInfo.email;
+    let email, login = userInfo.login;
+    if(userInfo.login.includes("@")) {
+      email = userInfo.login;
       sendMessage();
     }
     else {
-      console.log(`Finding ${userInfo.username}...`);
-      User.findOne({"username": userInfo.username}, (err, foundUser) => {
+      console.log(`Finding ${userInfo.login}...`);
+      User.findOne({"username": userInfo.login}, (err, foundUser) => {
         if(err) return cb(err);
-        console.log(foundUser.email);
+        if(!foundUser) return cb("Account not found.");
         email = foundUser.email;
         sendMessage();
       });
     }
 
     function sendMessage() {
-      let tempPass = (Math.random() * 10000000000000000).toString(16).toUpperCase();
+      let chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      let tempPass = "";
+      for(let i = 0; i < 32; i++) {
+        let randomChar = chars[Math.floor(Math.random()*chars.length)];
+        tempPass += randomChar;
+      }
       bcrypt.hash(tempPass, 14, (err, hash) => {
         if(err) return cb(err);
         User.findOne({email: email}, (err, foundUser) => {
           if(err) return cb(err);
-          foundUser.password = hash;
+          foundUser.tempPassword = hash;
           foundUser.save((err, savedUser) => {
             mailgun.messages().send({
               from: "CrowdGuru <crowdguru_support@www.mailgun.org>",
               to: email,
               subject: "Forgotten Password",
-              text: `Your password has been reset to ${tempPass}`
+              text: `Your password has been reset to: ${tempPass}\n\nPlease login and change your password, the temporary password will continue to work until you do so.`
             },
             function(err, body){
               if(err) return cb(err);

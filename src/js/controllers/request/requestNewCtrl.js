@@ -1,5 +1,5 @@
 // controller that will be called when new request page is loaded
-app.controller("requestNewCtrl", function($scope, $state) {
+app.controller("requestNewCtrl", function($scope, $state, $http) {
   "use strict";
 
   if(!Cookies("authToken")) {
@@ -21,11 +21,16 @@ app.controller("requestNewCtrl", function($scope, $state) {
     });
     newRequest.desc = $scope.request.desc;
     console.log(newRequest);
-    $.post("/api/request/new", newRequest, (res) => {
+    $http.post("/api/request/new", newRequest)
+    .then((res) => {
       console.log("res", res);
-      location.href = `/request/view/${res._id}`;
-    })
-    .fail((err) => console.log(err));
+      $state.go("requestView", {requestId: res.data._id});
+    }, (err) => {
+      alert(err.data);
+      $state.go("login");
+    });
   };
   console.log("requestNewCtrl");
+
+  console.log('Scope: ', $scope);
 });

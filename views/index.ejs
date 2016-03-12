@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html ng-app="crowdGuru" ui-router-styles>
 <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title><%= title %></title>
   <base href="/">
 
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:500">
+   
   <link rel="stylesheet" href="bower_components/foundation/css/foundation.min.css" />
   <link rel="stylesheet" href="bower_components/foundation-icon-fonts/foundation-icons.css">
   <link rel="stylesheet" href="css/index.css" />
@@ -11,6 +17,7 @@
   <script src="bower_components/angular/angular.min.js"></script>
   <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
   <script src="bower_components/angular-ui-router-styles/ui-router-styles.js"></script>
+  <script src="bower_components/angular-jwt/dist/angular-jwt.min.js"></script>
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bower_components/foundation/js/foundation.min.js"></script>
   <script src="bower_components/cookies-js/dist/cookies.min.js"></script>
@@ -18,37 +25,62 @@
   <script src="js/bundle.js"></script>
 
 </head>
-<body>
 
-  <nav class="top-bar" data-topbar>
+<body ng-controller="appCtrl">
+
+   <nav class="top-bar" data-topbar ng-controller="navCtrl">
     <ul class="title-area">
-      <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+      <li>
+        <div class="logo">
+          <img ui-sref="splash" src="images/crowdGuruIcon.png"/>
+        </div>
+      </li>
       <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
     </ul>
 
-    <div  class="logo">
-      <img ui-sref="splash" src="images/crowdGuruIcon.png"/>
-    </div>
-    <section class="top-bar-section">
-      <!-- Right Nav Section -->
-      <ul class="center-buttons">
-        <!-- <li class="divider"></li> -->
-        <li><a class="full-buttons" ui-sref="profile">Profile</a></li>
-        <!-- <li class="divider"></li> -->
-        <li><a class="full-buttons" ui-sref="requestSearch">Request Search</a></li>
-        <!-- <li class="divider"></li> -->
-        <li><a class="full-buttons" ui-sref="requestNew">Request a Guru</a></li>
-        <!-- <li class="divider"></li> -->
-        <li><a class="full-buttons" ui-sref="register">Register</a></li>
-        <!-- <li class="divider"></li> -->
+
+    <section class="top-bar-section" id="navbar_items">
+      <ul>
+        <li><a ui-sref="profile">Profile</a></li>
+        <li><a ui-sref="requestSearch">Request Search</a></li>
+        <li><a ui-sref="requestNew">Request a Guru</a></li>
+        <li><a ng-if="!loggedIn" ui-sref="register">Register</a></li>
+        <li><a ng-if="!loggedIn" ui-sref="login">Login</a></li>
+        <li><a ng-if="loggedIn" ng-click="logout()">Logout</a></li>
       </ul>
     </section>
   </nav>
 
-
-
-
   <ui-view></ui-view>
+
+  <div>
+
+    <div data-alert ng-click="showSuccessAlert = !showSuccessAlert" ng-show="showSuccessAlert" class="alert-box success radius">
+      {{alert.message}}
+      <a href="#" class="close">&times;</a>
+    </div>
+
+    <div data-alert ng-click="showWarningAlert = !showWarningAlert" ng-show="showWarningAlert" class="alert-box warning round">
+      {{alert.message}}
+      <a href="#" class="close">&times;</a>
+    </div>
+
+    <div data-alert ng-click="showInfoAlert = !showInfoAlert" ng-show="showInfoAlert" class="alert-box info radius">
+      {{alert.message}}
+      <a href="#" class="close">&times;</a>
+    </div>
+
+    <div data-alert ng-click="showRoundedAlert = !showRoundedAlert" ng-show="showRoundedAlert" class="alert-box alert round">
+      {{alert.message}}
+      <a href="#" class="close">&times;</a>
+    </div>
+
+    <div data-alert ng-click="showSecondaryAlert = !showSecondaryAlert" ng-show="showSecondaryAlert" class="alert-box secondary">
+      {{alert.message}}
+      <a href="#" class="close">&times;</a>
+    </div>
+
+  </div>
 
   <footer id="contact">
       <ul class="row">
@@ -76,7 +108,5 @@
   <script>
     $(document).foundation();
   </script>
-
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:500">
 </body>
 </html>

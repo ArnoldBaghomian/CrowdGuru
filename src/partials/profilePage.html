@@ -1,15 +1,15 @@
 <h1>profilePage</h1>
-<h3><a ui-sref="splash">Back to Splash</a></h3>
+<h3><a ui-sref="splash">Back to Splash</a> <a href="" ui-sref="changePassword">Change Password</a></h3>
 <div class="row">
   <div class="medium-6 columns">
     <img class="thumbnail" src="images/gammasquadsquirtlechomp.jpg">
 
   </div>
   <div class="medium-6 large-5 columns">
-    <h3>User Profile</h3>
+    <h3>{{userProfile.styledUsername}}</h3>
     <p class="aboutMe">I Make money for you </p>
 
-    
+
   </div>
   <hr>
 </div>
@@ -17,7 +17,10 @@
 <a class="button" ng-disabled="guruToggle" ng-click="showGuru()">Toggle Guru Stats</a>
 <a class="button" ng-disabled="reqToggle" ng-click="showReq()">Toggle Req Stats</a>
 </div>
-
+<div data-alert ng-click="showSuccessAlert = !showSuccessAlert" ng-show="showSuccessAlert" class="alert-box success radius">
+  {{alertMessage}}
+  <a href="#" class="close">&times;</a>
+</div>
 
 <div class="palignment" class="row" >
   <h3>Recent Activity</h3>
@@ -83,36 +86,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>today</td>
-          <td>My Bids</td>
-          <td>Open</td>
+        <tr ng-repeat = "request in requests track by $index">
+          <td>{{request.timestamp}}</td>
+          <td>{{request.title}}</td>
+          <td>{{request.description}}</td>
         </tr>
-        <tr>
-          <td>today</td>
-          <td>My Bids</td>
-          <td>Closed</td>
-        </tr>
-        <tr>
-          <td>today</td>
-          <td>My Bids</td>
-          <td>Closed</td>
-        </tr>
-        <tr>
-          <td>today</td>
-          <td>My Bids</td>
-          <td>Closed</td>
-        </tr>
-        <tr>
-          <td>today</td>
-          <td>My Bids</td>
-          <td>Open</td>
-        </tr>
-        <tr>
-          <td>today</td>
-          <td>My Bids</td>
-          <td>Closed</td>
-        </tr>
+
       </tbody>
     </table>
 

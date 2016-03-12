@@ -1,4 +1,4 @@
-var app = angular.module("crowdGuru", ["ui.router", "uiRouterStyles"]);
+var app = angular.module("crowdGuru", ["ui.router", "uiRouterStyles", "angular-jwt"]);
 console.log("crowdGuru app");
 // used to populate the partials as well as linking them to there controllers
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
@@ -17,32 +17,37 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     .state("login", {
       url: "/users/login",
       templateUrl: "./partials/users/login.html",
-       data:{
-        css: ["css/login.css"]
+      data:{
+        css: ["css/users/login.css"]
       },
       controller: "loginCtrl"
     })
     .state("profile", {
-      url: "/users/profile",
+      url: "/users/profile?userId",
       templateUrl: "./partials/profilePage.html",
-       data:{
-       css: ["css/profile.css"]
+      data:{
+        css: ["css/users/profile.css"]
       },
       controller: "profileCtrl"
     })
     .state("changePassword", {
-      url: "/users/changePassword",
-      templateUrl: "./partials/users/changePassword.html",
+      url: "/users/password/change",
+      templateUrl: "./partials/users/password/change.html",
+      controller: "changePasswordCtrl",
       data:{
-      css: ["css/users/changePassword.css"]
+        css: ["css/users/password/change.css"]
       }
-      // controller: "changePasswordCtrl"
+    })
+    .state("forgotPassword", {
+      url: "/users/password/forgot",
+      templateUrl: "./partials/users/password/forgot.html",
+      controller: "forgotPasswordCtrl"
     })
     .state("register", {
       url: "/users/register",
       templateUrl: "./partials/users/register.html",
-        data:{
-        css: ["css/register.css"]
+      data:{
+        css: ["css/users/register.css"]
       },
       controller: "registerCtrl"
     })
