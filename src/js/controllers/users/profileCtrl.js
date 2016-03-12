@@ -6,12 +6,12 @@ app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams,
     Cookies("originalUrl", location.pathname);
     $state.go("login");
   }
-  let thisUser = jwtHelper.decodeToken(Cookies.get("authToken"))["_id"]
+  let thisUser = jwtHelper.decodeToken(Cookies.get("authToken"))._id;
   $rootScope.Req = true;
 
   let requestUrl = `/api/users/profile/${$stateParams.userId ?  $stateParams.userId : thisUser}`;
   $http.get(requestUrl).then((res) => {
-    $scope.userProfile = res.data
+    $scope.userProfile = res.data;
     $scope.requests = res.data.requests;
     $scope.bids = res.data.bids;
     $scope.ratings = res.data.ratings;

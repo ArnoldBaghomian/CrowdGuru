@@ -19,7 +19,7 @@ app.controller('requestSearchCtrl', function($scope, $http) {
     $http.get(requestUrl).then((res) => {
       $scope.requests = res.data.data;
       $scope.pages = new Array(+res.data.pages);
-      console.log("getting", $scope.requests)
+      console.log("getting", $scope.requests);
     }, (err) => {
       return alert(err.data);
     });
