@@ -9,6 +9,7 @@ router.post("/", User.isLoggedIn, function(req, res, next) {
   User.findById(req.user._id, (err, foundUser) => {
     let newRequest = new Request();
     newRequest.user = foundUser._id;
+    newRequest.userId = foundUser._id;
     newRequest.title = req.body.title;
     newRequest.tags = req.body.tags;
     newRequest.description = req.body.desc;
