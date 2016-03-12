@@ -31,4 +31,6 @@ app.controller("requestNewCtrl", function($scope, $state, $http) {
     });
   };
   console.log("requestNewCtrl");
+
+  console.log('Scope: ', $scope)
 });

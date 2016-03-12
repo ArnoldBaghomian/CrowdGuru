@@ -44,6 +44,7 @@ app.controller('requestSearchCtrl', function($scope, $http) {
       timeRemaining += `${hoursRemaining} hour`;
       if(hoursRemaining > 1) {
         timeRemaining += "s";
+        timeLeft = timeRemaining;
       }
       timeSet = true;
     }
@@ -51,6 +52,7 @@ app.controller('requestSearchCtrl', function($scope, $http) {
       timeRemaining += `${minutesRemaining} minute`;
       if(minutesRemaining > 1) {
         timeRemaining += "s";
+        timeLeft = timeRemaining;
       }
     }
     return timeRemaining;
@@ -68,5 +70,5 @@ app.controller('requestSearchCtrl', function($scope, $http) {
     return alert(err.data);
     });
   };
-
+  console.log('Scope: ', $scope);
 });

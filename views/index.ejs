@@ -48,7 +48,36 @@
 
     <ui-view></ui-view>
 
-    <script>
+<div>
+
+  <div data-alert ng-click="showSuccessAlert = !showSuccessAlert" ng-show="showSuccessAlert" class="alert-box success radius">
+    {{alert.message}}
+    <a href="#" class="close">&times;</a>
+  </div>
+
+  <div data-alert ng-click="showWarningAlert = !showWarningAlert" ng-show="showWarningAlert" class="alert-box warning round">
+    {{alert.message}}
+    <a href="#" class="close">&times;</a>
+  </div>
+
+  <div data-alert ng-click="showInfoAlert = !showInfoAlert" ng-show="showInfoAlert" class="alert-box info radius">
+    {{alert.message}}
+    <a href="#" class="close">&times;</a>
+  </div>
+
+  <div data-alert ng-click="showRoundedAlert = !showRoundedAlert" ng-show="showRoundedAlert" class="alert-box alert round">
+    {{alert.message}}
+    <a href="#" class="close">&times;</a>
+  </div>
+
+  <div data-alert ng-click="showSecondaryAlert = !showSecondaryAlert" ng-show="showSecondaryAlert" class="alert-box secondary">
+    {{alert.message}}
+    <a href="#" class="close">&times;</a>
+  </div>
+
+</div>
+
+        <script>
   $(document).foundation();
 </script>
 
