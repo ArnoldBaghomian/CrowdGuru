@@ -14,7 +14,8 @@
     requests: [{ type: mongoose.Schema.Types.ObjectId, ref: "Request" }],
     bids: [{ type: mongoose.Schema.Types.ObjectId, ref: "Bid" }],
     ratings: [{ type: mongoose.Schema.Types.ObjectId, ref: "Rating" }],
-    username: { type: String, required: true},
+    username: { type: String, required: true },
+    styledUsername: { type: String, required: true },
     password: { type: String, required: true },
     email: { type: String, required: true },
     tempPassword: { type: String }
@@ -92,7 +93,8 @@
         bcrypt.hash(req.body.password, 14, (err, hash) => {
           var newUser = new User();
           newUser.email = req.body.email;
-          newUser.username = req.body.username;
+          newUser.username = req.body.username.toLowerCase();
+          newUser.styledUsername = req.body.username;
           newUser.password = hash;
           newUser.save((err, savedUser) => {
             if(err) return res.status(400).send(err);

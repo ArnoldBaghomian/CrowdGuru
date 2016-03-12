@@ -1,16 +1,19 @@
-const mongoose = require("mongoose");
+(function(){
+  "use strict";
+  const mongoose = require("mongoose");
 
-//big schema that sends to bid object in User schema.
-let bidSchema = mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-  request: { type: mongoose.Schema.Types.ObjectId, ref: "Request" },
-  description: {type: String },
-  price: { type: Number },
-  timeStamp: { type: Date, default: Date.now() }
+  //big schema that sends to bid object in User schema.
+  let bidSchema = mongoose.Schema({
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    request: { type: mongoose.Schema.Types.ObjectId, ref: "Request" },
+    description: {type: String },
+    price: { type: Number },
+    timeStamp: { type: Date, default: Date.now() }
 
-});
+  });
 
 
-const Bid = mongoose.model("Bid", bidSchema);
+  const Bid = mongoose.model("Bid", bidSchema);
 
-module.exports = Bid;
+  module.exports = Bid;
+}());
