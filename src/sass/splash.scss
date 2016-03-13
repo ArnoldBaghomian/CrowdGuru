@@ -92,7 +92,7 @@ p {
 .medium {
   border-radius:7px;
   font-size: 16px;
-  margin-top:120px;
+  margin-top:6vw;
 }
 
 .whatWeDo{
@@ -113,6 +113,7 @@ p {
 
 .img-circle {
     border-radius: 50%; 
+    margin-bottom:30px;
 }
 
 #imageOne{
@@ -125,4 +126,10 @@ p {
 
 .circles{
   padding-top: 30px;
+}
+
+
+.subHeaders {
+  font-size: 2.3125rem;
+  font: 32px/40px 'RefrigeratorDeluxeW01-L';
 }
