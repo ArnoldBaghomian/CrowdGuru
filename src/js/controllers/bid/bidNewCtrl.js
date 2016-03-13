@@ -1,5 +1,5 @@
 // controller that will be called when splash page is loaded
-app.controller("bidNewCtrl", function($scope, $state, $stateParams, $http) {
+app.controller("bidNewCtrl", function($scope, $state, $stateParams, $http, jwtHelper) {
   "use strict";
   let authTokenPresent = true;
   if (!Cookies("authToken")) {
@@ -10,6 +10,14 @@ app.controller("bidNewCtrl", function($scope, $state, $stateParams, $http) {
   console.log($state.params.requestId);
   $http.get(`/api/request/view/${$stateParams.requestId}`).then(res => {
     console.log("res.data:", res.data);
+    let thisUser = jwtHelper.decodeToken(Cookies.get("authToken"))._id;
+    res.data.bids.forEach(bid => {
+      if(bid.user === thisUser){
+        console.log("Bid already exists");
+        $state.go("bidView", {bidId: bid._id});
+        return;
+      }
+    });
     $scope.request = res.data;
   }, (err) => {
     return alert(err.data);

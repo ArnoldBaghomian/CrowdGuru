@@ -12,7 +12,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
     .state("bidView", {
       url: "/bid/view/{bidId}",
-      templateUrl: "./partials/bid/view.html"
+      templateUrl: "./partials/bid/view.html",
+      controller: "bidViewCtrl"
     })
     .state("bidNew", {
       url: "/bid/new/{requestId}",
