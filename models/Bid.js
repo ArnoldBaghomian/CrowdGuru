@@ -11,7 +11,6 @@
     timeStamp: { type: Date, default: Date.now() }
   });
 
-
   const Bid = mongoose.model("Bid", bidSchema);
 
   module.exports = Bid;

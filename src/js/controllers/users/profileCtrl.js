@@ -1,10 +1,11 @@
 // controller that will be called when profile page is loaded
-app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams, $http, jwtHelper) {
+app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams, $http, jwtHelper, md5) {
   "use strict";
   $("#requestDetailsModal").foundation("reveal", "close");
   if (!Cookies("authToken")) {
     Cookies("originalUrl", location.pathname);
     $state.go("login");
+
   } else {
     let thisUser = jwtHelper.decodeToken(Cookies.get("authToken"))._id;
     $rootScope.Req = true;
@@ -15,11 +16,13 @@ app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams,
       $scope.requests = res.data.requests;
       $scope.bids = res.data.bids;
       $scope.ratings = res.data.ratings;
-
-      console.log("RES: ", res);
+      $scope.gravitarURL = "http://www.gravatar.com/avatar/" + md5.createHash(res.data.email || "") + "?s=512";
+      console.log("gravURL", $scope.gravitarURL );
+      console.log("RES: ", $scope);
     }, (err) => {
       return console.log(err);
     });
+
 
 
     $scope.showReq = function() {
@@ -40,6 +43,6 @@ app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams,
       $scope.alertMessage = "ALERT you clicked gurus!!";
     };
 
-    console.log("profileCtrl");  
+    console.log("profileCtrl");
   }
 });

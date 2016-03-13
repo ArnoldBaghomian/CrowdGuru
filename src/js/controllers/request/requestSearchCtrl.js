@@ -3,6 +3,7 @@ app.controller("requestSearchCtrl", function($scope, $state, $http, jwtHelper) {
   "use strict";
   console.log("requestSearchCtrl");
   let timeLeft;
+
   $scope.searchRequests = (page) => {
 
     if(!page){
@@ -17,11 +18,16 @@ app.controller("requestSearchCtrl", function($scope, $state, $http, jwtHelper) {
       requestUrl += `&page=${page}`;
     }
 
+    $scope.searching = true;
+
     $http.get(requestUrl).then((res) => {
       $scope.requests = res.data.data;
-      $scope.pages = new Array(+res.data.pages);
+      $scope.searchMade = true;
+      $scope.pages = new Array(+res.data.pages || 1);
       console.log("getting", $scope.requests);
+      $scope.searching = false;
     }, (err) => {
+      $scope.searching = false;
       return alert(err.data);
     });
   };
@@ -76,6 +82,6 @@ app.controller("requestSearchCtrl", function($scope, $state, $http, jwtHelper) {
   $scope.newBid = (requestId) => {
     $state.go("bidNew", {requestId: requestId});
   };
-  
+
   console.log("Scope: ", $scope);
 });

@@ -15,7 +15,10 @@
 <div class="aboveHeader" class="row" id="content">
   <div class="small-10 small-offset-1 columns">
     <button ng-if="pages.length > 1" ng-repeat="page in pages track by $index" ng-click="searchRequests($index+1)">{{$index+1}}</button>
-    <table class="tablesize">
+    <h3 ng-if="!requests[0] && searchMade && !searching">No requests match your search.</h3>
+    <h3 ng-if="!requests[0] && !searchMade && !searching">Enter a search to see requests that other users have made.</h3>
+    <h3 ng-if="searching">Searching...</h3>
+    <table class="tablesize" ng-if="requests[0] && !searching">
       <thead>
         <tr>
           <th width="160">Title</th>
