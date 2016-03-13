@@ -1,4 +1,4 @@
-var app = angular.module("crowdGuru", ["ui.router", "uiRouterStyles", "angular-jwt"]);
+var app = angular.module("crowdGuru", ["ui.router", "uiRouterStyles", "angular-md5", "angular-jwt"]);
 console.log("crowdGuru app");
 // used to populate the partials as well as linking them to there controllers
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
