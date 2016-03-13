@@ -18,11 +18,16 @@ app.controller("requestSearchCtrl", function($scope, $state, $http, jwtHelper) {
       requestUrl += `&page=${page}`;
     }
 
+    $scope.searching = true;
+
     $http.get(requestUrl).then((res) => {
       $scope.requests = res.data.data;
+      $scope.searchMade = true;
       $scope.pages = new Array(+res.data.pages || 1);
       console.log("getting", $scope.requests);
+      $scope.searching = false;
     }, (err) => {
+      $scope.searching = false;
       return alert(err.data);
     });
   };
