@@ -2,11 +2,6 @@
 app.controller("requestNewCtrl", function($scope, $state, $http, $stateParams) {
   "use strict";
 
-  if(!Cookies("authToken")) {
-    Cookies("originalUrl", location.pathname);
-    $state.go("login");
-  }
-
   $scope.submitRequest = () => {
     let newRequest = {};
     newRequest.title = $scope.request.title.trim().replace(/ {2,}/, " ");
@@ -24,7 +19,6 @@ app.controller("requestNewCtrl", function($scope, $state, $http, $stateParams) {
     $http.post("/api/request/new", newRequest)
     .then((res) => {
       console.log("res", res);
-
 
       $http.get(`/api/request/view/${res.data._id}`).then((res) => {
         console.log("res.data:", res.data);
