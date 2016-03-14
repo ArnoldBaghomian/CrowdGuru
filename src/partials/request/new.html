@@ -29,10 +29,17 @@
               <label>Request Details</label>
               <textarea rows="7" ng-model="request.desc" required></textarea>
               <button type="submit" class="radius button">Submit</button>
+              <div data-alert ui-sref="profile" ng-show="showSuccessAlert === true" class="alert-box success radius">
+                <h3>{{alertMessage}}</h3>
+
+                <h6>{{sendEm}}</h6>
+                <a href="#" class="close">&times;</a>
             </form>
           </div>
         </section>
       </div>
+    </div>
+
     </div>
 
 
