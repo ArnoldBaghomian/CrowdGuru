@@ -32,6 +32,26 @@ app.controller("requestSearchCtrl", function($scope, $state, $http, jwtHelper) {
     });
   };
 
+
+
+
+
+
+    let url = `/api/request/search/all?filter=${$scope.currentFilter}`
+    $http.get(url).then((res) => {
+      console.log("InitialLoadRes: ", res)
+      $scope.requests = res.data.data;
+      $scope.searchMade = true;
+      $scope.pages = new Array(+res.data.pages || 1);
+      console.log("getting", $scope.requests);
+    }, (err) => {
+      console.log("error")
+      return alert(err.data)
+    })
+
+
+
+
   $scope.getExpiration = (timestamp) => {
     let expiration = moment(timestamp).add(3, "d");
     let now = moment();
@@ -70,8 +90,6 @@ app.controller("requestSearchCtrl", function($scope, $state, $http, jwtHelper) {
     $http.get(`/api/request/view/${id}`).then((res) => {
       $scope.request = res.data;
       $scope.request.timeLeft = timeLeft;
-      console.log(timeLeft);
-      console.log($scope.request);
       $("#requestDetailsModal").foundation("reveal", "open");
       //modal.show();
     }, (err) => {
