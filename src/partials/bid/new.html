@@ -1,9 +1,9 @@
-<h1>New Bid</h1>
-<p>{{request}}</p>
+<h1>New Bid for {{username}}</h1>
+<p></p>
 <form ng-submit="submitBid()">
-  <label>Bid Title</label>
+  <label>Comment</label>
   <input type="text" ng-model="bid.title" required>
-  <label>Description</label>
+  <label>Aditional Info</label>
   <input type="text" ng-model="bid.desc" required>
   <button>Submit New Bid</button>
 </form>
