@@ -2,6 +2,12 @@
 app.controller("requestSearchCtrl", function($scope, $state, $http, jwtHelper) {
   "use strict";
   console.log("requestSearchCtrl");
+
+  if(!Cookies("authToken")) {
+    Cookies("originalUrl", location.pathname);
+    $state.go("login");
+  }
+
   let timeLeft;
 
   $scope.searchRequests = (page) => {
