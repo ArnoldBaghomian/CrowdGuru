@@ -3,11 +3,6 @@ app.controller("requestSearchCtrl", function($scope, $state, $http, jwtHelper) {
   "use strict";
   console.log("requestSearchCtrl");
 
-  if(!Cookies("authToken")) {
-    Cookies("originalUrl", location.pathname);
-    $state.go("login");
-  }
-
   let timeLeft;
 
   $scope.page = 1;
@@ -42,11 +37,12 @@ return alert(err.data);
 };
 
 */
-
-  let currentUser = jwtHelper.decodeToken(Cookies.get("authToken"))._id;
-  let requestUrl = "/api/request/search";
-  if (currentUser._id) {
-    requestUrl += `?user=${currentUser._id}`;
+let requestUrl = "/api/request/search";
+  if(Cookies.get("authToken")){
+    let currentUser = jwtHelper.decodeToken(Cookies.get("authToken"))._id;
+    if (currentUser._id) {
+      requestUrl += `?user=${currentUser._id}`;
+    }
   }
 
   $http.get(requestUrl).then((res) => {
@@ -65,7 +61,7 @@ return alert(err.data);
 
 $scope.changePage = (page) => {
   $scope.requests = $scope.allRequests.slice(20*(page-1), 20*page);
-}
+};
 
 $scope.getExpiration = (timestamp) => {
   let expiration = moment(timestamp).add(3, "d");
