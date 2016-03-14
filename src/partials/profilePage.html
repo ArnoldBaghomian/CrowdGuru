@@ -18,9 +18,7 @@
 <a class="button" ng-disabled="guruToggle" ng-click="showGuru()">Toggle Guru Stats</a>
 <a class="button" ng-disabled="reqToggle" ng-click="showReq()">Toggle Req Stats</a>
 </div>
-<div data-alert ng-click="showSuccessAlert = !showSuccessAlert" ng-show="showSuccessAlert" class="alert-box success radius">
-  {{alertMessage}}
-  <a href="#" class="close">&times;</a>
+
 </div>
 
 <div class="palignment" class="row" >
@@ -42,31 +40,6 @@
           <td>today</td>
           <td>My Bids</td>
           <td>Open</td>
-        </tr>
-        <tr>
-          <td>today</td>
-          <td>My Bids</td>
-          <td>Closed</td>
-        </tr>
-        <tr>
-          <td>today</td>
-          <td>My Bids</td>
-          <td>Open</td>
-        </tr>
-        <tr>
-          <td>today</td>
-          <td>My Bids</td>
-          <td>Closed</td>
-        </tr>
-        <tr>
-          <td>today</td>
-          <td>My Bids</td>
-          <td>Open</td>
-        </tr>
-        <tr>
-          <td>today</td>
-          <td>My Bids</td>
-          <td>Closed</td>
         </tr>
       </tbody>
     </table>
@@ -92,7 +65,6 @@
           <td>{{request.title}}</td>
           <td>{{request.description}}</td>
         </tr>
-
       </tbody>
     </table>
 
@@ -100,80 +72,6 @@
   </div>
 
 </div>
-<div id="profiledesc" class="column row">
-  <hr>
-  <div class="tabs-content" data-tabs-content="example-tabs">
-    <div class="tabs-panel is-active" id="panel1" ng-show="Guru">
-      <h4>What people have said about my Guru skills</h4>
-      <div class="media-object stack-for-small">
-        <div class="media-object-section">
-          <img class="thumbnail" src="http://placehold.it/200x200">
-        </div>
-        <div class="media-object-section">
-          <h5>Mike Stevenson</h5>
-          <p>I'm going to improvise. Listen, there's something you should know about me... about inception. An idea is like a virus, resilient, highly contagious. The smallest seed of an idea can grow. It can grow to define or destroy you.</p>
-        </div>
-      </div>
-      <div class="media-object stack-for-small">
-        <div class="media-object-section">
-          <img class="thumbnail" src="http://placehold.it/200x200">
-        </div>
-        <div class="media-object-section">
-          <h5>Mike Stevenson</h5>
-          <p>I'm going to improvise. Listen, there's something you should know about me... about inception. An idea is like a virus, resilient, highly contagious. The smallest seed of an idea can grow. It can grow to define or destroy you</p>
-        </div>
-      </div>
-      <div class="media-object stack-for-small">
-        <div class="media-object-section">
-          <img class="thumbnail" src="http://placehold.it/200x200">
-        </div>
-        <div class="media-object-section">
-          <h5>Mike Stevenson</h5>
-          <p>I'm going to improvise. Listen, there's something you should know about me... about inception. An idea is like a virus, resilient, highly contagious. The smallest seed of an idea can grow. It can grow to define or destroy you</p>
-        </div>
-      </div>
-      <label>
-        My Review
-        <textarea placeholder="None"></textarea>
-      </label>
-      <button class="button">Submit Review</button>
-    </div>
 
-    <div class="tabs-panel is-active" id="panel2" ng-show="Req">
-      <h4>What people have said about me as a student</h4>
-      <div class="media-object stack-for-small">
-        <div class="media-object-section">
-          <img class="thumbnail" src="http://placehold.it/200x200">
-        </div>
-        <div class="media-object-section">
-          <h5>Bob Stevenson</h5>
-          <p>This dude sucks</p>
-        </div>
-      </div>
-      <div class="media-object stack-for-small">
-        <div class="media-object-section">
-          <img class="thumbnail" src="http://placehold.it/200x200">
-        </div>
-        <div class="media-object-section">
-          <h5>Mike Stevenson</h5>
-          <p>Wheres my money??? </p>
-        </div>
-      </div>
-      <div class="media-object stack-for-small">
-        <div class="media-object-section">
-          <img class="thumbnail" src="http://placehold.it/200x200">
-        </div>
-        <div class="media-object-section">
-          <h5>Cat Stevenson</h5>
-          <p>Great guy, pays you quik</p>
-        </div>
-      </div>
-      <label>
-        My Review
-        <textarea placeholder="None"></textarea>
-      </label>
-      <button class="button">Submit Review</button>
-    </div>
-  </div>
 </div>
-</div>
+<div class="row"  style="height: 33vh;"></div>
