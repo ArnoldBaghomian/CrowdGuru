@@ -18,14 +18,14 @@
       if(err) return res.status(400).send(err);
       console.log("Bid:", bid);
       if(bid) return res.status(400).send("You already have an active bid on this request.");
-      Request.findOne({ _id: req.body.requestId}).exec((err, request) => {
+      Request.findById(req.body.requestId).exec((err, request) => {
         if(err) return res.status(400).send(err);
         if(request.user === req.body.user) return res.status(400).send("You may not bid on your own request.");
         newBid.user = req.user._id;
         newBid.request = req.body.requestId;
         newBid.title = req.body.title;
         newBid.description = req.body.desc;
-        User.findOne(req.user._id).exec((err, foundUser) => {
+        User.findById(req.user._id).exec((err, foundUser) => {
           if(err) return res.status(400).send(err);
           newBid.save((err, savedBid) => {
             if(err) return res.status(400).send(err);
