@@ -37,6 +37,7 @@ $scope.changePage = (page) => {
     source = "filteredRequests";
   }
   $scope.requests = $scope[source].slice(20*(page-1), 20*page);
+  $scope.page = page;
 };
 
 
