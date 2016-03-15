@@ -19,5 +19,16 @@
     });
   });
 
+  router.put("/:userId", User.isLoggedIn, (req, res, next) => {
+    console.log("req for aboutme", req);
+    User.findById(req.user._id, (err, foundUser) => {
+      foundUser.aboutMe = req.body;
+      console.log("I hope it does something: ", foundUser);
+      foundUser.save("savedUser")
+      res.send(foundUser)
+    });
+  });
+
+
   module.exports = router;
 }());

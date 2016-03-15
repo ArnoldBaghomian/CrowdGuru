@@ -46,4 +46,16 @@ app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams,
 
     console.log("profileCtrl");
   }
+
+$scope.updateAboutMe = (data) => {
+  console.log("data:", data);
+  let thisUser = jwtHelper.decodeToken(Cookies.get("authToken"))._id;
+  let userUrl = `/api/users/profile/${$stateParams.userId ?  $stateParams.userId : thisUser}`;
+  console.log(`Putting at ${userUrl}`);
+  $http.put(userUrl).then((res) => {
+    console.log("Post res: ",res);
+  });
+};
+
+
 });
