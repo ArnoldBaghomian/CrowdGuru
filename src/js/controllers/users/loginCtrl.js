@@ -5,7 +5,7 @@ app.controller("loginCtrl", function($scope, $state, $http) {
   "use strict";
   console.log("loginCtrl");
 
-  if(Cookies.get("authToken")) {
+  if($state.current.name === "login" && Cookies.get("authToken")) {
     $state.go("profile");
   }
 

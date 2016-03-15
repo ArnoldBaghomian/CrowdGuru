@@ -2,10 +2,10 @@ app.controller("registerCtrl", function($scope, $state, $http) {
   "use strict";
   console.log("registerCtrl");
 
-  if(Cookies.get("authToken")) {
+  if($state.current.name === "login" && Cookies.get("authToken")) {
     $state.go("profile");
   }
-  
+
   $scope.register = function() {
     console.log("Register!");
     if($scope.pass1 !== $scope.pass2){
