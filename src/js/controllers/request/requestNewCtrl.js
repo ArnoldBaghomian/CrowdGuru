@@ -17,7 +17,6 @@ app.controller("requestNewCtrl", function($scope, $state, $http, $stateParams) {
     newRequest.desc = $scope.request.desc;
     console.log(newRequest);
     if(!Cookies.get("authToken")) {
-      Cookies("originalUrl", location.pathname);
       $("#userAuthModal").foundation("reveal", "open");
     } else {
       $http.post("/api/request/new", newRequest)
