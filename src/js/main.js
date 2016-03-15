@@ -91,15 +91,11 @@ app.config(function($provide) {
   });
 });
 app.run(function(){
-
   $(window).scroll(function(){
-    if($(window).scrollTop() + 100 > $(document).height() - $(window).height() ){
-
-      $('footer').hide()
-
-    }
-    if($(window).scrollTop() + 100 < $(document).height() - $(window).height()) {
-      $('footer').show()
+    if($(window).scrollTop() + 100 > $(document).height() - $(window).height() || ($(window).width() < 725)){
+      $('footer').hide();
+    } else{
+      $('footer').show();
     }
   });
 });
