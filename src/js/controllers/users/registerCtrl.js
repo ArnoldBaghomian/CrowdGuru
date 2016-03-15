@@ -1,12 +1,12 @@
 app.controller("registerCtrl", function($scope, $state, $http) {
   "use strict";
   console.log("registerCtrl");
-
-  if(Cookies.get("authToken")) {
+  let registerState = ($state.current.name === "register");
+  if(registerState && Cookies.get("authToken")) {
     $state.go("profile");
   }
-  
-  $scope.register = function() {
+
+  $scope.register = function(modal) {
     console.log("Register!");
     if($scope.pass1 !== $scope.pass2){
       alert("Please enter matching passwords.");
@@ -24,8 +24,13 @@ app.controller("registerCtrl", function($scope, $state, $http) {
     }
 
     $http.post("/api/users/register", userData).then((res) => {
-      console.log(res);
-      $state.go("login");
+        $scope.$emit("AUTH_TOKEN", true);
+        if(modal){
+          $(`#${modal}`).foundation("reveal", "close");
+        }
+        if(registerState){
+          $state.go("profile");
+        }
     },(err) => {
       alert(err.data);
     });

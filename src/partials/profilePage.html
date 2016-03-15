@@ -34,20 +34,18 @@
     <table>
       <thead>
         <tr>
-          <td>user</td>
-          <td class="tableBidName">request</td>
-          <td>description</td>
-          <td>title</td>
-          <td>timestamp</td>
+          <td>Title</td>
+          <td class="tableBidName">Request</td>
+          <td>Description</td>
+          <td>Requested At</td>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat="bid in bids track by $index">
-          <td>{{bid.user}}</td>
+          <td>{{bid.title}}</td>
           <td>{{bid.request}}</td>
           <td>{{bid.description}}</td>
-          <td>{{bid.title}}</td>
-          <td>{{bid.timeStamp}}</td>
+          <td>{{getTime(bid.timeStamp)}}</td>
         </tr>
       </tbody>
     </table>
@@ -62,16 +60,16 @@
     <table>
       <thead>
         <tr>
+          <td class="tableBidName">Request Title</td>
+          <td>Request Description</td>
           <td>Date</td>
-          <td class="tableBidName">Req Name</td>
-          <td>Req Status</td>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat = "request in requests track by $index">
-          <td>{{request.timestamp}}</td>
           <td>{{request.title}}</td>
           <td>{{request.description}}</td>
+          <td>{{getTime(request.timestamp)}}</td>
         </tr>
       </tbody>
     </table>
@@ -82,4 +80,3 @@
 </div>
 
 </div>
-<div class="row"  style="height: 33vh;"></div>

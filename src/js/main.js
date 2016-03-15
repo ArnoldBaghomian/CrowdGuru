@@ -67,7 +67,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       url: "/request/search",
       templateUrl: "./partials/request/search.html",
       data:{
-        css: ["css/request.css"]
+        css: ["css/request/search.css"]
       },
       controller: "requestSearchCtrl"
     })

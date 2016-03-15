@@ -48,17 +48,20 @@ app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams,
     console.log("profileCtrl");
   }
 
-$scope.updateAboutMe = (data) => {
-  console.log("data:", data);
-  let thisUser = jwtHelper.decodeToken(Cookies.get("authToken"))._id;
-  let userUrl = `/api/users/profile/${$stateParams.userId ?  $stateParams.userId : thisUser}`;
-  console.log(`Putting at ${userUrl}`);
-  $scope.aboutMe = $scope.newAboutMe
-  $http.put(userUrl, {aboutMeText: $scope.newAboutMe}).then((res) => {
-    console.log("Post res: ",res);
-    $scope.aboutInput = false;
-  });
-};
+  $scope.updateAboutMe = (data) => {
+    console.log("data:", data);
+    let thisUser = jwtHelper.decodeToken(Cookies.get("authToken"))._id;
+    let userUrl = `/api/users/profile/${$stateParams.userId ?  $stateParams.userId : thisUser}`;
+    console.log(`Putting at ${userUrl}`);
+    $scope.aboutMe = $scope.newAboutMe;
+    $http.put(userUrl, {aboutMeText: $scope.newAboutMe}).then((res) => {
+      console.log("Post res: ",res);
+      $scope.aboutInput = false;
+    });
+  };
 
+  $scope.getTime = (timestamp) => {
+      return moment(timestamp).format("h:mm a ll");
+  };
 
 });

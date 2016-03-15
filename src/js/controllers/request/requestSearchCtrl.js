@@ -6,37 +6,8 @@ app.controller("requestSearchCtrl", function($scope, $state, $http, jwtHelper) {
   let timeLeft;
 
   $scope.page = 1;
+  $scope.filter = {};
 
-  /* This will be refactored to filter results
-  $scope.searchRequests = (page) => {
-
-  if(!page){
-    console.log("hit !page");
-    $scope.currentFilter = $scope.filterText;
-    console.log($scope.currentFilter);
-  }
-  let currentUser = jwtHelper.decodeToken(Cookies.get("authToken"))._id;
-  let requestUrl = `/api/request/search`;
-  if(page) {
-    console.log("hit page");
-    requestUrl += `&page=${page}`;
-  }
-
-$scope.searching = true;
-
-$http.get(requestUrl).then((res) => {
-$scope.requests = res.data.data;
-$scope.searchMade = true;
-$scope.pages = new Array(+res.data.pages || 1);
-console.log("getting", $scope.requests);
-$scope.searching = false;
-}, (err) => {
-$scope.searching = false;
-return alert(err.data);
-});
-};
-
-*/
 let requestUrl = "/api/request/search";
   if(Cookies.get("authToken")){
     let currentUser = jwtHelper.decodeToken(Cookies.get("authToken"))._id;
@@ -45,23 +16,31 @@ let requestUrl = "/api/request/search";
     }
   }
 
+$scope.refreshList = () => {
+  $scope.searching = true;
+  $scope.pages = [];
+  $scope.page = 1;
   $http.get(requestUrl).then((res) => {
     $scope.allRequests = res.data.data;
-    $scope.allRequests.sort((a,b) => a.timestamp - b.timestamp);
-    console.log("all requests:", $scope.allRequests);
-    $scope.requests = $scope.allRequests.slice(0, 20);
-    $scope.pages = new Array(Math.ceil(+$scope.allRequests.length/20));
-    console.log("getting", $scope.allRequests);
+    $scope.allRequests.sort((a,b) => b.timestamp - a.timestamp);
     $scope.searching = false;
     $scope.searchMade = true;
+    $scope.filterRequests();
   }, (err) => {
     $scope.searching = false;
     return alert(err.data);
   });
+};
 
 $scope.changePage = (page) => {
-  $scope.requests = $scope.allRequests.slice(20*(page-1), 20*page);
+  let source = "allRequests";
+  if($scope.filteredRequests) {
+    source = "filteredRequests";
+  }
+  $scope.requests = $scope[source].slice(20*(page-1), 20*page);
+  $scope.page = page;
 };
+
 
 $scope.getExpiration = (timestamp) => {
   let expiration = moment(timestamp).add(3, "d");
@@ -76,6 +55,7 @@ $scope.getExpiration = (timestamp) => {
     if(daysRemaining > 1) {
       timeRemaining += "s";
       timeLeft = timeRemaining;
+
     }
     timeSet = true;
   }
@@ -97,15 +77,18 @@ $scope.getExpiration = (timestamp) => {
   return timeRemaining;
 };
 
+
 $scope.showRequestDetails = (id) => {
+  console.log(`Making request to /api/request/view/${id}`);
   $http.get(`/api/request/view/${id}`).then((res) => {
     $scope.request = res.data;
+    console.log("res.data", $scope.request);
     $scope.request.timeLeft = timeLeft;
     console.log(timeLeft);
     console.log($scope.request);
     $("#requestDetailsModal").foundation("reveal", "open");
-    //modal.show();
   }, (err) => {
+
     return alert(err.data);
   });
 };
@@ -114,5 +97,36 @@ $scope.newBid = (requestId) => {
   $state.go("bidNew", {requestId: requestId});
 };
 
+$scope.filterRequests = () => {
+  let title = $scope.filter.title ? $scope.filter.title.trim().toLowerCase() : "";
+  let tags = $scope.filter.tags ? $scope.filter.tags.trim().replace(/,{2,}/, ",").split(",").map((val) => val.toLowerCase()) : [];
+
+  let filteredRequests = $scope.allRequests.slice(0);
+
+  for(let i = filteredRequests.length - 1; i >= 0; i--){
+    if(title && !filteredRequests[i].title.toLowerCase().includes(title)) {
+      filteredRequests.splice(i, 1);
+    } else {
+      for(let j = 0; j < tags.length; j++){
+        if(!filteredRequests[i].tags.includes(tags[j])) {
+          filteredRequests.splice(i, 1);
+          j = tags.length;
+        }
+      }
+    }
+  }
+
+  $scope.filteredRequests = filteredRequests;
+  $scope.requests = filteredRequests.slice(0, 20);
+  $scope.pages = new Array(Math.ceil(+$scope.filteredRequests.length/20));
+};
+
+$scope.clearFilter = () => {
+  $scope.filter = {};
+  $scope.page = 1;
+  $scope.filterRequests();
+};
+
+$scope.refreshList();
 console.log("Scope: ", $scope);
 });
