@@ -90,6 +90,19 @@ app.config(function($provide) {
     };
   });
 });
+app.run(function(){
+
+  $(window).scroll(function(){
+    if($(window).scrollTop() + 100 > $(document).height() - $(window).height() ){
+
+      $('footer').hide()
+
+    }
+    if($(window).scrollTop() + 100 < $(document).height() - $(window).height()) {
+      $('footer').show()
+    }
+  });
+});
 
 
 app.run(function($window, $rootScope, $location) {

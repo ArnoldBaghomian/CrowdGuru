@@ -1,5 +1,5 @@
 <h1>Profile</h1>
-<!-- <h3><a ui-sref="splash">Back to Splash</a> --> <a href="" ui-sref="changePassword">Change Password</a></h3>
+<!-- <h3><a ui-sref="splash">Back to Splash</a> --><a href="" ui-sref="changePassword">Change Password</a></h3>
 <div class="row">
   <div class="medium-6 columns">
     <img class="proPic" src="{{gravitarURL}}">
@@ -8,24 +8,26 @@
   </div>
   <div class="medium-6 large-5 columns">
     <h3>{{userProfile.styledUsername}}</h3>
-    <a ng-click="aboutInput = !aboutInput"  >Edit</a>
+    <a ng-click="aboutInput = !aboutInput">Edit</a>
     <p class="aboutMe">{{aboutMe}} </p>
 
-<form ng-submit="updateAboutMe(string)" ng-show="aboutInput" >
-    <input type="text" ng-model="newAboutMe">
-     <button>Submit</button>
-  </form >
+    <form ng-submit="updateAboutMe(string)" ng-show="aboutInput">
+      <input type="text" ng-model="newAboutMe">
+      <button>Submit</button>
+    </form>
   </div>
   <hr>
 </div>
 <div class="row">
-<a class="button" ng-disabled="guruToggle" ng-click="showGuru()">Toggle Guru Stats</a>
-<a class="button" ng-disabled="reqToggle" ng-click="showReq()">Toggle Req Stats</a>
+  <div class="small-12 columns columns">
+    <a class="button small" ng-disabled="guruToggle" ng-click="showGuru()">Toggle Guru Stats</a>
+    <a class="button small" ng-disabled="reqToggle" ng-click="showReq()">Toggle Req Stats</a>
+  </div>
 </div>
 
 </div>
 
-<div class="palignment" class="row" >
+<div class="palignment" class="row">
   <h3>Recent Activity</h3>
 </div>
 <div class="row" ng-show="Guru">
@@ -66,7 +68,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat = "request in requests track by $index">
+        <tr ng-repeat="request in requests track by $index">
           <td>{{request.title}}</td>
           <td>{{request.description}}</td>
           <td>{{getTime(request.timestamp)}}</td>
