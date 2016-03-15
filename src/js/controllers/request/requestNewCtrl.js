@@ -1,11 +1,6 @@
 // controller that will be called when new request page is loaded
-app.controller("requestNewCtrl", function($scope, $state, $http) {
+app.controller("requestNewCtrl", function($scope, $state, $http, $stateParams) {
   "use strict";
-
-  if(!Cookies("authToken")) {
-    Cookies("originalUrl", location.pathname);
-    $state.go("login");
-  }
 
   $scope.submitRequest = () => {
     let newRequest = {};
@@ -24,7 +19,23 @@ app.controller("requestNewCtrl", function($scope, $state, $http) {
     $http.post("/api/request/new", newRequest)
     .then((res) => {
       console.log("res", res);
-      $state.go("requestView", {requestId: res.data._id});
+
+      $http.get(`/api/request/view/${res.data._id}`).then((res) => {
+        console.log("res.data:", res.data);
+        $scope.request = res.data;
+        $scope.alertMessage = "Success ";
+
+        $scope.sendEm = "Click Alert box to go home";
+        $scope.showSuccessAlert = true;
+
+
+      }, (err) => {
+        return alert("Error: ", err.data);
+      });
+
+
+
+      // $state.go("requestView", {requestId: res.data._id});
     }, (err) => {
       alert(err.data);
       $state.go("login");

@@ -18,7 +18,8 @@ app.controller("bidNewCtrl", function($scope, $state, $stateParams, $http, jwtHe
         return;
       }
     });
-    $scope.request = res.data;
+    $scope.username = res.data.user.username;
+
   }, (err) => {
     return alert(err.data);
   });
