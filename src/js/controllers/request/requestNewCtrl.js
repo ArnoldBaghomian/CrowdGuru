@@ -17,8 +17,6 @@ app.controller("requestNewCtrl", function($scope, $state, $http, $stateParams) {
     newRequest.desc = $scope.request.desc;
     console.log(newRequest);
 
-
-
     if(!Cookies("authToken")) {
       Cookies("originalUrl", location.pathname);
       $scope.showModal = true
@@ -30,18 +28,11 @@ app.controller("requestNewCtrl", function($scope, $state, $http, $stateParams) {
         console.log("res.data:", res.data);
         $scope.request = res.data;
         $scope.alertMessage = "Success ";
-
         $scope.sendEm = "Click Alert box to go home";
         $scope.showSuccessAlert = true;
-
-
       }, (err) => {
         return alert("Error: ", err.data);
       });
-
-
-
-      // $state.go("requestView", {requestId: res.data._id});
     }, (err) => {
       alert(err.data);
       $state.go("login");
