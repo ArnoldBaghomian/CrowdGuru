@@ -57,6 +57,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       },
       controller: "registerCtrl"
     })
+  
     .state("requestNew", {
       url: "/request/new",
       templateUrl: "./partials/request/new.html",

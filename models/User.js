@@ -12,6 +12,9 @@
   // user that takes in rating, request, and user schema input.
   let userSchema = mongoose.Schema({
     requests: [{ type: mongoose.Schema.Types.ObjectId, ref: "Request" }],
+
+    aboutMe: {type: String},
+
     bids: [{ type: mongoose.Schema.Types.ObjectId, ref: "Bid" }],
     ratings: [{ type: mongoose.Schema.Types.ObjectId, ref: "Rating" }],
     username: { type: String, required: true },

@@ -39,6 +39,7 @@ $scope.changePage = (page) => {
   $scope.requests = $scope[source].slice(20*(page-1), 20*page);
 };
 
+
 $scope.getExpiration = (timestamp) => {
   let expiration = moment(timestamp).add(3, "d");
   let now = moment();
@@ -52,6 +53,7 @@ $scope.getExpiration = (timestamp) => {
     if(daysRemaining > 1) {
       timeRemaining += "s";
       timeLeft = timeRemaining;
+
     }
     timeSet = true;
   }
@@ -73,6 +75,7 @@ $scope.getExpiration = (timestamp) => {
   return timeRemaining;
 };
 
+
 $scope.showRequestDetails = (id) => {
   console.log(`Making request to /api/request/view/${id}`);
   $http.get(`/api/request/view/${id}`).then((res) => {
@@ -83,6 +86,7 @@ $scope.showRequestDetails = (id) => {
     console.log($scope.request);
     $("#requestDetailsModal").foundation("reveal", "open");
   }, (err) => {
+
     return alert(err.data);
   });
 };
