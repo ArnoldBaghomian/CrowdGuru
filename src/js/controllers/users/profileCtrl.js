@@ -17,7 +17,7 @@ app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams,
       $scope.requests = res.data.requests;
       $scope.bids = res.data.bids;
       $scope.ratings = res.data.ratings;
-      $scope.gravitarURL = "http://www.gravatar.com/avatar/" + md5.createHash(res.data.email || "") + "?s=512";
+      $scope.gravitarURL = "http://www.gravatar.com/avatar/" + md5.createHash(res.data.email) + "?s=512&d=identicon";
       console.log("gravURL", $scope.gravitarURL );
       console.log("RES: ", res);
     }, (err) => {
@@ -46,4 +46,16 @@ app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams,
 
     console.log("profileCtrl");
   }
+
+$scope.updateAboutMe = (data) => {
+  console.log("data:", data);
+  let thisUser = jwtHelper.decodeToken(Cookies.get("authToken"))._id;
+  let userUrl = `/api/users/profile/${$stateParams.userId ?  $stateParams.userId : thisUser}`;
+  console.log(`Putting at ${userUrl}`);
+  $http.put(userUrl).then((res) => {
+    console.log("Post res: ",res);
+  });
+};
+
+
 });

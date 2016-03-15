@@ -11,11 +11,15 @@ router.get("/", function(req, res, next) {
   let filter = req.query.filter;
   let pages;
 
-  let query = {
-      $text: { $search: filter },
-      userId: { $ne: req.query.user }
-  };
+  let query = {};
+  if(filter) {
+    query.$text = { $search: filter };
+  }
+  if(req.query.user) {
+    query.userId = { $ne: req.query.user };
+  }
 
+  console.log(`req.query.page: ${req.query.page}`);
   let matchCount = Request.count(query, (err, count) => {
     if(err) return res.status(400).send(err);
     pages = Math.ceil(count/20);
@@ -23,8 +27,8 @@ router.get("/", function(req, res, next) {
 
   let filteredRequests = Request.find(query)
   .sort({timestamp: 1})
-  .skip(req.query.page ? 20*(req.query.page-1) : 0)
-  .limit(20)
+  // .skip(req.query.page ? 20*(req.query.page-1) : 0)
+  // .limit(20)
   .populate("bid")
   .populate("user", "username ratings")
   .exec((err, data) => {
