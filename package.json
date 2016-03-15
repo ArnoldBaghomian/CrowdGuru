@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "npm i && node ./bin/www",
-    "postinstall": "bower i && gulp"
+    "postinstall": "bower i && gulp build"
   },
   "dependencies": {
     "ansi-256-colors": "^1.1.0",
