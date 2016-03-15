@@ -5,7 +5,7 @@ const Bid = require(global.models  + "/Bid");
 const Request = require(global.models  + "/Request");
 const User = require(global.models + "/User");
 
-router.get("/:id", User.isLoggedIn, function(req, res, next) {
+router.get("/:id", function(req, res, next) {
   Request.findById(req.params.id)
   .populate("bids")
   .populate("user", "username ratings")

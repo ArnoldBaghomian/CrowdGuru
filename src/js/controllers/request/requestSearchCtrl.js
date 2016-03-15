@@ -6,6 +6,7 @@ app.controller("requestSearchCtrl", function($scope, $state, $http, jwtHelper) {
   let timeLeft;
 
   $scope.page = 1;
+  $scope.filter = {};
 
 let requestUrl = "/api/request/search";
   if(Cookies.get("authToken")){
@@ -15,19 +16,20 @@ let requestUrl = "/api/request/search";
     }
   }
 
+$scope.refreshList = () => {
+  $scope.searching = true;
+  $scope.pages = [];
   $http.get(requestUrl).then((res) => {
     $scope.allRequests = res.data.data;
     $scope.allRequests.sort((a,b) => a.timestamp - b.timestamp);
-    console.log("all requests:", $scope.allRequests);
-    $scope.requests = $scope.allRequests.slice(0, 20);
-    $scope.pages = new Array(Math.ceil(+$scope.allRequests.length/20));
-    console.log("getting", $scope.allRequests);
     $scope.searching = false;
     $scope.searchMade = true;
+    $scope.filterRequests();
   }, (err) => {
     $scope.searching = false;
     return alert(err.data);
   });
+};
 
 $scope.changePage = (page) => {
   let source = "allRequests";
@@ -72,13 +74,14 @@ $scope.getExpiration = (timestamp) => {
 };
 
 $scope.showRequestDetails = (id) => {
+  console.log(`Making request to /api/request/view/${id}`);
   $http.get(`/api/request/view/${id}`).then((res) => {
     $scope.request = res.data;
+    console.log("res.data", $scope.request);
     $scope.request.timeLeft = timeLeft;
     console.log(timeLeft);
     console.log($scope.request);
     $("#requestDetailsModal").foundation("reveal", "open");
-    //modal.show();
   }, (err) => {
     return alert(err.data);
   });
@@ -93,23 +96,25 @@ $scope.filterRequests = () => {
   let tags = $scope.filter.tags ? $scope.filter.tags.trim().replace(/,{2,}/, ",").split(",").map((val) => val.toLowerCase()) : [];
 
   let filteredRequests = $scope.allRequests.slice(0);
-  console.log(`There are ${filteredRequests.length} total requests`);
+
   for(let i = filteredRequests.length - 1; i >= 0; i--){
     if(title && !filteredRequests[i].title.toLowerCase().includes(title)) {
       filteredRequests.splice(i, 1);
-    }
-    for(let j = 0; j < tags.length; j++){
-      if(!filteredRequests[i].tags.includes(tags[j])) {
-        filteredRequests.splice(i, 1);
-        j = tags.length;
+    } else {
+      for(let j = 0; j < tags.length; j++){
+        if(!filteredRequests[i].tags.includes(tags[j])) {
+          filteredRequests.splice(i, 1);
+          j = tags.length;
+        }
       }
     }
   }
-  console.log(`There are ${filteredRequests.length} filtered requests`);
+
   $scope.filteredRequests = filteredRequests;
   $scope.requests = filteredRequests.slice(0, 20);
   $scope.pages = new Array(Math.ceil(+$scope.filteredRequests.length/20));
 };
 
+$scope.refreshList();
 console.log("Scope: ", $scope);
 });

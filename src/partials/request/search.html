@@ -17,13 +17,13 @@
      <input ng-model="filter.tags" class="form-control" type="text" placeholder='e.g. "Investing, Tech"'>
    </div>
    <button class="filterButton">Filter</button>
+   <button type="button" ng-click="refreshList()"><i class="fi-refresh"></i> List</button>
  </form>
 <div class="aboveHeader" class="row" id="content">
   <div class="small-10 small-offset-1 columns">
     <button ng-if="pages.length > 1" ng-repeat="page in pages track by $index" ng-click="changePage($index+1)">{{$index+1}}</button>
     <h3 ng-if="!requests[0] && searchMade && !searching">No requests match your search.</h3>
-    <h3 ng-if="!requests[0] && !searchMade && !searching">Loading...</h3>
-    <h3 ng-if="searching">Searching...</h3>
+    <h3 ng-if="searching || (!requests[0] && !searchMade)">Loading...</h3>
     <table class="tablesize" ng-if="requests[0] && !searching">
       <thead>
         <tr>
