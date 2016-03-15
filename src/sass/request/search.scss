@@ -1,10 +1,9 @@
-#searchHeader{
+#filterHeader{
   text-align: center;
 }
 
-#searchinput{
-  width:300px;
-  margin-left:38vw;
+#filters {
+  text-align: center;
 }
 
 .tablesize{
@@ -21,21 +20,10 @@
   margin-top: 15vh;
 }
 
-.submitTab{
-  margin-top: 5vh;
-}
-iframe {
-  height: 50vh;
-  width: 70vw;
-}
-
 .timeOut {
   align-items: flex-end;
 }
 
-.SearchButton{
-  margin-left:45vw;
-}
 .SearchLabel{
   margin-left:38vw;
 }

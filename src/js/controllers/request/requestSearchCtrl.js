@@ -7,36 +7,6 @@ app.controller("requestSearchCtrl", function($scope, $state, $http, jwtHelper) {
 
   $scope.page = 1;
 
-  /* This will be refactored to filter results
-  $scope.searchRequests = (page) => {
-
-  if(!page){
-    console.log("hit !page");
-    $scope.currentFilter = $scope.filterText;
-    console.log($scope.currentFilter);
-  }
-  let currentUser = jwtHelper.decodeToken(Cookies.get("authToken"))._id;
-  let requestUrl = `/api/request/search`;
-  if(page) {
-    console.log("hit page");
-    requestUrl += `&page=${page}`;
-  }
-
-$scope.searching = true;
-
-$http.get(requestUrl).then((res) => {
-$scope.requests = res.data.data;
-$scope.searchMade = true;
-$scope.pages = new Array(+res.data.pages || 1);
-console.log("getting", $scope.requests);
-$scope.searching = false;
-}, (err) => {
-$scope.searching = false;
-return alert(err.data);
-});
-};
-
-*/
 let requestUrl = "/api/request/search";
   if(Cookies.get("authToken")){
     let currentUser = jwtHelper.decodeToken(Cookies.get("authToken"))._id;
@@ -60,7 +30,11 @@ let requestUrl = "/api/request/search";
   });
 
 $scope.changePage = (page) => {
-  $scope.requests = $scope.allRequests.slice(20*(page-1), 20*page);
+  let source = "allRequests";
+  if($scope.filteredRequests) {
+    source = "filteredRequests";
+  }
+  $scope.requests = $scope[source].slice(20*(page-1), 20*page);
 };
 
 $scope.getExpiration = (timestamp) => {
@@ -112,6 +86,29 @@ $scope.showRequestDetails = (id) => {
 
 $scope.newBid = (requestId) => {
   $state.go("bidNew", {requestId: requestId});
+};
+
+$scope.filterRequests = () => {
+  let title = $scope.filter.title ? $scope.filter.title.trim().toLowerCase() : "";
+  let tags = $scope.filter.tags ? $scope.filter.tags.trim().replace(/,{2,}/, ",").split(",").map((val) => val.toLowerCase()) : [];
+
+  let filteredRequests = $scope.allRequests.slice(0);
+  console.log(`There are ${filteredRequests.length} total requests`);
+  for(let i = filteredRequests.length - 1; i >= 0; i--){
+    if(title && !filteredRequests[i].title.toLowerCase().includes(title)) {
+      filteredRequests.splice(i, 1);
+    }
+    for(let j = 0; j < tags.length; j++){
+      if(!filteredRequests[i].tags.includes(tags[j])) {
+        filteredRequests.splice(i, 1);
+        j = tags.length;
+      }
+    }
+  }
+  console.log(`There are ${filteredRequests.length} filtered requests`);
+  $scope.filteredRequests = filteredRequests;
+  $scope.requests = filteredRequests.slice(0, 20);
+  $scope.pages = new Array(Math.ceil(+$scope.filteredRequests.length/20));
 };
 
 console.log("Scope: ", $scope);

@@ -6,12 +6,18 @@
  -->
 
 
- <h2 id="searchHeader">Search Requests</h2>
- <form class="form-group" ng-submit="searchRequests()">
-       <label class="SearchLabel" for="filter">Search:</label>
-       <input id="searchinput"  ng-model="filterText" class="form-control", type="text", id="filter">
-       <button class="SearchButton">Search</button>
-  </form>
+ <h2 id="filterHeader">Filter Requests</h2>
+ <form id="filters" class="form-group row" ng-submit="filterRequests()">
+   <div class="small-6 columns">
+     <label for="filter">Title:</label>
+     <input ng-model="filter.title" class="form-control" type="text" placeholder='e.g. "Make Me Money"'>
+   </div>
+   <div class="small-6 columns">
+     <label for="filter">Tags:</label>
+     <input ng-model="filter.tags" class="form-control" type="text" placeholder='e.g. "Investing, Tech"'>
+   </div>
+   <button class="filterButton">Filter</button>
+ </form>
 <div class="aboveHeader" class="row" id="content">
   <div class="small-10 small-offset-1 columns">
     <button ng-if="pages.length > 1" ng-repeat="page in pages track by $index" ng-click="changePage($index+1)">{{$index+1}}</button>
