@@ -20,12 +20,20 @@
   });
 
   router.put("/:userId", User.isLoggedIn, (req, res, next) => {
-    console.log("req for aboutme", req);
+    // console.log("req for aboutme", req);
+ 
     User.findById(req.user._id, (err, foundUser) => {
-      foundUser.aboutMe = req.body;
-      console.log("I hope it does something: ", foundUser);
-      foundUser.save("savedUser")
-      res.send(foundUser)
+      if(err) return res.status(400).send(err);
+    
+      foundUser.aboutMe = req.body.aboutMeText;
+      console.log("set foundUser.aboutMe");
+      // console.log("I hope it does something: ", foundUser);
+      foundUser.save((err, savedUser) => {
+        console.log(err);
+        if(err) return res.status(400).send(err);
+       
+        res.send("it worked?");
+      });
     });
   });
 
