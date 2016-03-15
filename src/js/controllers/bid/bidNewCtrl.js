@@ -19,7 +19,7 @@ app.controller("bidNewCtrl", function($scope, $state, $stateParams, $http, jwtHe
   }, (err) => {
     return alert(err.data);
   });
-  
+
   $scope.submitBid = () => {
     if(!Cookies.get("authToken")) {
       $("#userAuthModal").foundation("reveal", "open");
@@ -32,7 +32,7 @@ app.controller("bidNewCtrl", function($scope, $state, $stateParams, $http, jwtHe
       }, err => {
         return alert(err.data);
       });
-    };
+    }
   };
 
   console.log("bidNewCtrl");
