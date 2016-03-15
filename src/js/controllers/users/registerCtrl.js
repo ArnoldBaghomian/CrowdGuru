@@ -1,8 +1,8 @@
 app.controller("registerCtrl", function($scope, $state, $http) {
   "use strict";
   console.log("registerCtrl");
-
-  if($state.current.name === "login" && Cookies.get("authToken")) {
+  let registerState = ($state.current.name === "register");
+  if(registerState && Cookies.get("authToken")) {
     $state.go("profile");
   }
 
@@ -24,8 +24,10 @@ app.controller("registerCtrl", function($scope, $state, $http) {
     }
 
     $http.post("/api/users/register", userData).then((res) => {
-      console.log(res);
-      $state.go("login");
+        $scope.$emit("AUTH_TOKEN", true);
+        if(registerState){
+        $state.go("profile");
+      }
     },(err) => {
       alert(err.data);
     });

@@ -4,8 +4,8 @@
 app.controller("loginCtrl", function($scope, $state, $http) {
   "use strict";
   console.log("loginCtrl");
-
-  if($state.current.name === "login" && Cookies.get("authToken")) {
+  let loginState = ($state.current.name === "login");
+  if(loginState && Cookies.get("authToken")) {
     $state.go("profile");
   }
 
@@ -20,7 +20,10 @@ app.controller("loginCtrl", function($scope, $state, $http) {
       userData.username = $scope.user.login;
     }
     $http.post("/api/users/login", userData).then((res) => {
-      location.href = (Cookies("originalUrl") || "/users/profile");
+      $scope.$emit("AUTH_TOKEN", true);
+      if(loginState){
+        location.href = (Cookies("originalUrl") || "/users/profile");
+      }
       Cookies.expire("originalUrl");
     }, (err) => {
       alert(err.data);
