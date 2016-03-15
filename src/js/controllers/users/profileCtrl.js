@@ -12,7 +12,7 @@ app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams,
 
     let requestUrl = `/api/users/profile/${$stateParams.userId ?  $stateParams.userId : thisUser}`;
     $http.get(requestUrl).then((res) => {
-
+      
       $scope.userProfile = res.data;
       $scope.requests = res.data.requests;
       $scope.bids = res.data.bids;
