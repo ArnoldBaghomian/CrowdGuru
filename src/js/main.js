@@ -91,6 +91,7 @@ app.config(function($provide) {
   });
 });
 
+
 app.run(function($window, $rootScope, $location) {
   $window.ga('create', 'UA-75164642-1', 'auto');
   $rootScope.$on('$stateChangeSuccess', function (event) {
