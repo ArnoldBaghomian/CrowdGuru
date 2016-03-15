@@ -32,84 +32,8 @@
               <h6>{{sendEm}}</h6>
               <a href="#" class="close">&times;</a>
             </div>
-
-
-            <div id="myModal" ng-show="showModal" class="reveal-modal remove-whitespace open" data-reveal style="display: block; opacity: 1; visibility: visible; top: 50px;">
-              <div class="row">
-                <div class="large-12 columns auth-plain">
-                    <a ng-click="logMeIn = false" href="#" class="button small">Login</a>
-                    <a ng-click="logMeIn = true" href="#" class="button small">Register</a>
-
-                  <div class="signup-panel left-solid" ng-controller="loginCtrl" ng-show="!logMeIn">
-                    <form>
-                      <div class="row collapse">
-                        <div class="small-2  columns">
-                          <span class="prefix"><i class="fi-torso-female"></i></span>
-                        </div>
-                        <div class="small-10  columns">
-                          <input type="text" placeholder="Username or E-Mail" ng-model="user.login">
-                        </div>
-                      </div>
-                      <div class="row collapse">
-                        <div class="small-2 columns ">
-                          <span class="prefix"><i class="fi-lock"></i></span>
-                        </div>
-                        <div class="small-10 columns ">
-                          <input type="text" placeholder="password" ng-model="user.password">
-                        </div>
-                      </div>
-                    </form>
-                    <a href="#" class="button ">Log In </a>
-                  </div>
-
-
-
-
-                  <div class="signup-panel left-solid" ng-controller="registerCtrl" ng-hide="!logMeIn">
-                    <form>
-                      <div class="row collapse">
-                        <div class="small-2  columns">
-                          <span class="prefix"><i class="fi-torso-female"></i></span>
-                        </div>
-                        <div class="small-10  columns">
-                          <input type="text" ng-model="user.username" placeholder="Username" required>
-                        </div>
-                      </div>
-                      <div class="row collapse">
-                        <div class="small-2  columns">
-                          <span class="prefix"><i class="fi-torso-female"></i></span>
-                        </div>
-                        <div class="small-10  columns">
-                         <input type="email" ng-model="user.email" placeholder="E-Mail" required>
-                        </div>
-                      </div>
-                      <div class="row collapse">
-                        <div class="small-2 columns ">
-                          <span class="prefix"><i class="fi-lock"></i></span>
-                        </div>
-                        <div class="small-10 columns ">
-                          <input type="password" ng-model="user.pass1" placeholder="Password" required>
-                        </div>
-                      </div>
-                      <div class="row collapse">
-                        <div class="small-2 columns ">
-                          <span class="prefix"><i class="fi-lock"></i></span>
-                        </div>
-                        <div class="small-10 columns ">
-                          <input type="password" ng-model="user.pass2" placeholder="Verify Password" required>
-                        </div>
-                      </div>
-                      <button type="submit">Sign Me Up!</button>
-                    </form>
-                  </div>
-
-                </div>
-
-              </div>
-              <a class="close-reveal-modal" ng-click="showModal = false">×</a>
-            </div>
-
           </form>
+
         </div>
       </section>
     </div>
@@ -117,31 +41,6 @@
 
 </div>
 
-
-</div>
-
-
-<footer class="row">
-  <div class="large-12 columns">
-    <hr>
-
-  </div>
-  </div>
-</footer>
-
-
-<div class="reveal-modal" id="mapModal">
-  <h4>Where We Are</h4>
-  <p><img src="http://placehold.it/1200x1200"></p>
-
-  <a href="#" class="close-reveal-modal">×</a>
-</div>
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/js/foundation.min.js"></script>
 <script>
-  $(document).foundation();
+$(document).foundation();
 </script>
-<script type="text/javascript" src="https://intercom.zurb.com/scripts/zcom.js"></script>
-
-
-<span id="buffer-extension-hover-button" style="display: none; position: absolute; z-index: 8675309; width: 100px; height: 25px; opacity: 0.9; cursor: pointer; top: 205.188px; left: 919.5px; background-image: url(&quot;chrome-extension://noojglkidnpfjbincgijbaiedldjfbhh/data/shared/img/buffer-hover-icon@2x.png&quot;); background-size: 100px 25px;"></span></body>

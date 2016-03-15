@@ -6,7 +6,7 @@ app.controller("registerCtrl", function($scope, $state, $http) {
     $state.go("profile");
   }
 
-  $scope.register = function() {
+  $scope.register = function(modal) {
     console.log("Register!");
     if($scope.pass1 !== $scope.pass2){
       alert("Please enter matching passwords.");
@@ -25,9 +25,12 @@ app.controller("registerCtrl", function($scope, $state, $http) {
 
     $http.post("/api/users/register", userData).then((res) => {
         $scope.$emit("AUTH_TOKEN", true);
+        if(modal){
+          $(`#${modal}`).foundation("reveal", "close");
+        }
         if(registerState){
-        $state.go("profile");
-      }
+          $state.go("profile");
+        }
     },(err) => {
       alert(err.data);
     });

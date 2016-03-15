@@ -9,7 +9,8 @@ app.controller("loginCtrl", function($scope, $state, $http) {
     $state.go("profile");
   }
 
-  $scope.login = function() {
+  $scope.login = function(modal) {
+    console.log("MODAL:", modal);
     console.log(`$scope.user:`, $scope.user);
     let userData = {};
     userData.password = $scope.user.password;
@@ -21,6 +22,9 @@ app.controller("loginCtrl", function($scope, $state, $http) {
     }
     $http.post("/api/users/login", userData).then((res) => {
       $scope.$emit("AUTH_TOKEN", true);
+      if(modal){
+        $(`#${modal}`).foundation("reveal", "close");
+      }
       if(loginState){
         location.href = (Cookies("originalUrl") || "/users/profile");
       }
