@@ -16,10 +16,16 @@ app.controller("requestNewCtrl", function($scope, $state, $http, $stateParams) {
     });
     newRequest.desc = $scope.request.desc;
     console.log(newRequest);
+
+
+
+    if(!Cookies("authToken")) {
+      Cookies("originalUrl", location.pathname);
+      $scope.showModal = true
+    }else if(Cookies("authToken")){
     $http.post("/api/request/new", newRequest)
     .then((res) => {
       console.log("res", res);
-
       $http.get(`/api/request/view/${res.data._id}`).then((res) => {
         console.log("res.data:", res.data);
         $scope.request = res.data;
@@ -40,6 +46,14 @@ app.controller("requestNewCtrl", function($scope, $state, $http, $stateParams) {
       alert(err.data);
       $state.go("login");
     });
+  };
+
+
+
+
+
+
+
   };
   console.log("requestNewCtrl");
 
