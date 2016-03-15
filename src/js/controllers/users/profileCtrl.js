@@ -12,7 +12,7 @@ app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams,
 
     let requestUrl = `/api/users/profile/${$stateParams.userId ?  $stateParams.userId : thisUser}`;
     $http.get(requestUrl).then((res) => {
-      
+
       $scope.userProfile = res.data;
       $scope.requests = res.data.requests;
       $scope.bids = res.data.bids;
@@ -53,7 +53,7 @@ $scope.updateAboutMe = (data) => {
   let thisUser = jwtHelper.decodeToken(Cookies.get("authToken"))._id;
   let userUrl = `/api/users/profile/${$stateParams.userId ?  $stateParams.userId : thisUser}`;
   console.log(`Putting at ${userUrl}`);
-  $scope.aboutMe = $scope.newAboutMe
+  $scope.aboutMe = $scope.newAboutMe;
   $http.put(userUrl, {aboutMeText: $scope.newAboutMe}).then((res) => {
     console.log("Post res: ",res);
     $scope.aboutInput = false;

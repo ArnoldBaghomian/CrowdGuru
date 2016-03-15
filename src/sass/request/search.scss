@@ -28,10 +28,14 @@
   margin-left:38vw;
 }
 
-.currentPage {
-  background-color: #007095;
-}
-
 button:active, button:focus {
   outline: 0px;
+  background-color: #008CBA;
+}
+
+.currentPage {
+  background-color: #007095;
+  &:focus {
+    background-color: #007095;
+  }
 }

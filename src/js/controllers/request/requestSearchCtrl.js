@@ -19,6 +19,7 @@ let requestUrl = "/api/request/search";
 $scope.refreshList = () => {
   $scope.searching = true;
   $scope.pages = [];
+  $scope.page = 1;
   $http.get(requestUrl).then((res) => {
     $scope.allRequests = res.data.data;
     $scope.allRequests.sort((a,b) => b.timestamp - a.timestamp);
@@ -118,6 +119,12 @@ $scope.filterRequests = () => {
   $scope.filteredRequests = filteredRequests;
   $scope.requests = filteredRequests.slice(0, 20);
   $scope.pages = new Array(Math.ceil(+$scope.filteredRequests.length/20));
+};
+
+$scope.clearFilter = () => {
+  $scope.filter = {};
+  $scope.page = 1;
+  $scope.filterRequests();
 };
 
 $scope.refreshList();
