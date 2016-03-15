@@ -21,7 +21,7 @@ $scope.refreshList = () => {
   $scope.pages = [];
   $http.get(requestUrl).then((res) => {
     $scope.allRequests = res.data.data;
-    $scope.allRequests.sort((a,b) => a.timestamp - b.timestamp);
+    $scope.allRequests.sort((a,b) => b.timestamp - a.timestamp);
     $scope.searching = false;
     $scope.searchMade = true;
     $scope.filterRequests();
