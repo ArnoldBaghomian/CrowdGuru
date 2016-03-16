@@ -38,7 +38,7 @@
       <tbody>
         <tr ng-repeat="request in requests track by request._id" >
           <td>{{request.title}}</td>
-          <td>{{request.tags}}</td>
+          <td><span ng-repeat="tag in request.tags track by $index" class="requestTag">{{tag}}</span></td>
           <td>{{request.description}}</td>
           <td>{{getExpiration(request.timestamp)}}</td>
           <td>

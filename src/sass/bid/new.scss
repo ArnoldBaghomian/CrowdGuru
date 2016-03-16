@@ -1,0 +1,11 @@
+.requestTags {
+  list-style: none;
+  margin-left: 0px;
+  li {
+    display: inline-block;
+    font-weight: bold;
+  }
+  li+li:before {
+    content: ", ";
+  }
+}

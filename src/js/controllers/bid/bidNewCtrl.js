@@ -5,6 +5,7 @@ app.controller("bidNewCtrl", function($scope, $state, $stateParams, $http, jwtHe
   console.log($state.params.requestId);
   $http.get(`/api/request/view/${$stateParams.requestId}`).then(res => {
     console.log("res.data:", res.data);
+    $scope.request = res.data;
     if(Cookies.get("authToken")){
       let thisUser = jwtHelper.decodeToken(Cookies.get("authToken"))._id;
       res.data.bids.forEach(bid => {

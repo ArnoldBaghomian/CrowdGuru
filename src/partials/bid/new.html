@@ -1,4 +1,10 @@
-<h1>New Bid for {{username}}</h1>
+<h1>New Bid for {{styledUsername || username}}'s request</h1>
+<h4>Title: {{request.title}}</h4>
+<h4>Description: {{request.description}}</h4>
+<h5>Current Bids: {{request.bids.length}}</h5>
+<ul class="requestTags">
+  <li ng-repeat="tag in request.tags">{{tag}}</li>
+</ul>
 <p></p>
 <form ng-submit="submitBid()">
   <label>Comment</label>

@@ -39,3 +39,7 @@ button:active, button:focus {
     background-color: #007095;
   }
 }
+
+.requestTag+.requestTag:before {
+  content: ", ";
+}
