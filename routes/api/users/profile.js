@@ -12,10 +12,13 @@
     User.findById(req.params.userId)
     .select("-password -__v")
     .populate("ratings bids requests")
-    .exec((err, data) => {
+    .exec((err, user) => {
       if(err) return res.status(400).send(err);
-      console.log(data);
-      res.send(data);
+      User.populate(user, { path: "bids.request", model: "Request", select: "title _id" }, (err, user) => {
+        if(err) return res.status(400).send(err);
+        console.log("user", user);
+        res.send(user);
+      });
     });
   });
 

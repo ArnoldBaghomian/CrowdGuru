@@ -1,9 +1,10 @@
-var express = require("express");
-var router = express.Router();
+const moment  = require("moment");
 
-const User = require(global.models + "/User");
+const User    = require(global.models + "/User");
 const Request = require(global.models + "/Request");
 
+const express = require("express");
+const router  = express.Router();
 
 router.get("/", function(req, res, next) {
   "use strict";
@@ -11,7 +12,11 @@ router.get("/", function(req, res, next) {
   let filter = req.query.filter;
   let pages;
 
-  let query = {};
+  let query = {
+    timestamp: {
+      $gte: +(moment().subtract(3, "d").format("x"))
+    }
+  };
   if(filter) {
     query.$text = { $search: filter };
   }

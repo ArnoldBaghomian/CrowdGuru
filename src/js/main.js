@@ -76,8 +76,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   })
   .state("requestView", {
     url: "/request/view/{requestId}",
-    templateUrl: "./partials/request/view.html",
-    controller: "requestViewCtrl"
+    templateUrl: "./partials/request/view.html"
   });
   $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise("/");
@@ -85,7 +84,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
 app.config(function($provide) {
   $provide.decorator("$exceptionHandler", function($delegate) {
-    return function(exception, cause) {
+    return function	(exception, cause) {
       $delegate(exception, cause);
       setTimeout(function() {
         throw exception;

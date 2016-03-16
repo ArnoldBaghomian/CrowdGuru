@@ -46,7 +46,7 @@
       <tbody>
         <tr ng-repeat="bid in bids track by $index">
           <td>{{bid.title}}</td>
-          <td>{{bid.request}}</td>
+          <td>{{bid.request.title}}</td>
           <td>{{bid.description}}</td>
           <td>{{getTime(bid.timeStamp)}}</td>
         </tr>
