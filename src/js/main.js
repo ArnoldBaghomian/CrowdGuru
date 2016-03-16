@@ -96,17 +96,17 @@ app.config(function($provide) {
 app.run(function(){
   $(window).scroll(function(){
     if($(window).scrollTop() + 100 > $(document).height() - $(window).height() || ($(window).width() < 725)){
-      $('footer').hide();
+      $("footer").hide();
     } else{
-      $('footer').show();
+      $("footer").show();
     }
   });
 });
 
 
 app.run(function($window, $rootScope, $location) {
-  $window.ga('create', 'UA-75164642-1', 'auto');
-  $rootScope.$on('$stateChangeSuccess', function (event) {
-    $window.ga('send', 'pageview', $location.path());
+  $window.ga("create", "UA-75164642-1", "auto");
+  $rootScope.$on("$stateChangeSuccess", function (event) {
+    $window.ga("send", "pageview", $location.path());
 });
 });
