@@ -81,12 +81,15 @@ $scope.getExpiration = (timestamp) => {
 $scope.showRequestDetails = (id) => {
   console.log(`Making request to /api/request/view/${id}`);
   $http.get(`/api/request/view/${id}`).then((res) => {
-    $scope.request = res.data;
-    console.log("res.data", $scope.request);
-    $scope.request.timeLeft = timeLeft;
+    let requestData = res.data;
+    console.log("res.data", res.data);
+    requestData.timeLeft = timeLeft;
+    $scope.$emit("UPDATE_REQUEST_MODAL", requestData);
+    $scope.$emit("TOGGLE_REQUEST_MODAL");
+    // $scope.request = res.data;
+    // $scope.request.timeLeft = timeLeft;
     console.log(timeLeft);
-    console.log($scope.request);
-    $("#requestDetailsModal").foundation("reveal", "open");
+    console.log(requestData);
   }, (err) => {
 
     return alert(err.data);

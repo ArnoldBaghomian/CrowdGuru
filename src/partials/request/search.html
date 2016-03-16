@@ -50,11 +50,3 @@
     <button ng-if="pages.length > 1" ng-repeat="(key, val) in pages track by $index" ng-click="changePage($index+1)" ng-class="{ true: 'currentPage' } [$index + 1 === page]">{{$index+1}}</button>
   </div>
 </div>
-<div id="requestDetailsModal" class="reveal-modal" data-reveal>
-  <h2>{{request.title}}</h2>
-  <h5 class="timeOut">{{request.timeLeft}} Left</h5>
-  <p>{{request.description}}</p>
-  <p><h5>Tags:</h5><span ng-repeat="tag in request.tags track by $index">{{ " " + tag + " " }}</span></p>
-  <a class="close-reveal-modal">&#215;</a>
-  <a ng-click="newBid(request._id)" class="close-reveal-modal"><button>Bid</button></a>
-</div>

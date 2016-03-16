@@ -25,7 +25,7 @@
   <script src="bower_components/moment/min/moment.min.js"></script>
   <script src="bower_components/angular-md5/angular-md5.js"></script>
   <script src="js/bundle.js"></script>
-    
+
   <script src="//load.sumome.com/" data-sumo-site-id="232d6c7ab65d4304cd133d08929d2f084e75c49c34e7402335af003a15582fb0" async="async"></script>
 
 
@@ -178,6 +178,16 @@
       </div>
     </div>
     <a class="close-reveal-modal">×</a>
+  </div>
+
+
+  <div id="requestViewModal" class="reveal-modal" data-reveal>
+    <h2>{{modals.request.title}}</h2>
+    <h5 class="timeOut">{{modals.request.timeLeft}} Left</h5>
+    <p>{{modals.request.description}}</p>
+    <p><h5>Tags:</h5><span ng-repeat="tag in modals.request.tags track by $index">{{ " " + tag + " " }}</span></p>
+    <!-- <a class="close-reveal-modal">&#215;</a> -->
+    <a ng-click="newBid(request._id)" class="close-reveal-modal"><button>Bid</button></a>
   </div>
 
   <script>
