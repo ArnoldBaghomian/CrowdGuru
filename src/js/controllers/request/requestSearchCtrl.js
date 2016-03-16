@@ -22,7 +22,7 @@ $scope.refreshList = () => {
   $scope.page = 1;
   $http.get(requestUrl).then((res) => {
     $scope.allRequests = res.data.data;
-    $scope.allRequests.sort((a,b) => b.timestamp - a.timestamp);
+    $scope.allRequests.sort((a,b) => a.timestamp - b.timestamp);
     $scope.searching = false;
     $scope.searchMade = true;
     $scope.filterRequests();
