@@ -106,8 +106,8 @@ app.run(function(){
 app.run(function(){
   $(".top-bar-section").on("click", "li", function(e){
     $(".clickMe").trigger("click");
-  })
-})
+  });
+});
 
 app.run(function($window, $rootScope, $location) {
   $window.ga("create", "UA-75164642-1", "auto");
