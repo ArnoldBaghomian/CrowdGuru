@@ -10,11 +10,6 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       css: ["css/splash.css"]
     }
   })
-  .state("bidView", {
-    url: "/bid/view/{bidId}",
-    templateUrl: "./partials/bid/view.html",
-    controller: "bidViewCtrl"
-  })
   .state("bidNew", {
     url: "/bid/new/{requestId}",
     templateUrl: "./partials/bid/new.html",
@@ -96,9 +91,9 @@ app.run(function(){
   let $window = $(window), $document = $(document), $footer = $("footer");
   $window.scroll(function(){
     if($window.scrollTop() + 100 > $document.height() - $window.height() || ($window.width() < 725)){
-      $footer.hide();
+      $footer.css("visibility", "hidden");
     } else{
-      $footer.show();
+      $footer.css("visibility", "visible");
     }
   });
 });
