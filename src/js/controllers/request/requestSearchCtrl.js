@@ -82,22 +82,15 @@ $scope.showRequestDetails = (id) => {
   console.log(`Making request to /api/request/view/${id}`);
   $http.get(`/api/request/view/${id}`).then((res) => {
     let requestData = res.data;
-    console.log("res.data", res.data);
     requestData.timeLeft = timeLeft;
     $scope.$emit("UPDATE_REQUEST_MODAL", requestData);
     $scope.$emit("TOGGLE_REQUEST_MODAL");
-    // $scope.request = res.data;
-    // $scope.request.timeLeft = timeLeft;
     console.log(timeLeft);
     console.log(requestData);
   }, (err) => {
 
     return alert(err.data);
   });
-};
-
-$scope.newBid = (requestId) => {
-  $state.go("bidNew", {requestId: requestId});
 };
 
 $scope.filterRequests = () => {
