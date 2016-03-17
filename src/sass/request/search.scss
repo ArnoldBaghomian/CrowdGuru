@@ -1,45 +1,74 @@
-#filterHeader{
+#filterHeader {
   text-align: center;
 }
-
 #filters {
   text-align: center;
 }
-
-.tablesize{
-  width:100%;
+.aboveHeader {
+  padding-top: 3vw;
+  width: 100%;
 }
-
-.aboveHeader{
-  padding-top:3vw;
-  width:100%;
-
-}
-
-.topofGuruGuide{
+.topofGuruGuide {
   margin-top: 15vh;
 }
-
 .timeOut {
   align-items: flex-end;
 }
-
-.SearchLabel{
-  margin-left:38vw;
+.SearchLabel {
+  margin-left: 38vw;
 }
-
-button:active, button:focus {
-  outline: 0px;
+button:active,
+button:focus {
+  outline: 0;
   background-color: #008CBA;
 }
-
 .currentPage {
   background-color: #007095;
   &:focus {
     background-color: #007095;
   }
 }
-
 .requestTag+.requestTag:before {
   content: ", ";
+}
+@media(max-width: 700px) {
+  table {
+    .tagDataCell {
+      max-width: 1px;
+      overflow: hidden;
+    }
+    .timeDataCell{
+      max-width: 60px;
+      overflow: hidden;
+    }
+    .descDataCell{
+      max-width: 60px;
+      overflow: hidden;
+    }
+  }
+}
+@media(max-width: 550px) {
+  table {
+    .descDataCell {
+      max-width: 10px;
+      overflow: hidden;
+    }
+    .tagDataCell{
+      display: none;
+    }
+    .timeDataCell{
+
+    }
+  }
+}
+@media(max-width: 400px) {
+  table {
+    .timeDataCell {
+      width: 50px;
+      overflow: hidden;
+    }
+    .descDataCell {
+      display: none;
+    }
+  }
 }

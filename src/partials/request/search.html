@@ -29,18 +29,18 @@
       <thead>
         <tr>
           <th width="160">Title</th>
-          <th width="160">Tags</th>
-          <th width="160">Description</th>
-          <th width="160">Time Remaining</th>
+          <th class="tagDataCell" width="160">Tags</th>
+          <th class="descDataCell" width="160">Description</th>
+          <th class="timeDataCell" width="160">Time Remaining</th>
           <th width="160">Details</th>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat="request in requests track by request._id" >
           <td>{{request.title}}</td>
-          <td><span ng-repeat="tag in request.tags track by $index" class="requestTag">{{tag}}</span></td>
-          <td>{{request.description}}</td>
-          <td>{{getExpiration(request.timestamp)}}</td>
+          <td class="tagDataCell"><span ng-repeat="tag in request.tags track by $index" class="requestTag">{{tag}}</span></td>
+          <td class="descDataCell">{{request.description}}</td>
+          <td class="timeDataCell">{{getExpiration(request.timestamp)}}</td>
           <td>
             <button ng-click="showRequestDetails(request._id)" >Details</button>
           </td>

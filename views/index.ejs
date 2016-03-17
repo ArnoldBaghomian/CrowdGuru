@@ -25,7 +25,7 @@
   <script src="bower_components/moment/min/moment.min.js"></script>
   <script src="bower_components/angular-md5/angular-md5.js"></script>
   <script src="js/bundle.js"></script>
-    
+
   <script src="//load.sumome.com/" data-sumo-site-id="232d6c7ab65d4304cd133d08929d2f084e75c49c34e7402335af003a15582fb0" async="async"></script>
 
 
@@ -40,18 +40,18 @@
           <img ui-sref="splash" src="images/crowdGuruIcon.png"/>
         </div>
       </li>
-      <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+      <li class="toggle-topbar menu-icon"><a class="clickMe" href="#"><span>Menu</span></a></li>
     </ul>
 
 
     <section class="top-bar-section" id="navbar_items">
       <ul>
-        <li><a ui-sref="profile">Profile</a></li>
-        <li><a ui-sref="requestSearch">Search Requests</a></li>
-        <li><a ui-sref="requestNew">Request a Guru</a></li>
-        <li><a ng-if="!loggedIn" ui-sref="register">Register</a></li>
-        <li><a ng-if="!loggedIn" ui-sref="login">Login</a></li>
-        <li><a ng-if="loggedIn" ng-click="logout()">Logout</a></li>
+        <li><a class="" ui-sref="profile">Profile</a></li>
+        <li><a class="" ui-sref="requestSearch">Search Requests</a></li>
+        <li><a class="" ui-sref="requestNew">Request a Guru</a></li>
+        <li><a class="" ng-if="!loggedIn" ui-sref="register">Register</a></li>
+        <li><a class="" ng-if="!loggedIn" ui-sref="login">Login</a></li>
+        <li><a class="" ng-if="loggedIn" ng-click="logout()">Logout</a></li>
       </ul>
     </section>
   </nav>
