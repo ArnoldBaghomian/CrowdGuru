@@ -5,6 +5,7 @@
   const babel         = require("gulp-babel");
   const cleanCSS      = require("gulp-clean-css");
   const concat        = require("gulp-concat");
+  const jscs          = require("gulp-jscs");
   const jshint        = require("gulp-jshint");
   const ngAnnotate    = require("gulp-ng-annotate");
   const plumber       = require("gulp-plumber");
@@ -88,6 +89,8 @@
   //Lints js in the terminal where gulp is run
   gulp.task("jsLint", () => {
     return gulp.src(`${config.paths.src}/${config.paths.js}`)
+    .pipe(jscs())
+    .pipe(jscs.reporter())
     .pipe(jshint({"esversion": 6}))
     .pipe(jshint.reporter("default"));
   });
@@ -96,6 +99,8 @@
   gulp.task("backendLint", () => {
     return config.paths.backend.forEach((path) => {
       gulp.src(path)
+      .pipe(jscs())
+      .pipe(jscs.reporter())
       .pipe(jshint({"esversion": 6}))
       .pipe(jshint.reporter("default"));
     });
