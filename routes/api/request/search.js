@@ -1,3 +1,4 @@
+const chalk   = require("chalk");
 const moment  = require("moment");
 
 const User    = require(global.models + "/User");
@@ -13,10 +14,7 @@ router.get("/", function(req, res, next) {
   let pages;
 
   let query = {
-    timestamp: {
-      $gte: +(moment().subtract(3, "d").format("x"))
-    },
-    status: "open"
+    status: "Open"
   };
   if(filter) {
     query.$text = { $search: filter };
@@ -25,6 +23,19 @@ router.get("/", function(req, res, next) {
     query.userId = { $ne: req.query.user };
   }
 
+  let expiredTimestamp = +(moment().subtract(3, "d").format("x"));
+  Request.find(
+    { timestamp: { $lte: expiredTimestamp } },
+    { status: "Open" }
+  ).exec((err, requests) => {
+    if(err) return res.status(400).send(err);
+    for(let i = 0; i < requests.length; i++){
+      requests[i].status = "Expired";
+      requests[i].save((err) => {
+        if(err) return res.status(400).send(err);
+      });
+    }
+  });
   console.log(`req.query.page: ${req.query.page}`);
   let matchCount = Request.count(query, (err, count) => {
     if(err) return res.status(400).send(err);
@@ -43,6 +54,7 @@ router.get("/", function(req, res, next) {
       data,
       pages
     };
+    console.log(chalk.blue(data));
     return res.send(resObj);
   });
 });
