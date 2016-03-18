@@ -15,7 +15,8 @@ router.get("/", function(req, res, next) {
   let query = {
     timestamp: {
       $gte: +(moment().subtract(3, "d").format("x"))
-    }
+    },
+    status: "open"
   };
   if(filter) {
     query.$text = { $search: filter };

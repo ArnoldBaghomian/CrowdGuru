@@ -1,6 +1,6 @@
 var app = angular.module("crowdGuru", ["ui.router", "uiRouterStyles", "angular-md5", "angular-jwt"]);
 console.log("crowdGuru app");
-// used to populate the partials as well as linking them to there controllers
+// used to populate the partials as well as linking them to their controllers
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $stateProvider
   .state("splash", {
@@ -90,6 +90,8 @@ app.config(function($provide) {
 
 app.run(function(){
   "use strict";
+  let $footer = $("footer");
+  let body = document.body, html = document.documentElement;
   $(window).resize(function(){
     let height = Math.max( body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
     console.log("height", height);
