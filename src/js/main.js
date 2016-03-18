@@ -28,7 +28,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   })
   .state("profile", {
     url: "/users/profile?userId",
-    templateUrl: "./partials/profilePage.html",
+    templateUrl: "./partials/users/profilePage.html",
     data:{
       css: ["css/users/profile.css"]
     },

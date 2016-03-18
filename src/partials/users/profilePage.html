@@ -38,9 +38,10 @@
       <thead>
         <tr>
           <td>Title</td>
-          <td class="tableBidName">Request</td>
+          <td>Request</td>
           <td>Description</td>
-          <td>Requested At</td>
+          <td>Status</td>
+          <td>Bid At</td>
         </tr>
       </thead>
       <tbody>
@@ -48,6 +49,7 @@
           <td>{{bid.title}}</td>
           <td>{{bid.request.title}}</td>
           <td>{{bid.description}}</td>
+          <td>{{bid.status}}</td>
           <td>{{getTime(bid.timeStamp)}}</td>
         </tr>
       </tbody>
@@ -63,8 +65,9 @@
     <table>
       <thead>
         <tr>
-          <td class="tableBidName">Request Title</td>
+          <td>Request Title</td>
           <td>Request Description</td>
+          <td>Status</td>
           <td>Date</td>
         </tr>
       </thead>
@@ -72,6 +75,7 @@
         <tr ng-repeat="request in requests track by $index">
           <td>{{request.title}}</td>
           <td>{{request.description}}</td>
+          <td>{{request.status}}</td>
           <td>{{getTime(request.timestamp)}}</td>
         </tr>
       </tbody>
