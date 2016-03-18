@@ -3,63 +3,58 @@ console.log("crowdGuru app");
 // used to populate the partials as well as linking them to there controllers
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $stateProvider
-    .state("splash", {
-      url: "/",
-      templateUrl: "./partials/splashPage.html",
-      data: {
-        css: ["css/splash.css"]
-      }
-    })
-    .state("bidView", {
-      url: "/bid/view/{bidId}",
-      templateUrl: "./partials/bid/view.html",
-      controller: "bidViewCtrl"
-    })
-    .state("bidNew", {
-      url: "/bid/new/{requestId}",
-      templateUrl: "./partials/bid/new.html",
-      controller: "bidNewCtrl",
-      data: {
-        css: ["css/bid/new.css"]
-      }
-    })
-    .state("login", {
-      url: "/users/login",
-      templateUrl: "./partials/users/login.html",
-      data: {
-        css: ["css/users/login.css"]
-      },
-      controller: "loginCtrl"
-    })
-    .state("profile", {
-      url: "/users/profile?userId",
-      templateUrl: "./partials/profilePage.html",
-      data: {
-        css: ["css/users/profile.css"]
-      },
-      controller: "profileCtrl"
-    })
-    .state("changePassword", {
-      url: "/users/password/change",
-      templateUrl: "./partials/users/password/change.html",
-      controller: "changePasswordCtrl",
-      data: {
-        css: ["css/users/password/change.css"]
-      }
-    })
-    .state("forgotPassword", {
-      url: "/users/password/forgot",
-      templateUrl: "./partials/users/password/forgot.html",
-      controller: "forgotPasswordCtrl"
-    })
-    .state("register", {
-      url: "/users/register",
-      templateUrl: "./partials/users/register.html",
-      data: {
-        css: ["css/users/register.css"]
-      },
-      controller: "registerCtrl"
-    })
+  .state("splash", {
+    url: "/",
+    templateUrl: "./partials/splashPage.html",
+    data: {
+      css: ["css/splash.css"]
+    }
+  })
+  .state("bidNew", {
+    url: "/bid/new/{requestId}",
+    templateUrl: "./partials/bid/new.html",
+    controller: "bidNewCtrl",
+    data: {
+      css: ["css/bid/new.css"]
+    }
+  })
+  .state("login", {
+    url: "/users/login",
+    templateUrl: "./partials/users/login.html",
+    data:{
+      css: ["css/users/login.css"]
+    },
+    controller: "loginCtrl"
+  })
+  .state("profile", {
+    url: "/users/profile?userId",
+    templateUrl: "./partials/profilePage.html",
+    data:{
+      css: ["css/users/profile.css"]
+    },
+    controller: "profileCtrl"
+  })
+  .state("changePassword", {
+    url: "/users/password/change",
+    templateUrl: "./partials/users/password/change.html",
+    controller: "changePasswordCtrl",
+    data:{
+      css: ["css/users/password/change.css"]
+    }
+  })
+  .state("forgotPassword", {
+    url: "/users/password/forgot",
+    templateUrl: "./partials/users/password/forgot.html",
+    controller: "forgotPasswordCtrl"
+  })
+  .state("register", {
+    url: "/users/register",
+    templateUrl: "./partials/users/register.html",
+    data:{
+      css: ["css/users/register.css"]
+    },
+    controller: "registerCtrl"
+  })
 
   .state("requestNew", {
       url: "/request/new",
@@ -92,40 +87,20 @@ app.config(function($provide) {
     };
   });
 });
-app.run(function() {
-  let $window = $(window),
-    $document = $(document),
-    $footer = $("footer");
-  var fadeBack = function() {
-    $footer.fadeIn(500);
-  };
 
-  $window.scroll(function() {
-    if ($window.scrollTop() + 100 > $document.height() - $window.height()) {
-      console.log("doc height: ", $document.height() / $window.height());
-      $footer.fadeOut(500);
-      setTimeout(fadeBack, 4000);
+app.run(function(){
+  "use strict";
+  $(window).resize(function(){
+    let height = Math.max( body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+    console.log("height", height);
+    console.log("window.innerHeight - 100", window.innerHeight-100);
+    if(height >= (window.innerHeight - 100) && height !== window.innerHeight){
+      $footer.css("position", "relative");
+    } else {
+      $footer.css("position", "fixed");
     }
   });
-
-  if ($document.height() / $window.height() < 1.1) {
-    $footer.mouseenter(function() {
-      $footer.fadeOut(500);
-      setTimeout(fadeBack, 4000)
-    });
-
-  }
-
-
 });
-
-
-
-
-
-
-
-
 
 app.run(function() {
   $(".top-bar-section").on("click", "li", function(e) {

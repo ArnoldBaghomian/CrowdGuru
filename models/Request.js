@@ -9,7 +9,8 @@
     title: {type: String, required: true },
     description: { type: String, required: true },
     tags: [{ type: String, required: true }],
-    timestamp: { type: Number, default: Date.now() }
+    timestamp: { type: Number, default: Date.now() },
+    status: { type: String, default: "open" }
   });
 
   const Request = mongoose.model("Request", requestSchema);

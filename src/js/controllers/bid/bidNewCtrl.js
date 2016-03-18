@@ -8,17 +8,19 @@ app.controller("bidNewCtrl", function($scope, $state, $stateParams, $http, jwtHe
     $scope.request = res.data;
     if(Cookies.get("authToken")){
       let thisUser = jwtHelper.decodeToken(Cookies.get("authToken"))._id;
+      if(res.data.user){
+        $scope.username = res.data.user.username;
+      }
       if(res.data.bids){
         res.data.bids.forEach(bid => {
           if(bid.user === thisUser){
             console.log("Bid already exists");
-            $state.go("bidView", {bidId: bid._id});
+            alert("You already have a bid on this request.");
+            $state.go("requestSearch");
+            // $state.go("bidView", {bidId: bid._id}); //make this open a modal, eventually
             return;
           }
         });
-      }
-      if(res.data.user){
-        $scope.username = res.data.user.username;
       }
     }
   }, (err) => {
