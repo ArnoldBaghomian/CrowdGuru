@@ -20,11 +20,10 @@ app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams,
       $scope.gravitarURL = "http://www.gravatar.com/avatar/" + md5.createHash(res.data.email) + "?s=512&d=identicon";
       console.log("gravURL", $scope.gravitarURL );
       console.log("RES: ", res);
+      $rootScope.moveFooter();
     }, (err) => {
       return console.log(err);
     });
-
-
 
     $scope.showReq = function() {
       $scope.Guru = false;

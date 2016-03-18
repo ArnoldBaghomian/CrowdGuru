@@ -50,10 +50,10 @@
 
 #contact{
     background: #fff;
-    border-top: 1px solid black;
     bottom: 0px;
-    position: fixed;
     width: 100vw;
+    // This is to prevent the footer from covering things up
+    z-index: -1;
     li {
       display: inline-block;
     }

@@ -1,5 +1,5 @@
 // controller that will be called when new request page is loaded
-app.controller("requestSearchCtrl", function($scope, $state, $http, jwtHelper) {
+app.controller("requestSearchCtrl", function($scope, $state, $http, $rootScope, jwtHelper) {
   "use strict";
   console.log("requestSearchCtrl");
 
@@ -39,6 +39,7 @@ $scope.changePage = (page) => {
   }
   $scope.requests = $scope[source].slice(20*(page-1), 20*page);
   $scope.page = page;
+  $rootScope.moveFooter();
 };
 
 
@@ -115,6 +116,7 @@ $scope.filterRequests = () => {
   $scope.filteredRequests = filteredRequests;
   $scope.requests = filteredRequests.slice(0, 20);
   $scope.pages = new Array(Math.ceil(+$scope.filteredRequests.length/20));
+  $rootScope.moveFooter();
 };
 
 $scope.clearFilter = () => {

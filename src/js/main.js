@@ -87,13 +87,17 @@ app.config(function($provide) {
     };
   });
 });
+
 app.run(function(){
-  let $window = $(window), $document = $(document), $footer = $("footer");
-  $window.scroll(function(){
-    if($window.scrollTop() + 100 > $document.height() - $window.height() || ($window.width() < 725)){
-      $footer.css("visibility", "hidden");
-    } else{
-      $footer.css("visibility", "visible");
+  "use strict";
+  $(window).resize(function(){
+    height = Math.max( body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+    console.log("height", height);
+    console.log("window.innerHeight - 100", window.innerHeight-100);
+    if(height >= (window.innerHeight - 100) && height !== window.innerHeight){
+      $footer.css("position", "relative");
+    } else {
+      $footer.css("position", "fixed");
     }
   });
 });
