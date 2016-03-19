@@ -23,19 +23,26 @@ router.get("/", function(req, res, next) {
     query.userId = { $ne: req.query.user };
   }
 
-  let expiredTimestamp = +(moment().subtract(3, "d").format("x"));
-  Request.find(
-    { timestamp: { $lte: expiredTimestamp } },
-    { status: "Open" }
-  ).exec((err, requests) => {
+  let expiredTimestamp = +(moment().subtract(3, "d").format("x")); //marks "Open" requests as retired if 3 days have passed since their creation
+  Request.find({
+    timestamp: { $lte: expiredTimestamp },
+    status: "Open"
+  })
+  .populate("request")
+  .exec((err, requests) => {
     if(err) return res.status(400).send(err);
-    for(let i = 0; i < requests.length; i++){
-      requests[i].status = "Expired";
-      requests[i].save((err) => {
+    if(requests) {
+      console.log(chalk.yellow(`There are ${requests.length} requests to be expired.`));
+    }
+    requests.forEach((request) => {
+      request.status = "Expired";
+      request.save((err, expiredRequest) => {
+        console.log(chalk.blue(`Expired Request: ${expiredRequest}`));
         if(err) return res.status(400).send(err);
       });
-    }
+    });
   });
+
   console.log(`req.query.page: ${req.query.page}`);
   let matchCount = Request.count(query, (err, count) => {
     if(err) return res.status(400).send(err);
@@ -54,7 +61,6 @@ router.get("/", function(req, res, next) {
       data,
       pages
     };
-    console.log(chalk.blue(data));
     return res.send(resObj);
   });
 });
