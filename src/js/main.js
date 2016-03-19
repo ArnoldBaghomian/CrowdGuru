@@ -139,3 +139,57 @@ app.run(function($window, $rootScope, $location) {
     $window.ga("send", "pageview", $location.path());
   });
 });
+
+
+
+
+
+
+
+
+
+/*
+ * Complete the function below.
+ */
+function decentNumber(arr) {
+    console.log(arr)
+    var decentArr = [];
+
+    var makeIt = function(n){
+        var newArr = [];
+        var ele = 0;
+        for(var i = 0; i < n; i++){
+            if(i === 0){
+                for(var x = i; x < n; x++){
+                newArr.push(5);
+                }
+            }
+            if(n % 3 === 0){
+                return decentArr.push(+newArr.join(""));
+            }else{
+                for(b = 0; b < 5; b++){
+                    newArr[n - 1 - ele] = 3;
+                    ele++
+                }
+                if((ele)%5 === 0){
+                    return decentArr.push(+newArr.join(""))
+                    }
+            }
+        }
+    }
+
+
+
+    for(i=0; i<arr.length; i++){
+        if(arr[i] < 3){
+            decentArr.push(-1)
+        }else{
+            var decNum = makeIt(arr[i]);
+        }
+    }
+
+
+    console.log(decentArr)
+    return decentArr
+
+}
