@@ -1,15 +1,25 @@
-<h1>New Bid for {{styledUsername || username}}'s request</h1>
-<h4>Title: {{request.title}}</h4>
-<h4>Description: {{request.description}}</h4>
-<h5>Current Bids: {{request.bids.length}}</h5>
-<ul class="requestTags">
-  <li ng-repeat="tag in request.tags">{{tag}}</li>
-</ul>
-<p></p>
+<div style="padding: 10vw;">
+<div class="row">
+  <h1>{{styledUsername || username}}'s request</h1>
+</div>
+
+<div class="row">
+  <div class="medium-4 columns">
+    <h3>{{request.title}}:</h3>
+  </div>
+  <div class="medium-8 columns">
+    <h3><em>    {{request.description}}<em></h3>
+  </div>
+</div>
+<h6>Current Bids: {{request.bids.length}}</h6>
+
+<hr>
+
 <form ng-submit="submitBid()">
   <label>Comment</label>
-  <input type="text" ng-model="bid.title" required>
+  <input type="text" ng-model="bid.title" placeholder="What make you the right Guru" required>
   <label>Aditional Info</label>
-  <input type="text" ng-model="bid.desc" required>
+  <input type="text" ng-model="bid.desc" placeholder="links, profiles, projects... " required>
   <button>Submit New Bid</button>
 </form>
+</div>
