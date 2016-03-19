@@ -23,3 +23,13 @@
   <button>Submit New Bid</button>
 </form>
 </div>
+<div data-alert ng-click="showInfoAlert = !showInfoAlert" ui-sref="requestSearch" ng-show="showInfoAlert" class="alert-box info radius">
+  <h4>{{alertMessage}}</h4>
+  <h6>{{sendEm}}</h6>
+  <a href="#" class="close">&times;</a>
+</div>
+<div data-alert ng-click="showWarningAlert = !showWarningAlert" ng-show="showWarningAlert" class="alert-box warning round">
+  <h4>{{warnMessage}}</h4>
+  <h6>{{warnData}}</h6>
+  <a href="#" class="close">&times;</a>
+</div>

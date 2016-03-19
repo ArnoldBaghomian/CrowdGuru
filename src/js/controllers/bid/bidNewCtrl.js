@@ -15,8 +15,10 @@ app.controller("bidNewCtrl", function($scope, $state, $stateParams, $http, jwtHe
         res.data.bids.forEach(bid => {
           if(bid.user === thisUser){
             console.log("Bid already exists");
-            alert("You already have a bid on this request.");
-            $state.go("requestSearch");
+            $scope.alertMessage = "Bid Already exists";
+            $scope.sendEm = "Click alert box back";
+            $scope.showInfoAlert = true;
+
             // $state.go("bidView", {bidId: bid._id}); //make this open a modal, eventually
             return;
           }
@@ -37,7 +39,10 @@ app.controller("bidNewCtrl", function($scope, $state, $stateParams, $http, jwtHe
         console.log(res);
         $state.go("profile");
       }, err => {
-        return alert(err.data);
+        $scope.warnMessage = "ERROR";
+        $scope.warnData = err.data;
+        $scope.showInfoAlert = true;
+        return;
       });
     }
   };
