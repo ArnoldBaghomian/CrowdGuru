@@ -52,7 +52,8 @@ app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams,
     let userUrl = `/api/users/profile/${$stateParams.userId ?  $stateParams.userId : thisUser}`;
     console.log(`Putting at ${userUrl}`);
     $scope.aboutMe = $scope.newAboutMe;
-    $http.put(userUrl, {aboutMeText: $scope.newAboutMe}).then((res) => {
+    console.log(`I am ${thisUser}`);
+    $http.put(userUrl, {aboutMeText: $scope.newAboutMe, userId: thisUser}).then((res) => {
       console.log("Post res: ",res);
       $scope.aboutInput = false;
     });
