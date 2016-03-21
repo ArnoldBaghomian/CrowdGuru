@@ -9,7 +9,7 @@ app.controller("registerCtrl", function($scope, $state, $http) {
   $scope.register = function(modal) {
     console.log("Register!");
     if($scope.pass1 !== $scope.pass2){
-      alert("Please enter matching passwords.");
+      swal("Please enter matching passwords.");
       $scope.pass1 = $scope.pass2 = null;
       return;
     }
@@ -20,7 +20,7 @@ app.controller("registerCtrl", function($scope, $state, $http) {
     console.log(`userData:`, userData);
     if(!$scope.user.username || !$scope.user.email || !$scope.user.pass1) {
       $scope.user = null;
-      alert("Something broke!");
+      swal("Something broke!");
     }
 
     $http.post("/api/users/register", userData).then((res) => {
@@ -32,7 +32,7 @@ app.controller("registerCtrl", function($scope, $state, $http) {
           $state.go("profile");
         }
     },(err) => {
-      alert(err.data);
+      swal(err.data);
     });
   };
 });

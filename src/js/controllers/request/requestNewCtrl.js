@@ -25,14 +25,13 @@ app.controller("requestNewCtrl", function($scope, $state, $http, $stateParams) {
         $http.get(`/api/request/view/${res.data._id}`).then((res) => {
           console.log("res.data:", res.data);
           $scope.request = res.data;
-          $scope.alertMessage = "Success ";
-          $scope.sendEm = "Click Alert box to go home";
-          $scope.showSuccessAlert = true;
+          swal("Success");
+          state.go("home");
         }, (err) => {
-          return alert("Error: ", err.data);
+          return swal("Error: ", err.data);
         });
       }, (err) => {
-        alert(err.data);
+        swal(err.data);
         $state.go("login");
       });
     }

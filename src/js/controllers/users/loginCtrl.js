@@ -30,7 +30,7 @@ app.controller("loginCtrl", function($scope, $state, $http) {
       }
       Cookies.expire("originalUrl");
     }, (err) => {
-      alert(err.data);
+      swal(err.data);
       $scope.user.password = null;
     });
     console.log("login()");
