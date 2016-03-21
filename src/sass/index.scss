@@ -52,8 +52,6 @@
     background: #fff;
     bottom: 0px;
     width: 100vw;
-    // This is to prevent the footer from covering things up
-    z-index: -1;
     li {
       display: inline-block;
     }
