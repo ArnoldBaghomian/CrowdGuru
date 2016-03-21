@@ -35,8 +35,9 @@ section{
    }
 
    &#aboutOneLast{
-     padding-bottom: 85px;
+    padding-bottom: 85px;
     border-top: 1px solid black;
+    border-bottom: 1px solid #000;
    }
     
 
@@ -97,14 +98,13 @@ p {
 }
 
 
-
 .whatWeDo{
   padding-top:15px;
 
 }
 
 .whatWeDoText{
-  font-family: 'Roboto', sans-serif;
+  font-family: Andale Mono, monospace;
   font-weight: 300;
   font-size: 17px;
   line-height: 20px;
@@ -112,6 +112,7 @@ p {
 
 .whatWeDoHeader{
   color: #4B85BF;
+  font-family: Andale Mono, monospace;
 }
 
 .img-circle {
