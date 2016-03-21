@@ -28,7 +28,7 @@ $scope.refreshList = () => {
     $scope.filterRequests();
   }, (err) => {
     $scope.searching = false;
-    return alert(err.data);
+    return swal(err.data);
   });
 };
 
@@ -90,7 +90,7 @@ $scope.showRequestDetails = (id) => {
     console.log(requestData);
   }, (err) => {
 
-    return alert(err.data);
+    return swal(err.data);
   });
 };
 
