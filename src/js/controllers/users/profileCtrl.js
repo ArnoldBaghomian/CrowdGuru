@@ -2,49 +2,46 @@
 app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams, $http, jwtHelper, md5) {
   "use strict";
   $("#requestDetailsModal").foundation("reveal", "close");
-  if (!Cookies("authToken")) {
-    Cookies("originalUrl", location.pathname);
-    $state.go("login");
-
-  } else {
-    let thisUser = jwtHelper.decodeToken(Cookies.get("authToken"))._id;
+  let thisUser;
+  if (Cookies("authToken")) {
+    // Cookies("originalUrl", location.pathname);
+    // $state.go("login");
+    thisUser = jwtHelper.decodeToken(Cookies.get("authToken"))._id;
     $rootScope.Req = true;
-
-    let requestUrl = `/api/users/profile/${$stateParams.userId ?  $stateParams.userId : thisUser}`;
-    $http.get(requestUrl).then((res) => {
-      $scope.userProfile = res.data;
-      $scope.requests = res.data.requests;
-      $scope.bids = res.data.bids;
-      $scope.ratings = res.data.ratings;
-      $scope.aboutMe = res.data.aboutMe;
-      $scope.gravitarURL = "http://www.gravatar.com/avatar/" + md5.createHash(res.data.email) + "?s=512&d=identicon";
-      console.log("gravURL", $scope.gravitarURL );
-      console.log("RES: ", res);
-      $rootScope.moveFooter();
-    }, (err) => {
-      return console.log(err);
-    });
-
-    $scope.showReq = function() {
-      $scope.Guru = false;
-      $scope.Req = true;
-      $scope.guruToggle = false;
-      $scope.reqToggle = true;
-      $scope.showSuccessAlert = true;
-      $scope.alertMessage = "ALERT you clicked requests!!";
-    };
-
-    $scope.showGuru = function() {
-      $scope.Guru = true;
-      $scope.Req = false;
-      $scope.guruToggle = true;
-      $scope.reqToggle = false;
-      $scope.showSuccessAlert = true;
-      $scope.alertMessage = "ALERT you clicked gurus!!";
-    };
-
-    console.log("profileCtrl");
   }
+
+  let requestUrl = `/api/users/profile/${$stateParams.userId ?  $stateParams.userId : thisUser}`;
+  $http.get(requestUrl).then((res) => {
+    $scope.userProfile = res.data;
+    $scope.requests = res.data.requests;
+    $scope.bids = res.data.bids;
+    $scope.ratings = res.data.ratings;
+    $scope.aboutMe = res.data.aboutMe;
+    $scope.gravitarURL = "http://www.gravatar.com/avatar/" + md5.createHash(res.data.email) + "?s=512&d=identicon";
+    console.log("gravURL", $scope.gravitarURL );
+    console.log("RES: ", res);
+    $rootScope.moveFooter();
+  }, (err) => {
+    return console.log(err);
+  });
+
+  $scope.showReq = function() {
+    $scope.Guru = false;
+    $scope.Req = true;
+    $scope.guruToggle = false;
+    $scope.reqToggle = true;
+    $scope.showSuccessAlert = true;
+    $scope.alertMessage = "ALERT you clicked requests!!";
+  };
+
+  $scope.showGuru = function() {
+    $scope.Guru = true;
+    $scope.Req = false;
+    $scope.guruToggle = true;
+    $scope.reqToggle = false;
+    $scope.showSuccessAlert = true;
+    $scope.alertMessage = "ALERT you clicked gurus!!";
+  };
 
   $scope.updateAboutMe = (data) => {
     console.log("data:", data);
@@ -52,14 +49,29 @@ app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams,
     let userUrl = `/api/users/profile/${$stateParams.userId ?  $stateParams.userId : thisUser}`;
     console.log(`Putting at ${userUrl}`);
     $scope.aboutMe = $scope.newAboutMe;
-    $http.put(userUrl, {aboutMeText: $scope.newAboutMe}).then((res) => {
+    console.log(`I am ${thisUser}`);
+    $http.put(userUrl, {aboutMeText: $scope.newAboutMe, userId: thisUser}).then((res) => {
       console.log("Post res: ",res);
       $scope.aboutInput = false;
     });
   };
 
+
   $scope.getTime = (timestamp) => {
-      return moment(timestamp).format("h:mm a ll");
+    return moment(timestamp).format("h:mm a ll");
   };
 
+  $scope.viewRequest = (reqId) => {
+    $http.get(`/api/request/view/${reqId}`).then((res) => {
+      let requestData = res.data;
+      $scope.$emit("UPDATE_REQUEST_MODAL", requestData);
+      console.log("Requset Data", res.data);
+      $scope.$emit("TOGGLE_REQUEST_MODAL");
+    }, (err) => {
+
+      return alert(err.data);
+    });
+  };
+
+  console.log("profileCtrl");
 });

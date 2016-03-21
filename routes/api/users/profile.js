@@ -23,25 +23,19 @@
   });
 
   router.put("/:userId", User.isLoggedIn, (req, res, next) => {
-
-    // console.log("req for aboutme", req);
-
-    User.findById(req.user._id, (err, foundUser) => {
+    if(req.body.userId != req.user._id){
+      return res.status(400).send("You may only update your own status");
+    }
+    User.findById(req.body.userId, (err, foundUser) => {
       if(err) return res.status(400).send(err);
-
+      console.log("Found user");
       foundUser.aboutMe = req.body.aboutMeText;
-      console.log("set foundUser.aboutMe");
-      // console.log("I hope it does something: ", foundUser);
       foundUser.save((err, savedUser) => {
-        console.log(err);
         if(err) return res.status(400).send(err);
-
-        res.send("it worked?");
+        res.send("Status updated.");
       });
-
     });
   });
-
 
   module.exports = router;
 }());
