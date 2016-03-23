@@ -20,10 +20,10 @@ app.controller("appCtrl", function($scope, $rootScope, $timeout) {
 
   $rootScope.moveFooter = () => {
     $timeout(() => {
-      let $footer = $("footer");
+      let $footer = $("#contact");
       let body = document.body, html = document.documentElement;
       let height = Math.max( body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-      if(height >= (window.innerHeight - 100) && height !== window.innerHeight){
+      if(height >= (window.innerHeight - 100) && height != window.innerHeight){
         $footer.css("position", "relative");
       } else {
         $footer.css("position", "fixed");

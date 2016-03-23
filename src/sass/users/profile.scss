@@ -15,6 +15,17 @@
   width: auto;
 }
 
-.button{
-  margin-bottom: 100px;
+.requestListing {
+  padding: 0px 0px 0px 0px;
+  text-align: center;
+  >i {
+    margin: 0px 0px 0px 0px;
+    font-size: 24px;
+    padding: 12px 12px 12px 12px;
+    color: #008CBA;
+    &:hover {
+      color: #007095;
+      cursor: pointer;
+    }
+  }
 }

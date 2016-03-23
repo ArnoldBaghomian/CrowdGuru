@@ -69,14 +69,16 @@
           <td>Request Description</td>
           <td>Status</td>
           <td>Date</td>
+          <td>View</td>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="request in requests track by $index" ng-click="viewRequest(request._id)">
+        <tr ng-repeat="request in requests track by $index">
           <td>{{request.title}}</td>
           <td>{{request.description}}</td>
           <td>{{request.status}}</td>
           <td>{{getTime(request.timestamp)}}</td>
+          <td class="requestListing"><i class="fi-info" ng-click="viewRequest(request._id)"></i></td>
         </tr>
       </tbody>
     </table>

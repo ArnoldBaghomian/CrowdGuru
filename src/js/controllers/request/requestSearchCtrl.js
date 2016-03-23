@@ -1,5 +1,5 @@
 // controller that will be called when new request page is loaded
-app.controller("requestSearchCtrl", function($scope, $state, $http, $rootScope, jwtHelper) {
+app.controller("requestSearchCtrl", function($scope, $state, $http, $timeout, jwtHelper) {
   "use strict";
   console.log("requestSearchCtrl");
 
@@ -39,7 +39,7 @@ $scope.changePage = (page) => {
   }
   $scope.requests = $scope[source].slice(20*(page-1), 20*page);
   $scope.page = page;
-  $rootScope.moveFooter();
+  $scope.moveFooter();
 };
 
 
@@ -116,13 +116,27 @@ $scope.filterRequests = () => {
   $scope.filteredRequests = filteredRequests;
   $scope.requests = filteredRequests.slice(0, 20);
   $scope.pages = new Array(Math.ceil(+$scope.filteredRequests.length/20));
-  $rootScope.moveFooter();
+  $scope.moveFooter();
 };
 
 $scope.clearFilter = () => {
   $scope.filter = {};
   $scope.page = 1;
   $scope.filterRequests();
+};
+
+$scope.moveFooter = () => {
+  $timeout(() => {
+    console.log("Moving footer");
+    let $footer = $("#contact");
+    let tablePosition = $(".aboveHeader").position().top;
+    let tableHeight = $(".tablesize").height();
+    if((tablePosition + tableHeight + 94) > window.innerHeight){
+      $footer.css("position", "relative");
+    } else {
+      $footer.css("position", "fixed");
+    }
+  }, 0, false);
 };
 
 $scope.refreshList();

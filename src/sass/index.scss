@@ -52,6 +52,7 @@
     background: #fff;
     bottom: 0px;
     width: 100vw;
+    height: 94px;
     //This prevents the footer from covering anything on the page (it currently covers any tables which increase the height of the window)
     z-index: -1;
     li {
