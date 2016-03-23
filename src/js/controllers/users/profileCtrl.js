@@ -48,10 +48,10 @@ app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams,
     let thisUser = jwtHelper.decodeToken(Cookies.get("authToken"))._id;
     let userUrl = `/api/users/profile/${$stateParams.userId ?  $stateParams.userId : thisUser}`;
     console.log(`Putting at ${userUrl}`);
-    $scope.aboutMe = $scope.newAboutMe;
     console.log(`I am ${thisUser}`);
     $http.put(userUrl, {aboutMeText: $scope.newAboutMe, userId: thisUser}).then((res) => {
       console.log("Post res: ",res);
+      $scope.aboutMe = $scope.newAboutMe;
       $scope.aboutInput = false;
     });
   };
@@ -71,6 +71,11 @@ app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams,
 
       return alert(err.data);
     });
+  };
+
+  $scope.promptAboutMe = () => {
+    $scope.aboutInput = !$scope.aboutInput;
+    $scope.newAboutMe = $scope.aboutMe.slice(0);
   };
 
   console.log("profileCtrl");
