@@ -52,13 +52,14 @@
     background: #fff;
     bottom: 0px;
     width: 100vw;
+    //This prevents the footer from covering anything on the page (it currently covers any tables which increase the height of the window)
+    z-index: -1;
     li {
       display: inline-block;
+      >ul>li {
+        padding: 5px 0;
+      }
     }
-}
-
-#contact li>ul>li{
-    padding: 5px 0;
 }
 
 .alert-box {
@@ -75,9 +76,6 @@
 
 @media (max-width:725px) {
   .logo {
-    display: none;
-  }
-  footer {
     display: none;
   }
 }
