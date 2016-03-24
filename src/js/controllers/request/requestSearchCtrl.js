@@ -22,7 +22,7 @@ $scope.refreshList = () => {
   $scope.page = 1;
   $http.get(requestUrl).then((res) => {
     $scope.allRequests = res.data.data;
-    $scope.allRequests.sort((a,b) => a.timestamp - b.timestamp);
+    $scope.allRequests.sort((a,b) => b.timestamp - a.timestamp);
     $scope.searching = false;
     $scope.searchMade = true;
     $scope.filterRequests();
@@ -78,6 +78,9 @@ $scope.getExpiration = (timestamp) => {
   return timeRemaining;
 };
 
+$scope.getDate = (timestamp) => {
+  return moment(timestamp).format("h:mm A ll");
+};
 
 $scope.showRequestDetails = (id) => {
   console.log(`Making request to /api/request/view/${id}`);

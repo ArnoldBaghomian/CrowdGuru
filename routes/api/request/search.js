@@ -14,13 +14,16 @@ router.get("/", function(req, res, next) {
   let pages;
 
   let query = {
-    status: "Open"
+    // status: "Open"
   };
   if(filter) {
     query.$text = { $search: filter };
   }
   if(req.query.user) {
     query.userId = { $ne: req.query.user };
+  }
+  if(req.query.status) {
+    query.status = req.query.status;
   }
 
   let expiredTimestamp = +(moment().subtract(3, "d").format("x")); //marks "Open" requests as retired if 3 days have passed since their creation
@@ -50,7 +53,7 @@ router.get("/", function(req, res, next) {
   });
 
   let filteredRequests = Request.find(query)
-  .sort({timestamp: 1})
+  .sort({timestamp: -1})
   // .skip(req.query.page ? 20*(req.query.page-1) : 0)
   // .limit(20)
   .populate("bid")
