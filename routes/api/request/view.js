@@ -23,15 +23,21 @@
     Request.findById(req.params.id)
     .populate("user", "username ratings")
     .populate("bids")
-    .exec((err, data) => {
+    .exec((err, request) => {
       if(err) return res.status(400).send(err);
-      if(thisUser._id != data.user._id){
+      if(thisUser._id != request.user._id){
         console.log("De-populating bids...");
-        data.bids.forEach((bidData, i) => {
-          data.bids[i] = `Bid ${i+1}`;
+        request.bids.forEach((bidData, i) => {
+          request.bids[i] = `Bid ${i+1}`;
+        });
+        return res.send(request);
+      } else {
+        console.log("populating bid users");
+        Bid.populate(request.bids, { path: "user", model: "User", select: "-password -bids -requests"}, (err, bids) => {
+          request.bids = bids;
+          return res.send(request);
         });
       }
-      res.send(data);
     });
   });
 

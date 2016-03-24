@@ -171,16 +171,24 @@
     <!-- <a class="close-reveal-modal">&#215;</a> -->
     <a ng-click="newBid(modals.request._id)" class="close-reveal-modal"><button>Bid</button></a>
     <table ng-if="modals.request.bids[0].title && modals.request.bids.length > 0">
-      <th>
-        <td>Bid Title</td>
-        <td>Bid Description</td>
-        <td>Accept Bid</td>
-      </th>
-      <tr ng-repeat="bid in modals.request.bids track by bid._id">
-        <td>{{bid.title}}</td>
-        <td>{{bid.description}}</td>
-        <td class="bidAccept">Accept Bid</td>
-      </tr>
+      <thead>
+        <tr>
+          <td>Bid Title</td>
+          <td>Bid Description</td>
+          <td>Username</td>
+          <td>E-Mail</td>
+          <!-- <td>Accept Bid</td> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="bid in modals.request.bids track by bid._id">
+          <td>{{bid.title}}</td>
+          <td>{{bid.description}}</td>
+          <td>{{bid.user.styledUsername}}</td>
+          <td>{{bid.user.email}}</td>
+          <!-- <td class="bidAccept">Accept Bid</td> -->
+        </tr>
+      </tbody>
     </table>
     <h5 ng-if="modals.request.bids.length === 0">There have been no bids on this request.</h5>
   </div>
