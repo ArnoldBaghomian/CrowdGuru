@@ -31,7 +31,7 @@
           <th width="160">Title</th>
           <th class="tagDataCell" width="160">Tags</th>
           <th class="descDataCell" width="160">Description</th>
-          <th class="timeDataCell" width="160">Time Remaining</th>
+          <th class="timeDataCell" width="160">Requested At</th>
           <th width="160">Details</th>
         </tr>
       </thead>
@@ -40,7 +40,7 @@
           <td>{{request.title}}</td>
           <td class="tagDataCell"><span ng-repeat="tag in request.tags track by $index" class="requestTag">{{tag}}</span></td>
           <td class="descDataCell">{{request.description}}</td>
-          <td class="timeDataCell">{{getExpiration(request.timestamp)}}</td>
+          <td class="timeDataCell">{{getDate(request.timestamp)}}</td>
           <td>
             <button ng-click="showRequestDetails(request._id)" >Details</button>
           </td>
