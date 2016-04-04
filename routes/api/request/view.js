@@ -25,7 +25,7 @@
     .populate("bids")
     .exec((err, request) => {
       if(err) return res.status(400).send(err);
-      if(thisUser._id != request.user._id){
+      if(thisUser && thisUser._id != request.user._id){
         console.log("De-populating bids...");
         request.bids.forEach((bidData, i) => {
           request.bids[i] = `Bid ${i+1}`;
