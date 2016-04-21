@@ -7,7 +7,6 @@ app.controller("navCtrl", function($scope, $state, jwtHelper) {
   }
   // else {
   //   let token = jwtHelper.decodeToken(Cookies.get("authToken"));
-  //   console.log(moment().duration(moment().diff(token.timestamp));
   // }
   $scope.$emit("AUTH_TOKEN", authTokenPresent);
   $scope.logout = () => {
@@ -15,5 +14,4 @@ app.controller("navCtrl", function($scope, $state, jwtHelper) {
     $scope.$emit("AUTH_TOKEN", false);
     $state.go("login");
   };
-  console.log("navCtrl");
 });

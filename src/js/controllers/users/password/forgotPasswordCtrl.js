@@ -10,6 +10,4 @@ app.controller("forgotPasswordCtrl", function($scope, $http, $state) {
       return swal(err.data);
     });
   };
-
-  console.log("forgotPasswordCtrl");
 });

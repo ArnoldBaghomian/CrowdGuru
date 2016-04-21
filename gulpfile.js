@@ -79,9 +79,9 @@
   gulp.task("sass", ["clean-css"], () => {
     return gulp.src(`${config.paths.src}/${config.paths.sass}`)
     .pipe(sourcemaps.init())
-    .pipe(sass({errLogToConsole: true}))
-    .pipe(autoprefixer())
-    .pipe(cleanCSS())
+      .pipe(sass({errLogToConsole: true}))
+      .pipe(autoprefixer())
+      .pipe(cleanCSS())
     .pipe(sourcemaps.write("./"))
     .pipe(gulp.dest("public/css"));
   });

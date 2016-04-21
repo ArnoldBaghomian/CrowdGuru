@@ -1,7 +1,6 @@
 // controller that will be called when new request page is loaded
 app.controller("requestSearchCtrl", function($scope, $state, $http, $timeout, jwtHelper) {
   "use strict";
-  console.log("requestSearchCtrl");
 
   let timeLeft;
 
@@ -26,13 +25,13 @@ $scope.refreshList = () => {
     $scope.searching = false;
     $scope.searchMade = true;
     $scope.filterRequests();
-  }, (err) => {
+  }, err => {
     $scope.searching = false;
     return swal(err.data);
   });
 };
 
-$scope.changePage = (page) => {
+$scope.changePage = page => {
   let source = "allRequests";
   if($scope.filteredRequests) {
     source = "filteredRequests";
@@ -56,7 +55,6 @@ $scope.getExpiration = (timestamp) => {
     if(daysRemaining > 1) {
       timeRemaining += "s";
       timeLeft = timeRemaining;
-
     }
     timeSet = true;
   }
@@ -83,16 +81,12 @@ $scope.getDate = (timestamp) => {
 };
 
 $scope.showRequestDetails = (id) => {
-  console.log(`Making request to /api/request/view/${id}`);
   $http.get(`/api/request/view/${id}`).then((res) => {
     let requestData = res.data;
     requestData.timeLeft = timeLeft;
     $scope.$emit("UPDATE_REQUEST_MODAL", requestData);
     $scope.$emit("TOGGLE_REQUEST_MODAL");
-    console.log(timeLeft);
-    console.log(requestData);
-  }, (err) => {
-
+  }, err => {
     return swal(err.data);
   });
 };
@@ -130,7 +124,6 @@ $scope.clearFilter = () => {
 
 $scope.moveFooter = () => {
   $timeout(() => {
-    console.log("Moving footer");
     let $footer = $("#contact");
     let tablePosition = $(".aboveHeader").position().top;
     let tableHeight = $(".tablesize").height();
@@ -143,5 +136,4 @@ $scope.moveFooter = () => {
 };
 
 $scope.refreshList();
-console.log("Scope: ", $scope);
 });

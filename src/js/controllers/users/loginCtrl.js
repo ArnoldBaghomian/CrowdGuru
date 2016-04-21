@@ -3,15 +3,12 @@
 
 app.controller("loginCtrl", function($scope, $state, $http) {
   "use strict";
-  console.log("loginCtrl");
   let loginState = ($state.current.name === "login");
   if(loginState && Cookies.get("authToken")) {
     $state.go("profile");
   }
 
   $scope.login = function(modal) {
-    console.log("MODAL:", modal);
-    console.log(`$scope.user:`, $scope.user);
     let userData = {};
     userData.password = $scope.user.password;
     if($scope.user.login.includes("@")) {
@@ -33,6 +30,5 @@ app.controller("loginCtrl", function($scope, $state, $http) {
       swal(err.data);
       $scope.user.password = null;
     });
-    console.log("login()");
   };
 });

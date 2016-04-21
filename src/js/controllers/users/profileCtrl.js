@@ -3,9 +3,13 @@ app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams,
   "use strict";
   $("#requestDetailsModal").foundation("reveal", "close");
   let thisUser;
+  console.log("userId:", $stateParams.userId);
+  if (!$stateParams.userId) {
+    Cookies("originalUrl", location.pathname);
+    $state.go("login");
+    return;
+  }
   if (Cookies("authToken")) {
-    // Cookies("originalUrl", location.pathname);
-    // $state.go("login");
     thisUser = jwtHelper.decodeToken(Cookies.get("authToken"))._id;
     $rootScope.Req = true;
   }
@@ -18,11 +22,9 @@ app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams,
     $scope.ratings = res.data.ratings;
     $scope.aboutMe = res.data.aboutMe;
     $scope.gravitarURL = "http://www.gravatar.com/avatar/" + md5.createHash(res.data.email) + "?s=512&d=identicon";
-    console.log("gravURL", $scope.gravitarURL );
-    console.log("RES: ", res);
     $rootScope.moveFooter();
-  }, (err) => {
-    return console.log(err);
+  }, err => {
+    return console.err(err);
   });
 
   $scope.showReq = function() {
@@ -44,13 +46,9 @@ app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams,
   };
 
   $scope.updateAboutMe = (data) => {
-    console.log("data:", data);
     let thisUser = jwtHelper.decodeToken(Cookies.get("authToken"))._id;
     let userUrl = `/api/users/profile/${$stateParams.userId ?  $stateParams.userId : thisUser}`;
-    console.log(`Putting at ${userUrl}`);
-    console.log(`I am ${thisUser}`);
     $http.put(userUrl, {aboutMeText: $scope.newAboutMe, userId: thisUser}).then((res) => {
-      console.log("Post res: ",res);
       $scope.aboutMe = $scope.newAboutMe;
       $scope.aboutInput = false;
     });
@@ -65,7 +63,6 @@ app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams,
     $http.get(`/api/request/view/${reqId}`).then((res) => {
       let requestData = res.data;
       $scope.$emit("UPDATE_REQUEST_MODAL", requestData);
-      console.log("Requset Data", res.data);
       $scope.$emit("TOGGLE_REQUEST_MODAL");
     }, (err) => {
 
@@ -77,6 +74,4 @@ app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams,
     $scope.aboutInput = !$scope.aboutInput;
     $scope.newAboutMe = $scope.aboutMe.slice(0);
   };
-
-  console.log("profileCtrl");
 });

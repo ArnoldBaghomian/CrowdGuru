@@ -23,6 +23,4 @@ app.controller("changePasswordCtrl", function($scope, $http, $state) {
       });
     }
   };
-
-  console.log("changePasswordCtrl");
 });

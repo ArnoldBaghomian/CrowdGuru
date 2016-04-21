@@ -34,6 +34,4 @@ app.controller("appCtrl", function($scope, $rootScope, $timeout) {
   $rootScope.$on("$stateChangeSuccess", () => {
     $rootScope.moveFooter();
   });
-
-  console.log("appCtrl");
 });

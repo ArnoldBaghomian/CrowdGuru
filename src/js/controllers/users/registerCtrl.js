@@ -1,13 +1,12 @@
 app.controller("registerCtrl", function($scope, $state, $http) {
   "use strict";
-  console.log("registerCtrl");
+
   let registerState = ($state.current.name === "register");
   if(registerState && Cookies.get("authToken")) {
     $state.go("profile");
   }
 
   $scope.register = function(modal) {
-    console.log("Register!");
     if($scope.pass1 !== $scope.pass2){
       swal("Please enter matching passwords.");
       $scope.pass1 = $scope.pass2 = null;
@@ -17,7 +16,6 @@ app.controller("registerCtrl", function($scope, $state, $http) {
     userData.username = $scope.user.username;
     userData.email = $scope.user.email;
     userData.password = $scope.user.pass1;
-    console.log(`userData:`, userData);
     if(!$scope.user.username || !$scope.user.email || !$scope.user.pass1) {
       $scope.user = null;
       swal("Something broke!");
@@ -31,7 +29,7 @@ app.controller("registerCtrl", function($scope, $state, $http) {
         if(registerState){
           $state.go("profile");
         }
-    },(err) => {
+    }, err => {
       swal(err.data);
     });
   };

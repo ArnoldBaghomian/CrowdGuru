@@ -15,28 +15,22 @@ app.controller("requestNewCtrl", function($scope, $state, $http, $stateParams) {
       }
     });
     newRequest.desc = $scope.request.desc;
-    console.log(newRequest);
     if(!Cookies.get("authToken")) {
       $("#userAuthModal").foundation("reveal", "open");
     } else {
       $http.post("/api/request/new", newRequest)
-      .then((res) => {
-        console.log("res", res);
+      .then(res => {
         $http.get(`/api/request/view/${res.data._id}`).then((res) => {
-          console.log("res.data:", res.data);
           $scope.request = res.data;
           swal("Success");
           state.go("home");
-        }, (err) => {
+        }, err => {
           return swal("Error: ", err.data);
         });
-      }, (err) => {
+      }, err => {
         swal(err.data);
         $state.go("login");
       });
     }
   };
-  console.log("requestNewCtrl");
-
-  console.log("Scope: ", $scope);
 });
