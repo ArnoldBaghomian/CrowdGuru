@@ -55,6 +55,9 @@
     height: 94px;
     //This prevents the footer from covering anything on the page (it currently covers any tables which increase the height of the window)
     z-index: -1;
+    a {
+      z-index: 1000;
+    }
     li {
       display: inline-block;
       >ul>li {
