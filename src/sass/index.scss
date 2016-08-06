@@ -1,3 +1,16 @@
+$footerHeight: 94px;
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  height: auto;
+  position: relative;
+  padding-bottom: $footerHeight;
+}
+
 .title-area {
   .menu-icon {
     //This keeps the menu button on top of the dropdown options
@@ -48,11 +61,12 @@
   height: 70px;
 }
 
-#contact{
+footer#contact{
     background: #fff;
     bottom: 0px;
+    position: absolute;
     width: 100vw;
-    height: 94px;
+    height: $footerHeight;
     //This prevents the footer from covering anything on the page (it currently covers any tables which increase the height of the window)
     z-index: -1;
     a {

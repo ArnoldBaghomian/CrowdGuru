@@ -20,7 +20,7 @@
    <button type="button" ng-click="refreshList()"><i class="fi-refresh"></i> List</button>
    <button type="button" ng-click="clearFilter()">Clear Filter</button>
  </form>
-<div class="aboveHeader" class="row" id="content">
+<div class="row">
   <div class="small-10 small-offset-1 columns">
     <button ng-if="pages.length > 1" ng-repeat="(key, val) in pages track by $index" ng-click="changePage($index+1)" ng-class="{ true: 'currentPage' } [$index + 1 === page]">{{$index+1}}</button>
     <h3 ng-if="!requests[0] && searchMade && !searching">No requests match your search.</h3>

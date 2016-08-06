@@ -22,7 +22,6 @@ app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams,
     $scope.ratings = res.data.ratings;
     $scope.aboutMe = res.data.aboutMe;
     $scope.gravitarURL = "http://www.gravatar.com/avatar/" + md5.createHash(res.data.email) + "?s=512&d=identicon";
-    $rootScope.moveFooter();
   }, err => {
     return console.err(err);
   });

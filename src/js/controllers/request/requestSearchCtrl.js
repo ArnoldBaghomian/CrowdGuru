@@ -38,7 +38,6 @@ $scope.changePage = page => {
   }
   $scope.requests = $scope[source].slice(20*(page-1), 20*page);
   $scope.page = page;
-  $scope.moveFooter();
 };
 
 
@@ -113,26 +112,12 @@ $scope.filterRequests = () => {
   $scope.filteredRequests = filteredRequests;
   $scope.requests = filteredRequests.slice(0, 20);
   $scope.pages = new Array(Math.ceil(+$scope.filteredRequests.length/20));
-  $scope.moveFooter();
 };
 
 $scope.clearFilter = () => {
   $scope.filter = {};
   $scope.page = 1;
   $scope.filterRequests();
-};
-
-$scope.moveFooter = () => {
-  $timeout(() => {
-    let $footer = $("#contact");
-    let tablePosition = $(".aboveHeader").position().top;
-    let tableHeight = $(".tablesize").height();
-    if((tablePosition + tableHeight + 94) > window.innerHeight){
-      $footer.css("position", "relative");
-    } else {
-      $footer.css("position", "fixed");
-    }
-  }, 0, false);
 };
 
 $scope.refreshList();

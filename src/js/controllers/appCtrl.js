@@ -17,21 +17,4 @@ app.controller("appCtrl", function($scope, $rootScope, $timeout) {
     }
     $requestViewModal.foundation("reveal", "open");
   });
-
-  $rootScope.moveFooter = () => {
-    $timeout(() => {
-      let $footer = $("#contact");
-      let body = document.body, html = document.documentElement;
-      let height = Math.max( body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-      if(height >= (window.innerHeight - 100) && height != window.innerHeight){
-        $footer.css("position", "relative");
-      } else {
-        $footer.css("position", "fixed");
-      }
-    }, 0, false);
-  };
-
-  $rootScope.$on("$stateChangeSuccess", () => {
-    $rootScope.moveFooter();
-  });
 });
