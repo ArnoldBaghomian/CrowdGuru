@@ -86,20 +86,6 @@ app.config(function($provide) {
   });
 });
 
-app.run(function(){
-  "use strict";
-  let $footer = $("footer");
-  let body = document.body, html = document.documentElement;
-  $(window).resize(function(){
-    let height = Math.max( body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-    if(height >= (window.innerHeight - 100) && height !== window.innerHeight){
-      $footer.css("position", "relative");
-    } else {
-      $footer.css("position", "fixed");
-    }
-  });
-});
-
 app.run(function() {
   $(".top-bar-section").on("click", "li", function(e) {
     $(".clickMe").trigger("click");
