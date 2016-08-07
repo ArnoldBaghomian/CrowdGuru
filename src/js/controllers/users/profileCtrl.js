@@ -4,7 +4,7 @@ app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams,
   $("#requestDetailsModal").foundation("reveal", "close");
   let thisUser;
   console.log("userId:", $stateParams.userId);
-  if (!$stateParams.userId) {
+  if (!$stateParams.userId && !Cookies("authToken")) {
     Cookies("originalUrl", location.pathname);
     $state.go("login");
     return;
