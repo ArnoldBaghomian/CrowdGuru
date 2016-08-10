@@ -134,6 +134,8 @@
     .pipe(gulp.dest("public/partials"));
   });
 
+  gulp.task("lint", ["jsLint", "backendLint"]);
+
   gulp.task("build", ["backendLint", "bower_components", "favicon", "images", "js", "partials", "sass"]);
 
   //Watches all files for changes
