@@ -1,70 +1,97 @@
-#filterHeader {
+#searchHeader {
   text-align: center;
 }
-#filters {
+
+#searchForm {
   text-align: center;
 }
-.topofGuruGuide {
-  margin-top: 15vh;
-}
-.timeOut {
-  align-items: flex-end;
-}
-.SearchLabel {
-  margin-left: 38vw;
-}
+
 button:active,
 button:focus {
   outline: 0;
   background-color: #008CBA;
 }
+
 .currentPage {
   background-color: #007095;
   &:focus {
     background-color: #007095;
   }
 }
-.requestTag+.requestTag:before {
-  content: ", ";
-}
-@media(max-width: 700px) {
-  table {
-    .tagDataCell {
-      max-width: 1px;
-      overflow: hidden;
-    }
-    .timeDataCell{
-      max-width: 60px;
-      overflow: hidden;
-    }
-    .descDataCell{
-      max-width: 60px;
-      overflow: hidden;
-    }
-  }
-}
-@media(max-width: 550px) {
-  table {
-    .descDataCell {
-      max-width: 10px;
-      overflow: hidden;
-    }
-    .tagDataCell{
-      display: none;
-    }
-    .timeDataCell{
 
+.pageButton {
+  margin: 0px;
+}
+
+#searchResults {
+  margin: 20px 0px;
+
+  .requestCard {
+    $cardPadding: 8px;
+    list-style: none;
+    padding: $cardPadding;
+    height: 192px;
+
+    .requestCardContents {
+      // border: 1px solid rgb(180, 180, 180);
+      position: relative;
+      border-radius: 2px;
+      $cardContentPadding: 8px;
+      padding: $cardContentPadding;
+      background-color: rgb(244, 244, 244);
+      text-align: center;
+      cursor: pointer;
+      height: 100%;
+      overflow: hidden;
+      vertical-align: middle;
+      box-shadow: 0px 0px 16px 1px rgb(120, 120, 120);;
+      &>p {
+        line-height: 1.3em;
+        &.requestUser {
+          position: absolute;
+          bottom: 0px;
+          max-width: calc(100% - #{$cardContentPadding*2} - #{$cardPadding*2});
+          margin-bottom: $cardContentPadding + 4px;
+        }
+      }
+      &>* {
+        position: relative;
+        z-index: 2;
+      }
+      >.gravatarWrapper {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0px;
+        left: 0px;
+        z-index: 1;
+        >.gravatarCover {
+          background-color: rgba(255, 255, 255, 0.65);
+          width: 100%;
+          height: 100%;
+          position: absolute;
+        }
+        >.gravatarBG {
+          width: 100%;
+          height: 100%;
+          background-size: cover;
+          background-position: center;
+        }
+      }
     }
   }
-}
-@media(max-width: 400px) {
-  table {
-    .timeDataCell {
-      width: 50px;
-      overflow: hidden;
-    }
-    .descDataCell {
-      display: none;
-    }
+
+  .requestTitle {
+    font-weight: 500;
+    margin-bottom: 0px;
+  }
+
+  .requestTime {
+    bottom: 0px;
+  }
+
+  .requestTags>li {
+    list-style: none;
+    display: inline-block;
   }
 }

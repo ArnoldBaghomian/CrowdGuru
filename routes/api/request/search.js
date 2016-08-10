@@ -1,4 +1,5 @@
 const chalk   = require("chalk");
+const md5     = require("md5");
 const moment  = require("moment");
 
 const User    = require(global.models + "/User");
@@ -49,7 +50,7 @@ router.get("/", function(req, res, next) {
   console.log(`req.query.page: ${req.query.page}`);
   let matchCount = Request.count(query, (err, count) => {
     if(err) return res.status(400).send(err);
-    pages = Math.ceil(count/20);
+    pages = Math.ceil(count/24);
   });
 
   let filteredRequests = Request.find(query)
@@ -57,14 +58,18 @@ router.get("/", function(req, res, next) {
   // .skip(req.query.page ? 20*(req.query.page-1) : 0)
   // .limit(20)
   .populate("bid")
-  .populate("user", "username ratings")
+  .populate("user", "styledUsername ratings email")
+  .lean()
   .exec((err, data) => {
     if(err) return res.status(400).send(err);
-    let resObj = {
-      data,
-      pages
-    };
-    return res.send(resObj);
+    data.forEach(request => {
+      if(!request.user.gravatarURL) {
+        let hash = md5(request.user.email);
+        request.user.gravatarURL = "http://www.gravatar.com/avatar/" + hash + "?s=512&d=identicon";
+        request.user.email = undefined;
+      }
+    });
+    return res.send({data, pages});
   });
 });
 

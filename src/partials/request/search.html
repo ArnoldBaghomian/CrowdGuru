@@ -6,8 +6,8 @@
  -->
 
 
- <h2 id="filterHeader">Filter Requests</h2>
- <form id="filters" class="form-group row" ng-submit="filterRequests()">
+ <h2 id="searchHeader">Search Requests</h2>
+ <form id="searchForm" class="form-group row" ng-submit="searchRequests()">
    <div class="small-6 columns">
      <label for="filter">Title:</label>
      <input ng-model="filter.title" class="form-control" type="text" placeholder='e.g. "Make Me Money"'>
@@ -16,37 +16,27 @@
      <label for="filter">Tags:</label>
      <input ng-model="filter.tags" class="form-control" type="text" placeholder='e.g. "Investing, Tech"'>
    </div>
-   <button class="filterButton">Filter</button>
+   <button>Search</button>
    <button type="button" ng-click="refreshList()"><i class="fi-refresh"></i> List</button>
-   <button type="button" ng-click="clearFilter()">Clear Filter</button>
+   <button type="button" ng-click="clearSearch()">Clear Search</button>
  </form>
 <div class="row">
   <div class="small-10 small-offset-1 columns">
-    <button ng-if="pages.length > 1" ng-repeat="(key, val) in pages track by $index" ng-click="changePage($index+1)" ng-class="{ true: 'currentPage' } [$index + 1 === page]">{{$index+1}}</button>
+    <button class="pageButton" ng-if="pages.length > 1" ng-repeat="(key, val) in pages track by $index" ng-click="changePage($index+1)" ng-class="{ true: 'currentPage' } [$index + 1 === page]">{{$index+1}}</button>
     <h3 ng-if="!requests[0] && searchMade && !searching">No requests match your search.</h3>
     <h3 ng-if="searching || (!requests[0] && !searchMade)">Loading...</h3>
-    <table class="tablesize" ng-if="requests[0] && !searching">
-      <thead>
-        <tr>
-          <th width="160">Title</th>
-          <th class="tagDataCell" width="160">Tags</th>
-          <th class="descDataCell" width="160">Description</th>
-          <th class="timeDataCell" width="160">Requested At</th>
-          <th width="160">Details</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="request in requests track by request._id" >
-          <td>{{request.title}}</td>
-          <td class="tagDataCell"><span ng-repeat="tag in request.tags track by $index" class="requestTag">{{tag}}</span></td>
-          <td class="descDataCell">{{request.description}}</td>
-          <td class="timeDataCell">{{getDate(request.timestamp)}}</td>
-          <td>
-            <button ng-click="showRequestDetails(request._id)" >Details</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div id="searchResults" class="expanded row" ng-hide="searching">
+      <div class="small-offset-1 small-10 medium-offset-0 medium-4 large-3 columns requestCard" ng-repeat="request in requests track by request._id" ng-class="{'end':$last}">
+        <div class="requestCardContents"  ng-click="showRequestDetails(request._id)">
+          <p class="requestTitle">{{request.title.length <= 100 ? request.title : request.title.slice(0, 100).trim() + '...'}}</p>
+          <p class="requestUser">Requested By: {{request.user.styledUsername}}</p>
+          <div class="gravatarWrapper">
+            <div class="gravatarCover"></div>
+            <div class="gravatarBG" ng-style="{'background-image': 'url(' + request.user.gravatarURL + ')'}"></div>
+          </div>
+        </div>
+      </div>
+    </div>
     <button ng-if="pages.length > 1" ng-repeat="(key, val) in pages track by $index" ng-click="changePage($index+1)" ng-class="{ true: 'currentPage' } [$index + 1 === page]">{{$index+1}}</button>
   </div>
 </div>

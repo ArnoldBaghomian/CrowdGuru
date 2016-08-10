@@ -2,10 +2,11 @@
 app.controller("requestSearchCtrl", function($scope, $state, $http, $timeout, jwtHelper) {
   "use strict";
 
-  let timeLeft;
-
+  let timeLeft,
+      requestsPerPage = 24;
   $scope.page = 1;
   $scope.filter = {};
+
 
 let requestUrl = "/api/request/search";
   if(Cookies.get("authToken")){
@@ -24,7 +25,7 @@ $scope.refreshList = () => {
     $scope.allRequests.sort((a,b) => b.timestamp - a.timestamp);
     $scope.searching = false;
     $scope.searchMade = true;
-    $scope.filterRequests();
+    $scope.searchRequests();
   }, err => {
     $scope.searching = false;
     return swal(err.data);
@@ -36,43 +37,8 @@ $scope.changePage = page => {
   if($scope.filteredRequests) {
     source = "filteredRequests";
   }
-  $scope.requests = $scope[source].slice(20*(page-1), 20*page);
+  $scope.requests = $scope[source].slice(requestsPerPage*(page-1), requestsPerPage*page);
   $scope.page = page;
-};
-
-
-$scope.getExpiration = (timestamp) => {
-  let expiration = moment(timestamp).add(3, "d");
-  let now = moment();
-  let daysRemaining = expiration.diff(now, "day");
-  let hoursRemaining = expiration.diff(now, "hour") % 24;
-  let minutesRemaining = expiration.diff(now, "minute") % 60;
-  let timeRemaining = "";
-  let timeSet = false;
-  if(daysRemaining) {
-    timeRemaining += `${daysRemaining} day`;
-    if(daysRemaining > 1) {
-      timeRemaining += "s";
-      timeLeft = timeRemaining;
-    }
-    timeSet = true;
-  }
-  if(hoursRemaining && !timeSet) {
-    timeRemaining += `${hoursRemaining} hour`;
-    if(hoursRemaining > 1) {
-      timeRemaining += "s";
-      timeLeft = timeRemaining;
-    }
-    timeSet = true;
-  }
-  if(minutesRemaining && !timeSet) {
-    timeRemaining += `${minutesRemaining} minute`;
-    if(minutesRemaining > 1) {
-      timeRemaining += "s";
-      timeLeft = timeRemaining;
-    }
-  }
-  return timeRemaining;
 };
 
 $scope.getDate = (timestamp) => {
@@ -90,7 +56,7 @@ $scope.showRequestDetails = (id) => {
   });
 };
 
-$scope.filterRequests = () => {
+$scope.searchRequests = () => {
   let title = $scope.filter.title ? $scope.filter.title.trim().toLowerCase() : "";
   let tags = $scope.filter.tags ? $scope.filter.tags.trim().replace(/,{2,}/, ",").split(",").map((val) => val.toLowerCase()) : [];
 
@@ -110,14 +76,14 @@ $scope.filterRequests = () => {
   }
 
   $scope.filteredRequests = filteredRequests;
-  $scope.requests = filteredRequests.slice(0, 20);
-  $scope.pages = new Array(Math.ceil(+$scope.filteredRequests.length/20));
+  $scope.requests = filteredRequests.slice(0, requestsPerPage);
+  $scope.pages = new Array(Math.ceil(+$scope.filteredRequests.length/requestsPerPage));
 };
 
-$scope.clearFilter = () => {
+$scope.clearSearch = () => {
   $scope.filter = {};
   $scope.page = 1;
-  $scope.filterRequests();
+  $scope.searchRequests();
 };
 
 $scope.refreshList();
