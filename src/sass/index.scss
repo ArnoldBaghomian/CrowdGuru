@@ -14,9 +14,16 @@ body {
 }
 
 .title-area {
-  .menu-icon {
+  .toggle-topbar.menu-icon {
     //This keeps the menu button on top of the dropdown options
+    position: absolute;
     z-index: 1000;
+    top: -2px;
+    a {
+      top: 0px;
+      height: 52px;
+      line-height: 52px;
+    }
   }
 }
 
@@ -69,8 +76,7 @@ footer#contact{
     position: absolute;
     width: 100vw;
     height: $footerHeight;
-    //This prevents the footer from covering anything on the page (it currently covers any tables which increase the height of the window)
-    z-index: -1;
+    overflow: auto;
     a {
       z-index: 1000;
     }
