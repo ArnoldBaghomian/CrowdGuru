@@ -2,6 +2,7 @@
   "use strict";
   const express = require("express");
   const router = express.Router();
+  const md5 = require("md5");
   const User = require(global.models + "/../models/User");
   const Rating = require(global.models + "/../models/Rating");
   const Bid = require(global.models + "/../models/Bid");
@@ -16,8 +17,10 @@
       if(err) return res.status(400).send(err);
       User.populate(user, { path: "bids.request", model: "Request", select: "title _id" }, (err, user) => {
         if(err) return res.status(400).send(err);
-        console.log("user", user);
-        res.send(user);
+        let userObject = user.toObject();
+        userObject.gravatarURL = "http://www.gravatar.com/avatar/" + md5(user.email) + "?s=512&d=identicon";
+        delete userObject.email;
+        res.send(userObject);
       });
     });
   });

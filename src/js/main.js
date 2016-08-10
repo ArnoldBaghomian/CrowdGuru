@@ -1,4 +1,4 @@
-var app = angular.module("crowdGuru", ["ui.router", "uiRouterStyles", "angular-md5", "angular-jwt"]);
+var app = angular.module("crowdGuru", ["ui.router", "uiRouterStyles", "angular-jwt"]);
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $stateProvider
   .state("splash", {

@@ -2,14 +2,14 @@
 <!-- <h3><a ui-sref="splash">Back to Splash</a> --><a href="" ui-sref="changePassword">Change Password</a></h3>
 <div class="row">
   <div class="medium-6 columns">
-    <img class="proPic" src="{{gravitarURL}}">
+    <img class="proPic" src="{{gravatarURL}}">
 
 
   </div>
   <div class="medium-6 large-5 columns">
     <h3>{{userProfile.styledUsername}}</h3>
     <p>Description: <span class="aboutMe" >{{aboutMe}}</span></p>
-    <a ng-click="promptAboutMe()" ng-if="gravitarURL">Update Description</a>
+    <a ng-click="promptAboutMe()" ng-if="gravatarURL">Update Description</a>
 
 
     <form ng-submit="updateAboutMe(string)" ng-show="aboutInput">

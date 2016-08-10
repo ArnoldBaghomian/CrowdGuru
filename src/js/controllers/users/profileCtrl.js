@@ -1,9 +1,8 @@
 // controller that will be called when profile page is loaded
-app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams, $http, jwtHelper, md5) {
+app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams, $http, jwtHelper) {
   "use strict";
   $("#requestDetailsModal").foundation("reveal", "close");
   let thisUser;
-  console.log("userId:", $stateParams.userId);
   if (!$stateParams.userId && !Cookies("authToken")) {
     Cookies("originalUrl", location.pathname);
     $state.go("login");
@@ -21,7 +20,7 @@ app.controller("profileCtrl", function($state, $scope, $rootScope, $stateParams,
     $scope.bids = res.data.bids;
     $scope.ratings = res.data.ratings;
     $scope.aboutMe = res.data.aboutMe;
-    $scope.gravitarURL = "http://www.gravatar.com/avatar/" + md5.createHash(res.data.email) + "?s=512&d=identicon";
+    $scope.gravatarURL = res.data.gravatarURL;
   }, err => {
     return console.err(err);
   });
