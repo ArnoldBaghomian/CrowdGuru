@@ -2,6 +2,7 @@ $footerHeight: 94px;
 
 html {
   height: 100%;
+  overflow: auto;
 }
 
 body {
@@ -9,6 +10,7 @@ body {
   height: auto;
   position: relative;
   padding-bottom: $footerHeight;
+  overflow: auto;
 }
 
 .title-area {

@@ -20,23 +20,21 @@
    <button type="button" ng-click="refreshList()"><i class="fi-refresh"></i> List</button>
    <button type="button" ng-click="clearSearch()">Clear Search</button>
  </form>
-<div class="row">
-  <div class="small-10 small-offset-1 columns">
-    <button class="pageButton" ng-if="pages.length > 1" ng-repeat="(key, val) in pages track by $index" ng-click="changePage($index+1)" ng-class="{ true: 'currentPage' } [$index + 1 === page]">{{$index+1}}</button>
-    <h3 ng-if="!requests[0] && searchMade && !searching">No requests match your search.</h3>
-    <h3 ng-if="searching || (!requests[0] && !searchMade)">Loading...</h3>
-    <div id="searchResults" class="expanded row" ng-hide="searching">
-      <div class="small-offset-1 small-10 medium-offset-0 medium-4 large-3 columns requestCard" ng-repeat="request in requests track by request._id" ng-class="{'end':$last}">
-        <div class="requestCardContents"  ng-click="showRequestDetails(request._id)">
-          <p class="requestTitle">{{request.title.length <= 100 ? request.title : request.title.slice(0, 100).trim() + '...'}}</p>
-          <p class="requestUser">Requested By: {{request.user.styledUsername}}</p>
-          <div class="gravatarWrapper">
-            <div class="gravatarCover"></div>
-            <div class="gravatarBG" ng-style="{'background-image': 'url(' + request.user.gravatarURL + ')'}"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <button ng-if="pages.length > 1" ng-repeat="(key, val) in pages track by $index" ng-click="changePage($index+1)" ng-class="{ true: 'currentPage' } [$index + 1 === page]">{{$index+1}}</button>
-  </div>
-</div>
+ <div class="small-10 small-offset-1 columns">
+   <button class="pageButton" ng-if="pages.length > 1" ng-repeat="(key, val) in pages track by $index" ng-click="changePage($index+1)" ng-class="{ true: 'currentPage' } [$index + 1 === page]">{{$index+1}}</button>
+   <h3 ng-if="!requests[0] && searchMade && !searching">No requests match your search.</h3>
+   <h3 ng-if="searching || (!requests[0] && !searchMade)">Loading...</h3>
+   <div id="searchResults" class="row" ng-hide="searching">
+     <div class="small-offset-1 small-10 medium-offset-0 medium-4 large-3 columns requestCard" ng-repeat="request in requests track by request._id" ng-class="{'end':$last}">
+       <div class="requestCardContents"  ng-click="showRequestDetails(request._id)">
+         <p class="requestTitle">{{request.title.length <= 100 ? request.title : request.title.slice(0, 100).trim() + '...'}}</p>
+         <p class="requestUser">Requested By: {{request.user.styledUsername}}</p>
+         <div class="gravatarWrapper">
+           <div class="gravatarCover"></div>
+           <div class="gravatarBG" ng-style="{'background-image': 'url(' + request.user.gravatarURL + ')'}"></div>
+         </div>
+       </div>
+     </div>
+   </div>
+   <button ng-if="pages.length > 1" ng-repeat="(key, val) in pages track by $index" ng-click="changePage($index+1)" ng-class="{ true: 'currentPage' } [$index + 1 === page]">{{$index+1}}</button>
+ </div>

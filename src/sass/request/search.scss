@@ -25,6 +25,7 @@ button:focus {
 
 #searchResults {
   margin: 20px 0px;
+  max-width: 100%;
 
   .requestCard {
     $cardPadding: 8px;

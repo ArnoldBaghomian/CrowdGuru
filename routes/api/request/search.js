@@ -65,7 +65,7 @@ router.get("/", function(req, res, next) {
     data.forEach(request => {
       if(!request.user.gravatarURL) {
         let hash = md5(request.user.email);
-        request.user.gravatarURL = "http://www.gravatar.com/avatar/" + hash + "?s=512&d=identicon";
+        request.user.gravatarURL = "http://www.gravatar.com/avatar/" + hash + "?s=400&d=identicon";
         request.user.email = undefined;
       }
     });
