@@ -78,6 +78,7 @@
   //Converts the scss files into css
   gulp.task("sass", ["clean-css"], () => {
     return gulp.src(`${config.paths.src}/${config.paths.sass}`)
+    .pipe(plumber())
     .pipe(sourcemaps.init())
       .pipe(sass({errLogToConsole: true}))
       .pipe(autoprefixer())
@@ -89,6 +90,7 @@
   //Lints js in the terminal where gulp is run
   gulp.task("jsLint", () => {
     return gulp.src(`${config.paths.src}/${config.paths.js}`)
+    .pipe(plumber())
     .pipe(jscs())
     .pipe(jscs.reporter())
     .pipe(jshint({"esversion": 6}))
@@ -99,6 +101,7 @@
   gulp.task("backendLint", () => {
     return config.paths.backend.forEach((path) => {
       gulp.src(path)
+      .pipe(plumber())
       .pipe(jscs())
       .pipe(jscs.reporter())
       .pipe(jshint({"esversion": 6}))
