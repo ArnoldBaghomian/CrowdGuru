@@ -21,7 +21,7 @@
    <button type="button" ng-click="clearSearch()">Clear Search</button>
  </form>
  <div class="small-10 small-offset-1 columns">
-   <button class="pageButton" ng-if="pages.length > 1" ng-repeat="(key, val) in pages track by $index" ng-click="changePage($index+1)" ng-class="{ true: 'currentPage' } [$index + 1 === page]">{{$index+1}}</button>
+   <button class="button small pageButton" ng-if="pages.length > 1" ng-repeat="(key, val) in pages track by $index" ng-click="changePage($index+1)" ng-class="{ true: 'currentPage' } [$index + 1 === page]">{{$index+1}}</button>
    <h3 ng-if="!requests[0] && searchMade && !searching">No requests match your search.</h3>
    <h3 ng-if="searching || (!requests[0] && !searchMade)">Loading...</h3>
    <div id="searchResults" class="row" ng-hide="searching">
@@ -36,5 +36,5 @@
        </div>
      </div>
    </div>
-   <button ng-if="pages.length > 1" ng-repeat="(key, val) in pages track by $index" ng-click="changePage($index+1)" ng-class="{ true: 'currentPage' } [$index + 1 === page]">{{$index+1}}</button>
+   <button class="button small pageButton" ng-if="pages.length > 1" ng-repeat="(key, val) in pages track by $index" ng-click="changePage($index+1)" ng-class="{ true: 'currentPage' } [$index + 1 === page]">{{$index+1}}</button>
  </div>
